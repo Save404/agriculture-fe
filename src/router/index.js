@@ -7,8 +7,7 @@ import NcpRegister from '@/components/NcpRegister'
 Vue.use(Router)
 
 export default new Router({
-  routes: [
-    {
+  routes: [{
       path: '/FarmerLogin',
       name: 'FarmerLogin',
       component: FarmerLogin

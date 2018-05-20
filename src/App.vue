@@ -3,13 +3,12 @@
     <router-view/>
   </div>
 </template>
-
 <script>
 export default {
   name: 'App'
 }
-</script>
 
+</script>
 <style>
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
@@ -19,4 +18,5 @@ export default {
   color: #2c3e50;
   position: relative;
 }
+
 </style>
