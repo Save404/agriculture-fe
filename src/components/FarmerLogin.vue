@@ -42,10 +42,10 @@ export default {
     submitForm(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
+          alert('Validation passed')
           this.onSubmit()
-          alert('submit')
         } else {
-          console.log('error submit!')
+          console.log('Invalid!')
           return false
         }
       })
@@ -61,11 +61,12 @@ export default {
       })
       .then(function (response) {
         if (response.status === 200) {
-          console.log('Succeed!')
+          alert('Axios Succeed!')
           console.log(response)
         }
       })
       .catch(function (error) {
+        alert('Axios Failed')
         console.log(error)
       })
     },

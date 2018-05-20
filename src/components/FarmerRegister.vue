@@ -10,7 +10,7 @@
       <el-form-item label="确认密码" prop="repassword">
           <el-input v-model="FarmerRegisterForm.repassword" type="password" placeholder="请再次输入密码" clearable></el-input>
       </el-form-item>
-      <el-button type="primary" @click="onSubmit">立即注册</el-button>
+      <el-button type="primary" @click="submitForm('FarmerRegisterForm')">立即注册</el-button>
       <el-button @click="">取消</el-button>
       <br><br>
       <el-button type="success" @click="goLogin">已有账号，去登录</el-button>
@@ -56,6 +56,17 @@ export default {
     }
   },
   methods: {
+    submitForm(formName) {
+      this.$refs[formName].validate((valid) => {
+        if (valid) {
+          alert('Validation passed')
+          this.onSubmit()
+        } else {
+          console.log('Invalid!')
+          return false
+        }
+      })
+    },
     onSubmit() {
       axios({
         method: 'get',
@@ -63,16 +74,17 @@ export default {
         data: {
           nhTelephone: this.FarmerRegisterForm.telephone,
           nhPassword: md5(this.FarmerRegisterForm.password),
-          rePassword: md5(this.FarmerRegisterForm.rePassword)
+          rePassword: md5(this.FarmerRegisterForm.repassword)
         }
       })
       .then(function (response) {
         if (response.status === 200) {
-          alert('Succeed!')
+          alert('Axios Succeed!')
           console.log(response)
         }
       })
       .catch(function (error) {
+        alert('Axios Failed')
         console.log(error)
       })
     },
