@@ -39,14 +39,16 @@
         </el-select>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" @click="onSubmit">立即创建</el-button>
-        <el-button>取消</el-button>
+        <el-button type="primary" @click="submitForm('NcpRegisterForm')">立即发布</el-button>
+        <el-button @click="resetForm('NcpRegisterForm')">重置</el-button>
       </el-form-item>
     </el-form>
   </div>
 </template>
 
 <script>
+import axios from 'axios'
+import md5 from 'js-md5'
 export default {
   name: 'NcpRegister',
   data() {
@@ -84,13 +86,41 @@ export default {
           {label: '国家地理标志认证', value: '4'},
           {label: '其它', value: '5'}
         ],
-        qvalue: ''
+        qvalue: '5'
       }
     }
   },
   methods: {
+    submitForm(formName) {
+      this.$refs[formName].validate((valid) => {
+        if (valid) {
+          alert('Validation passed')
+          this.onSubmit()
+        } else {
+          alert('Invalid!')
+          return false
+        }
+      })
+    },
     onSubmit() {
-
+      axios({
+        method: 'get',
+        url: '/',
+        data: {
+          ncp_name: this.NcpRegisterForm.fields[0].value
+        }
+      })
+      .then(function(response) {
+        if(response.status === 200) {
+          alert('Axios succeed')
+        }
+      })
+      .catch(function(error) {
+        alert('Axios failed')
+      })
+    },
+    resetForm(formName) {
+      this.$refs[formName].resetFields();
     }
   }
 }

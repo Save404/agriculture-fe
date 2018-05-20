@@ -8,7 +8,7 @@
             <el-input type="password" v-model="FarmerLoginForm.password" placeholder="请输入登录密码"></el-input>
         </el-form-item>
         <el-button type="primary" @click="submitForm('FarmerLoginForm')">立即登录</el-button>
-        <el-button>取消</el-button>
+        <el-button @click="resetForm('FarmerLoginForm')">取消</el-button>
         <br><br>
         <el-button type="success" @click="goRegister">无账号，去注册</el-button>
     </el-form>
@@ -45,7 +45,7 @@ export default {
           alert('Validation passed')
           this.onSubmit()
         } else {
-          console.log('Invalid!')
+          alert('Invalid!')
           return false
         }
       })
@@ -72,6 +72,9 @@ export default {
     },
     goRegister() {
       this.$router.push({name: 'FarmerRegister'})
+    },
+    resetForm(formName) {
+      this.$refs[formName].resetFields();
     }
   }
 }

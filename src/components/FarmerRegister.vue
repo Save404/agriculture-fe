@@ -11,7 +11,7 @@
           <el-input v-model="FarmerRegisterForm.repassword" type="password" placeholder="请再次输入密码" clearable></el-input>
       </el-form-item>
       <el-button type="primary" @click="submitForm('FarmerRegisterForm')">立即注册</el-button>
-      <el-button @click="">取消</el-button>
+      <el-button @click="resetForm('FarmerRegisterForm')">取消</el-button>
       <br><br>
       <el-button type="success" @click="goLogin">已有账号，去登录</el-button>
     </el-form>
@@ -19,8 +19,7 @@
 </template>
 
 <script>
-import axios from 'axios'
-import md5 from 'js-md5'
+
 export default {
   name: 'FarmerRegister',
   data() {
@@ -62,7 +61,7 @@ export default {
           alert('Validation passed')
           this.onSubmit()
         } else {
-          console.log('Invalid!')
+          alert('Invalid!')
           return false
         }
       })
@@ -90,6 +89,9 @@ export default {
     },
     goLogin() {
       this.$router.push({name: 'FarmerLogin'})
+    },
+    resetForm(formName) {
+      this.$refs[formName].resetFields();
     }
   }
 }
