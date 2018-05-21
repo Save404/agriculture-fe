@@ -22,6 +22,7 @@ export default {
   name: 'FarmerLogin',
   data() {
     return {
+      salt: "z0fdf7f8g9o1",
       FarmerLoginForm: {
         telephone: '',
         password: ''
@@ -51,12 +52,14 @@ export default {
       })
     },
     onSubmit() {
+      let password = md5(("" + this.salt.charAt(0) + this.salt.charAt(2) + this.FarmerLoginForm.password + this.salt.charAt(5) + this.salt))
+      console.log(password)
       axios({
           method: 'post',
           url: 'http://localhost:8080/login//nh_login',
           data: {
             nhTelephone: this.FarmerLoginForm.telephone,
-            nhPassword: md5(this.FarmerLoginForm.password)
+            nhPassword: password
           }
         })
         .then(function(response) {
