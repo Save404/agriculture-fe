@@ -52,8 +52,8 @@ export default {
     },
     onSubmit() {
       axios({
-          method: 'get',
-          url: '/',
+          method: 'post',
+          url: 'http://localhost:8080/login//nh_login',
           data: {
             nhTelephone: this.FarmerLoginForm.telephone,
             nhPassword: md5(this.FarmerLoginForm.password)

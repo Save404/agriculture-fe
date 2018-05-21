@@ -8,7 +8,7 @@ Vue.use(Router)
 
 export default new Router({
   routes: [{
-      path: '/FarmerLogin',
+      path: '/',
       name: 'FarmerLogin',
       component: FarmerLogin
     },
@@ -18,7 +18,7 @@ export default new Router({
       component: FarmerRegister
     },
     {
-      path: '/',
+      path: '/NcpRegister',
       name: 'NcpRegister',
       component: NcpRegister
     }
