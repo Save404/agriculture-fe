@@ -19,6 +19,7 @@
   </div>
 </template>
 <script>
+import qs from 'qs'
 export default {
   name: 'FarmerRegister',
   data() {
@@ -60,20 +61,21 @@ export default {
           alert('Validation passed')
           this.onSubmit()
         } else {
-          alert('Invalid!')
+          this.$message('密码错误');
           return false
         }
       })
     },
     onSubmit() {
-      axios({
-          method: 'get',
-          url: '/',
-          data: {
-            nhTelephone: this.FarmerRegisterForm.telephone,
-            nhPassword: md5(this.FarmerRegisterForm.password),
-            rePassword: md5(this.FarmerRegisterForm.repassword)
-          }
+      const data = {
+        nhTelephone: this.FarmerRegisterForm.telephone,
+        nhPassword: this.FarmerRegisterForm.password,
+        rePassword: this.FarmerRegisterForm.repassword
+      }
+      this.$axios({
+          method: 'post',
+          url: 'http://localhost:8080/register/nh_register',
+          data: qs.stringify(data)
         })
         .then(function(response) {
           if (response.status === 200) {

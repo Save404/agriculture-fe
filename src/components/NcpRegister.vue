@@ -36,8 +36,7 @@
   </div>
 </template>
 <script>
-import axios from 'axios'
-import md5 from 'js-md5'
+import qs from 'qs'
 export default {
   name: 'NcpRegister',
   data() {
@@ -92,12 +91,13 @@ export default {
       })
     },
     onSubmit() {
-      axios({
+      const data = {
+        ncp_name: this.NcpRegisterForm.fields[0].value
+      }
+      this.$axios({
           method: 'get',
           url: '/',
-          data: {
-            ncp_name: this.NcpRegisterForm.fields[0].value
-          }
+          data: qs.stringify(data)
         })
         .then(function(response) {
           if (response.status === 200) {

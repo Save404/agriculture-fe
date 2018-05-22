@@ -16,8 +16,8 @@
   </div>
 </template>
 <script>
-import axios from 'axios'
 import md5 from 'js-md5'
+import qs from 'qs'
 export default {
   name: 'FarmerLogin',
   data() {
@@ -43,33 +43,36 @@ export default {
     submitForm(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          alert('Validation passed')
+          this.$message('Validation passed')
           this.onSubmit()
         } else {
-          alert('Invalid!')
+          this.$message('密码错误');
           return false
         }
       })
     },
     onSubmit() {
       let password = md5(("" + this.salt.charAt(0) + this.salt.charAt(2) + this.FarmerLoginForm.password + this.salt.charAt(5) + this.salt))
-      console.log(password)
-      axios({
+      const data = {
+        'nhTelephone': this.FarmerLoginForm.telephone,
+        'nhPassword': password
+      }
+      let router = this.$router
+      let message = this.$message
+      this.$axios({
           method: 'post',
           url: 'http://localhost:8080/login//nh_login',
-          data: {
-            nhTelephone: this.FarmerLoginForm.telephone,
-            nhPassword: password
-          }
+          data: qs.stringify(data)
         })
         .then(function(response) {
           if (response.status === 200) {
-            alert('Axios Succeed!')
+            message('Axios Succeed!')
             console.log(response)
+            router.push({ name: 'NcpRegister' })
           }
         })
         .catch(function(error) {
-          alert('Axios Failed')
+          message('Axios Failed')
           console.log(error)
         })
     },
