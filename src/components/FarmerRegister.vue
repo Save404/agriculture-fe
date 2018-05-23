@@ -10,6 +10,12 @@
       <el-form-item label="确认密码" prop="repassword">
         <el-input v-model="FarmerRegisterForm.repassword" type="password" placeholder="请再次输入密码" clearable></el-input>
       </el-form-item>
+      <el-form-item class="picker" label="" prop="protocol">
+          <el-checkbox v-model="FarmerRegisterForm.protocol" label="阅读并同意">
+            <a href="#">《用户注册协议》</a>
+            <a href="#">《隐私政策》</a>
+          </el-checkbox>
+      </el-form-item>
       <el-button type="primary" @click="submitForm('FarmerRegisterForm')">立即注册</el-button>
       <el-button @click="resetForm('FarmerRegisterForm')">取消</el-button>
       <br>
@@ -36,12 +42,14 @@ export default {
       FarmerRegisterForm: {
         telephone: '',
         password: '',
-        repassword: ''
+        repassword: '',
+        protocol: false
       },
       rules: {
         telephone: [
           { required: true, message: '请输入手机号码', trigger: 'blur' },
-          { min: 11, max: 11, message: '请输入11位手机号码', trigger: 'blur' }
+          { min: 11, max: 11, message: '请输入11位手机号码', trigger: 'blur' },
+          { pattern: /^1[34578]\d{9}$/, message: '目前只支持中国大陆的手机号码', trigger: 'blur' }
         ],
         password: [
           { required: true, message: '请输入登录密码', trigger: 'blur' },
@@ -58,8 +66,12 @@ export default {
     submitForm(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          alert('Validation passed')
-          this.onSubmit()
+          if (this.FarmerRegisterForm.protocol === true) {
+            alert('Validation passed')
+            this.onSubmit()
+          } else {
+            this.$message('请阅读协议并同意');
+          }
         } else {
           this.$message('密码错误');
           return false

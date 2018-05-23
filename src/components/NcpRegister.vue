@@ -5,7 +5,7 @@
       <el-form-item v-for="(field, index) in NcpRegisterForm.fields" :label="field.comment" :key="field.name" :prop="'fields.'+index+'.value'" :rules="{required: true, message: field.comment+'不能为空', trigger: 'blur'}">
         <el-input v-model="field.value" :placeholder=field.sample style="width: 100%;"></el-input>
       </el-form-item>
-      <el-form-item class="picker" label="地区" :rules="{required: true, message: '地区不能为空', trigger: 'blur'}">
+      <el-form-item class="picker" label="地区" :rules="{required: true, message: '地区不能为空', trigger: 'change'}">
           <v-distpicker v-model="NcpRegisterForm.area_code" :placeholders="NcpRegisterForm.placeholders"></v-distpicker>
       </el-form-item>
       <el-form-item class="picker" label="详细地址" :rules="{required: true, message: '详细地址不能为空', trigger: 'blur'}">
@@ -137,9 +137,5 @@ export default {
 
 hr:nth-child(odd) {
   visibility: hidden;
-}
-
-.picker {
-  text-align: left;
 }
 </style>

@@ -2,7 +2,7 @@
   <div id="farmer-login">
     <el-form :model="FarmerLoginForm" :rules="rules" ref="FarmerLoginForm" label-width="80px">
       <el-form-item label="手机号码" prop="telephone">
-        <el-input v-model="FarmerLoginForm.telephone" placeholder="请输入手机号码"></el-input>
+        <el-input v-model="FarmerLoginForm.telephone" placeholder="请输入11位手机号码"></el-input>
       </el-form-item>
       <el-form-item label="登录密码" prop="password">
         <el-input type="password" v-model="FarmerLoginForm.password" placeholder="请输入登录密码"></el-input>
@@ -11,6 +11,7 @@
       <el-button @click="resetForm('FarmerLoginForm')">取消</el-button>
       <br>
       <br>
+      <el-button type="info" @click="resetPassword">忘记密码</el-button>
       <el-button type="success" @click="goRegister">无账号，去注册</el-button>
     </el-form>
   </div>
@@ -30,7 +31,8 @@ export default {
       rules: {
         telephone: [
           { required: true, message: '请输入手机号码', trigger: 'blur' },
-          { min: 11, max: 11, message: '请输入11位手机号码', trigger: 'blur' }
+          { min: 11, max: 11, message: '请输入11位手机号码', trigger: 'blur' },
+          { pattern: /^1[34578]\d{9}$/, message: '目前只支持中国大陆的手机号码', trigger: 'blur' }
         ],
         password: [
           { required: true, message: '请输入登录密码', trigger: 'blur' },
@@ -43,6 +45,7 @@ export default {
     submitForm(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
+
           this.$message('Validation passed')
           this.onSubmit()
         } else {
@@ -76,6 +79,9 @@ export default {
           console.log(error)
         })
     },
+    resetPassword() {
+      this.$message('重置密码！！')
+    },
     goRegister() {
       this.$router.push({ name: 'FarmerRegister' })
     },
@@ -88,9 +94,15 @@ export default {
 </script>
 <style scoped>
 #farmer-login {
+  width: 40%;
   margin-top: 15%;
-  margin-right: 25%;
-  margin-left: 25%;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+el-form-item {
+  transform: translateX(-100px); 
 }
 
 div el-form-item:after {
