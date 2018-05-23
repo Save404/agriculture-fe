@@ -5,7 +5,13 @@
       <el-form-item v-for="(field, index) in NcpRegisterForm.fields" :label="field.comment" :key="field.name" :prop="'fields.'+index+'.value'" :rules="{required: true, message: field.comment+'不能为空', trigger: 'blur'}">
         <el-input v-model="field.value" :placeholder=field.sample style="width: 100%;"></el-input>
       </el-form-item>
-      <el-form-item label="发布时间">
+      <el-form-item class="picker" label="地区" :rules="{required: true, message: '地区不能为空', trigger: 'blur'}">
+          <v-distpicker v-model="NcpRegisterForm.area_code" :placeholders="NcpRegisterForm.placeholders"></v-distpicker>
+      </el-form-item>
+      <el-form-item class="picker" label="详细地址" :rules="{required: true, message: '详细地址不能为空', trigger: 'blur'}">
+          <el-input type='textarea' v-model="NcpRegisterForm.address" placeholder="详细地址"></el-input>
+      </el-form-item>
+      <el-form-item label="发布时间" :rules="{required: true, message: '发布时间不能为空', trigger: 'blur'}">
         <el-col :span="11">
           <el-date-picker type="date" placeholder="选择日期" v-model="NcpRegisterForm.date1" style="width: 100%;"></el-date-picker>
         </el-col>
@@ -22,7 +28,7 @@
       <el-form-item v-for="(field, index) in NcpRegisterForm.more" :label="field.comment" :key="field.name" :prop="'more.'+index+'.value'">
         <el-input type='textarea' v-model="field.value" :placeholder=field.sample style="width: 100%;"></el-input>
       </el-form-item>
-      <el-form-item label="品质认证">
+      <el-form-item class="picker" label="品质认证">
         <el-select v-model="NcpRegisterForm.qvalue">
           <el-option v-for="item in NcpRegisterForm.qualities" :key="item.value" :value="item.value" :label="item.label">
           </el-option>
@@ -37,6 +43,7 @@
 </template>
 <script>
 import qs from 'qs'
+import VDistpicker from 'v-distpicker'
 export default {
   name: 'NcpRegister',
   data() {
@@ -44,11 +51,16 @@ export default {
       NcpRegisterForm: {
         date1: '',
         date2: '',
+        area_code: '',
+        address: '',
+        placeholders: {
+            province: '------- 省 --------',
+            city: '--- 市 ---',
+            area: '--- 区 ---',
+        },
         fields: [
           { comment: '名称', name: 'name', value: '' },
           { comment: '种类编号', name: 'code', value: '' },
-          { comment: '地区', name: 'area_code', value: '' },
-          { comment: '详细地址', name: 'address', value: '' },
           { comment: '产品特质', name: 'feature', value: '' },
           { comment: '年产量', name: 'output', value: '', sample: '如:苹果300吨' },
           { comment: '可供应量', name: 'amount', value: '', sample: '如：苹果300吨' },
@@ -78,6 +90,7 @@ export default {
       }
     }
   },
+  components: {VDistpicker},
   methods: {
     submitForm(formName) {
       this.$refs[formName].validate((valid) => {
@@ -126,4 +139,7 @@ hr:nth-child(odd) {
   visibility: hidden;
 }
 
+.picker {
+  text-align: left;
+}
 </style>
