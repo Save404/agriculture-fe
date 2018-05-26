@@ -2,6 +2,9 @@
   <div id="ncp-register">
     <h1>农产品发布</h1>
     <el-form :model="NcpRegisterForm" ref="NcpRegisterForm" label-width="120px">
+      <el-form-item label="产品名称" prop="name_code" :rules="[{required: true,message:'产品名称不能为空',trigger:'blur'}]">
+          <ncp-name @got="setName" :msg="msg"></ncp-name>
+      </el-form-item>
       <el-form-item v-for="(field, index) in NcpRegisterForm.fields" :label="field.comment" :key="field.name" :prop="'fields.'+index+'.value'" :rules="field.rule">
         <el-input v-model="field.value" :placeholder=field.sample style="width: 100%;"></el-input>
       </el-form-item>
@@ -44,12 +47,15 @@
 <script>
 import qs from 'qs'
 import VDistpicker from 'v-distpicker'
+import NcpName from './NcpName'
 export default {
   name: 'NcpRegister',
-  components: {VDistpicker},
+  components: {VDistpicker, NcpName},
   data() {
     return {
+      msg: '',
       NcpRegisterForm: {
+        name_code: '',
         province: '浙江省', 
         city: '杭州市', 
         area: '西湖区',
@@ -63,8 +69,8 @@ export default {
             area: '------- 区 -------',
         },
         fields: [
-          { comment: '名称', name: 'name', value: '', rule: [{required: true, message: '名称不能为空', trigger: 'blur'}] },
-          { comment: '种类编号', name: 'code', value: '', rule: [{required: true, message: '种类编号不能为空', trigger: 'blur'}] },
+          //{ comment: '名称', name: 'name', value: '', rule: [{required: true, message: '名称不能为空', trigger: 'blur'}] },
+          //{ comment: '种类编号', name: 'code', value: '', rule: [{required: true, message: '种类编号不能为空', trigger: 'blur'}] },
           { comment: '产品特质', name: 'feature', value: '', rule: [{required: true, message: '产品特质不能为空', trigger: 'blur'}] },
           { comment: '产品品牌', name: 'brand', value: ''},
           { comment: '年产量', name: 'output', value: '', sample: '如:苹果300吨' },
@@ -95,6 +101,10 @@ export default {
     }
   },
   methods: {
+    setName(msg) {
+      this.NcpRegisterForm.name_code = msg
+      console.log('fa got '+ msg)
+    },
     onSelected(data) {
       this.NcpRegisterForm.province = data.province.value
       this.NcpRegisterForm.city = data.city.value
@@ -118,6 +128,7 @@ export default {
     },
     onSubmit() {
       const data = {
+        ncp_p_code: this.NcpRegisterForm.name_code,
         ncp_area_code: this.NcpRegisterForm.area_code,
         ncp_address: this.NcpRegisterForm.address,
         ncp_quality: this.NcpRegisterForm.qvalue,

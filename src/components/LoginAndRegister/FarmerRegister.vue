@@ -116,5 +116,4 @@ export default {
   margin-right: 25%;
   margin-left: 25%;
 }
-
 </style>
