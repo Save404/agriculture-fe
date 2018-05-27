@@ -1,0 +1,25 @@
+[
+{
+  "url": "http://localhost:8080/nh/nh_register",
+  "usage": "农户注册"
+},
+{
+  "url": "http://localhost:8080/nh/nh_login",
+  "usage": "农户登录"
+},
+{
+  "url": "http://localhost:8080/nh/add_nh_detail",
+  "usage": "添加农户详细信息"
+},
+{
+  "url": "http://localhost:8080/mj/mj_register",
+  "usage": "买家注册"
+},
+{
+  "url": "http://localhost:8080/mj/mj_login",
+  "usage": "买家登录"
+},
+{
+  "url": "http://localhost:8080/ncp/add_ncp",
+  "usage": "添加农产品信息"
+}]

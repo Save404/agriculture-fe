@@ -1,14 +1,14 @@
 <template>
-  <div id="farmer-login">
-    <el-form :model="FarmerLoginForm" :rules="rules" ref="FarmerLoginForm" label-width="80px">
+  <div id="Mj-login">
+    <el-form :model="MjLoginForm" :rules="rules" ref="MjLoginForm" label-width="80px">
       <el-form-item label="手机号码" prop="telephone">
-        <el-input v-model="FarmerLoginForm.telephone" placeholder="请输入11位手机号码"></el-input>
+        <el-input v-model="MjLoginForm.telephone" placeholder="请输入11位手机号码"></el-input>
       </el-form-item>
       <el-form-item label="登录密码" prop="password">
-        <el-input type="password" v-model="FarmerLoginForm.password" placeholder="请输入登录密码"></el-input>
+        <el-input type="password" v-model="MjLoginForm.password" placeholder="请输入登录密码"></el-input>
       </el-form-item>
-      <el-button type="primary" @click="submitForm('FarmerLoginForm')">立即登录</el-button>
-      <el-button @click="resetForm('FarmerLoginForm')">取消</el-button>
+      <el-button type="primary" @click="submitForm('MjLoginForm')">立即登录</el-button>
+      <el-button @click="resetForm('MjLoginForm')">取消</el-button>
       <br>
       <br>
       <el-button type="info" @click="resetPassword">忘记密码</el-button>
@@ -20,11 +20,11 @@
 import md5 from 'js-md5'
 import qs from 'qs'
 export default {
-  name: 'FarmerLogin',
+  name: 'MjLogin',
   data() {
     return {
       salt: "z0fdf7f8g9o1",
-      FarmerLoginForm: {
+      MjLoginForm: {
         telephone: '',
         password: ''
       },
@@ -54,16 +54,16 @@ export default {
       })
     },
     onSubmit() {
-      let password = md5(("" + this.salt.charAt(0) + this.salt.charAt(2) + this.FarmerLoginForm.password + this.salt.charAt(5) + this.salt))
+      let password = md5(("" + this.salt.charAt(0) + this.salt.charAt(2) + this.MjLoginForm.password + this.salt.charAt(5) + this.salt))
       const data = {
-        'nhTelephone': this.FarmerLoginForm.telephone,
+        'nhTelephone': this.MjLoginForm.telephone,
         'nhPassword': password
       }
       let router = this.$router
       let message = this.$message
       this.$axios({
           method: 'post',
-          url: 'http://localhost:8080/nh/nh_login',
+          url: 'http://localhost:8080/mj/mj_login',
           data: qs.stringify(data)
         })
         .then(function(response) {
@@ -87,7 +87,7 @@ export default {
       this.$message('重置密码！！')
     },
     goRegister() {
-      this.$router.push({ name: 'FarmerRegister' })
+      this.$router.push({ name: 'MjRegister' })
     },
     resetForm(formName) {
       this.$refs[formName].resetFields();
@@ -97,7 +97,7 @@ export default {
 
 </script>
 <style scoped>
-#farmer-login {
+#Mj-login {
   width: 40%;
   margin-top: 15%;
   position: absolute;

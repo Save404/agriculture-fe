@@ -1,23 +1,23 @@
 <template>
-  <div id="farmer-register">
-    <el-form ref="FarmerRegisterForm" :model="FarmerRegisterForm" :rules="rules" label-width="80px">
+  <div id="Mj-register">
+    <el-form ref="MjRegisterForm" :model="MjRegisterForm" :rules="rules" label-width="80px">
       <el-form-item label="手机号码" prop="telephone">
-        <el-input v-model="FarmerRegisterForm.telephone" placeholder="您的手机号码" clearable></el-input>
+        <el-input v-model="MjRegisterForm.telephone" placeholder="您的手机号码" clearable></el-input>
       </el-form-item>
       <el-form-item label="设置密码" prop="password">
-        <el-input v-model="FarmerRegisterForm.password" type="password" placeholder="建议至少使用两种字符组合" clearable></el-input>
+        <el-input v-model="MjRegisterForm.password" type="password" placeholder="建议至少使用两种字符组合" clearable></el-input>
       </el-form-item>
       <el-form-item label="确认密码" prop="repassword">
-        <el-input v-model="FarmerRegisterForm.repassword" type="password" placeholder="请再次输入密码" clearable></el-input>
+        <el-input v-model="MjRegisterForm.repassword" type="password" placeholder="请再次输入密码" clearable></el-input>
       </el-form-item>
       <el-form-item class="picker" label="" prop="protocol">
-        <el-checkbox v-model="FarmerRegisterForm.protocol" label="阅读并同意">
+        <el-checkbox v-model="MjRegisterForm.protocol" label="阅读并同意">
           <a href="#">《用户注册协议》</a>
           <a href="#">《隐私政策》</a>
         </el-checkbox>
       </el-form-item>
-      <el-button type="primary" @click="submitForm('FarmerRegisterForm')">立即注册</el-button>
-      <el-button @click="resetForm('FarmerRegisterForm')">取消</el-button>
+      <el-button type="primary" @click="submitForm('MjRegisterForm')">立即注册</el-button>
+      <el-button @click="resetForm('MjRegisterForm')">取消</el-button>
       <br>
       <br>
       <el-button type="success" @click="goLogin">已有账号，去登录</el-button>
@@ -27,19 +27,19 @@
 <script>
 import qs from 'qs'
 export default {
-  name: 'FarmerRegister',
+  name: 'MjRegister',
   data() {
     var repass = (rule, value, callback) => {
       if (value === '') {
         callback(new Error('请再次输入密码'))
-      } else if (value !== this.FarmerRegisterForm.password) {
+      } else if (value !== this.MjRegisterForm.password) {
         callback(new Error('两次输入密码不一致!'))
       } else {
         callback()
       }
     }
     return {
-      FarmerRegisterForm: {
+      MjRegisterForm: {
         telephone: '',
         password: '',
         repassword: '',
@@ -66,7 +66,7 @@ export default {
     submitForm(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          if (this.FarmerRegisterForm.protocol === true) {
+          if (this.MjRegisterForm.protocol === true) {
             //alert('Validation passed')
             this.onSubmit()
           } else {
@@ -80,15 +80,15 @@ export default {
     },
     onSubmit() {
       const data = {
-        nhTelephone: this.FarmerRegisterForm.telephone,
-        nhPassword: this.FarmerRegisterForm.password,
-        rePassword: this.FarmerRegisterForm.repassword
+        nhTelephone: this.MjRegisterForm.telephone,
+        nhPassword: this.MjRegisterForm.password,
+        rePassword: this.MjRegisterForm.repassword
       }
       let router = this.$router
       let message = this.$message
       this.$axios({
           method: 'post',
-          url: 'http://localhost:8080/nh/nh_register',
+          url: 'http://localhost:8080/mj/mj_register',
           data: qs.stringify(data)
         })
         .then(function(response) {
@@ -109,7 +109,7 @@ export default {
         })
     },
     goLogin() {
-      this.$router.push({ name: 'FarmerLogin' })
+      this.$router.push({ name: 'MjLogin' })
     },
     resetForm(formName) {
       this.$refs[formName].resetFields();
@@ -119,7 +119,7 @@ export default {
 
 </script>
 <style scoped>
-#farmer-register {
+#Mj-register {
   margin-top: 15%;
   margin-right: 25%;
   margin-left: 25%;
