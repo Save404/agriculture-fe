@@ -66,6 +66,8 @@ export default {
               console.log(prop + ':' + data[prop])
             }*/
       console.log(data)
+      let router = this.$router
+      let message = this.$message
       this.$axios({
           method: 'post',
           url: 'http://localhost:8080/nh/add_nh_detail',
@@ -73,12 +75,15 @@ export default {
         })
         .then(function(response) {
           console.log(response)
-          if (response.status === 200) {
-            alert('获取数据成功')
+          if (response.data.code === 0) {
+            message('更新农户个人资料成功')
+            router.push({name: 'Home'})
+          } else {
+            message(response.data.msg)
           }
         })
         .catch(function(error) {
-          alert(error)
+          message(error)
         })
     },
     resetForm(formName) {
