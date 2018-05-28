@@ -69,8 +69,6 @@ export default {
             area: '------- 区 -------',
         },
         fields: [
-          //{ comment: '名称', name: 'name', value: '', rule: [{required: true, message: '名称不能为空', trigger: 'blur'}] },
-          //{ comment: '种类编号', name: 'code', value: '', rule: [{required: true, message: '种类编号不能为空', trigger: 'blur'}] },
           { comment: '产品特质', name: 'feature', value: '', rule: [{required: true, message: '产品特质不能为空', trigger: 'blur'}] },
           { comment: '产品品牌', name: 'brand', value: ''},
           { comment: '年产量', name: 'output', value: '', sample: '如:苹果300吨' },
@@ -136,11 +134,11 @@ export default {
       }
       const f = this.NcpRegisterForm.fields
       for(var i = 0; i < f.length; i++) {
-        data[f[i].comment] = f[i].value 
+        data['ncp_'+f[i].name] = f[i].value 
       }
       const m = this.NcpRegisterForm.more 
       for(var i = 0; i < m.length; i++) {
-        data[m[i].comment] = m[i].value 
+        data['ncp_'+m[i].name] = m[i].value 
       }/*
       for(let prop in data) {
         console.log(prop + ':' + data[prop])

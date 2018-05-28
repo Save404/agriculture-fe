@@ -4,6 +4,7 @@ import Router from 'vue-router'
 import Home from '@/components/Home'
 import FarmerLogin from '@/components/LoginAndRegister/FarmerLogin'
 import FarmerRegister from '@/components/LoginAndRegister/FarmerRegister'
+import FarmerDetail from '@/components/LoginAndRegister/FarmerDetail'
 import MjLogin from '@/components/LoginAndRegister/MjLogin'
 import MjRegister from '@/components/LoginAndRegister/MjRegister'
 import NcpRegister from '@/components/NcpDetail/NcpRegister'
@@ -20,6 +21,11 @@ export default new Router({
       path: '/FarmerRegister',
       name: 'FarmerRegister',
       component: FarmerRegister
+    },
+    {
+      path: '/FarmerDetail',
+      name: 'FarmerDetail',
+      component: FarmerDetail
     },
     {
       path: '/MjLogin',
