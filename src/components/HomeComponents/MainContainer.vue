@@ -59,7 +59,7 @@
             <el-dropdown-item>删除</el-dropdown-item>
           </el-dropdown-menu>
         </el-dropdown>
-        <span>ZYSzys</span>
+        <span>{{this.$store.state.user}}</span>
       </el-header>
       <el-main>
         <el-table :data="tableData">

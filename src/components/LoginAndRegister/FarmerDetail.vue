@@ -61,10 +61,6 @@ export default {
       for (var i = 0; i < m.length; i++) {
         data['nh' + m[i].name] = m[i].value
       }
-      /*
-            for(let prop in data) {
-              console.log(prop + ':' + data[prop])
-            }*/
       console.log(data)
       let router = this.$router
       let message = this.$message

@@ -2,6 +2,9 @@
 
 > Front-end of Digital-Agriculture
 
+
+### 技术栈：```vue+vuex+vue-router+axios+element```
+
 ## Build Setup
 
 ``` bash

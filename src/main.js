@@ -3,6 +3,7 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
+import store from './store/store'
 
 import axios from 'axios'
 import 'normalize.css'
@@ -16,10 +17,24 @@ Vue.config.productionTip = false
 axios.defaults.withCredentials = true
 axios.defaults.headers['conten-type'] = 'application/x-www-form-urlencoded'
 Vue.prototype.$axios = axios
+
+router.beforeEach((to, from, next) => {
+  if(to.path === '/') {
+    next()
+  } else {
+    if(!store.state.user && (to.path === '/Home' || to.path === '/NcpRegister')) {
+      next({path:'/'})
+    } else {
+      next()
+    }
+  }
+})
+
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
   router,
+  store,
   components: { App },
   template: '<App/>'
 })

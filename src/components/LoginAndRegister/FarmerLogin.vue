@@ -60,6 +60,7 @@ export default {
         'nhPassword': password
       }
       let router = this.$router
+      let store = this.$store
       let message = this.$message
       this.$axios({
           method: 'post',
@@ -69,8 +70,9 @@ export default {
         .then(function(response) {
           if (response.status === 200) {
             //message('Axios Succeed!')
-            //console.log(response)
+            console.log(response)
             if(response.data.code === 0) {
+              store.commit('login', data.nhTelephone)
               message('登录成功')
               router.push({ name: 'Home' })
             } else {
