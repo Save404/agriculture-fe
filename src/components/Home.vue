@@ -30,5 +30,7 @@ export default {
 .container {
   margin: 0;
 }
-
+.bottom-footer {
+  position: relative;
+}
 </style>

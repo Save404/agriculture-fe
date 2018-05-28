@@ -1,5 +1,6 @@
 <template>
   <div id="Mj-login">
+    <trans-header/>
     <el-form :model="MjLoginForm" :rules="rules" ref="MjLoginForm" label-width="80px">
       <el-form-item label="手机号码" prop="telephone">
         <el-input v-model="MjLoginForm.telephone" placeholder="请输入11位手机号码"></el-input>
@@ -14,13 +15,16 @@
       <el-button type="info" @click="resetPassword">忘记密码</el-button>
       <el-button type="success" @click="goRegister">无账号，去注册</el-button>
     </el-form>
+    <bottom-footer/>
   </div>
 </template>
 <script>
 import md5 from 'js-md5'
 import qs from 'qs'
+import TransHeader from './TransHeader'
 export default {
   name: 'MjLogin',
+  components: {TransHeader},
   data() {
     return {
       salt: "z0fdf7f8g9o1",
@@ -97,9 +101,9 @@ export default {
 
 </script>
 <style scoped>
-#Mj-login {
+.el-form {
   width: 40%;
-  margin-top: 15%;
+  margin-top: 70px;
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
@@ -116,6 +120,11 @@ div el-form-item:after {
   height: 0;
   width: 0;
   visibility: hidden;
+}
+
+.trans-header {
+  position: relative;
+  padding-top: 70px;
 }
 
 </style>

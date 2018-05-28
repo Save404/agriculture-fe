@@ -22,6 +22,7 @@
       <br>
       <el-button type="success" @click="goLogin">已有账号，去登录</el-button>
     </el-form>
+    <bottom-footer/>
   </div>
 </template>
 <script>
@@ -119,10 +120,12 @@ export default {
 
 </script>
 <style scoped>
-#farmer-register {
+.el-form {
+  width: 40%;
   margin-top: 15%;
-  margin-right: 25%;
-  margin-left: 25%;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 </style>

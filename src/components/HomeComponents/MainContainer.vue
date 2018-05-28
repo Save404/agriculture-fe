@@ -3,7 +3,7 @@
     <el-aside width="200px" style="background-color: rgb(238, 241, 246)">
       <el-menu :default-openeds="['1', '3']">
         <el-submenu index="1">
-          <template slot="title"><i class="el-icon-message"></i>导航一</template>
+          <template slot="title"><i class="el-icon-message"></i>粮食类</template>
           <el-menu-item-group>
             <template slot="title">分组一</template>
             <el-menu-item index="1-1">选项1</el-menu-item>
@@ -18,7 +18,7 @@
           </el-submenu>
         </el-submenu>
         <el-submenu index="2">
-          <template slot="title"><i class="el-icon-menu"></i>导航二</template>
+          <template slot="title"><i class="el-icon-menu"></i>油料类</template>
           <el-menu-item-group>
             <template slot="title">分组一</template>
             <el-menu-item index="2-1">选项1</el-menu-item>
@@ -33,7 +33,7 @@
           </el-submenu>
         </el-submenu>
         <el-submenu index="3">
-          <template slot="title"><i class="el-icon-setting"></i>导航三</template>
+          <template slot="title"><i class="el-icon-setting"></i>糖料类</template>
           <el-menu-item-group>
             <template slot="title">分组一</template>
             <el-menu-item index="3-1">选项1</el-menu-item>
@@ -59,13 +59,19 @@
             <el-dropdown-item>删除</el-dropdown-item>
           </el-dropdown-menu>
         </el-dropdown>
-        <span>{{this.$store.state.user}}</span>
+        <el-dropdown @command="goDetail">
+          <el-button type="info">{{this.$store.state.user}}</el-button>
+          <el-dropdown-menu slot="dropdown">
+            <el-dropdown-item command="a">查看个人资料</el-dropdown-item>
+            <el-dropdown-item command="b">修改个人资料</el-dropdown-item>
+          </el-dropdown-menu>
+        </el-dropdown>
       </el-header>
       <el-main>
         <el-table :data="tableData">
           <el-table-column prop="date" label="日期" width="200" align="center">
           </el-table-column>
-          <el-table-column prop="name" label="姓名" width="200"  align="center">
+          <el-table-column prop="name" label="姓名" width="200" align="center">
           </el-table-column>
           <el-table-column prop="address" label="地址" align="center">
           </el-table-column>
@@ -74,6 +80,30 @@
     </el-container>
   </el-container>
 </template>
+<script>
+export default {
+  data() {
+    const item = {
+      date: '2018-05-27',
+      name: 'ZYSzys',
+      address: '浙江农林大学'
+    };
+    return {
+      tableData: Array(20).fill(item)
+    }
+  },
+  methods: {
+    goDetail(command) {
+      if (command === 'b') {
+        this.$router.push({ name: 'FarmerDetail' })
+      } else {
+        this.$message('Clicked')
+      }
+    }
+  }
+}
+
+</script>
 <style scoped>
 .el-header {
   background-color: #B3C0D1;
@@ -90,18 +120,3 @@
 }
 
 </style>
-<script>
-export default {
-  data() {
-    const item = {
-      date: '2018-05-27',
-      name: 'ZYSzys',
-      address: '浙江农林大学'
-    };
-    return {
-      tableData: Array(20).fill(item)
-    }
-  }
-};
-
-</script>

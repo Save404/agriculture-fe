@@ -11,7 +11,10 @@ import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 import './assets/global.css'
 
+import BottomFooter from './components/HomeComponents/BottomFooter'
+
 Vue.use(ElementUI)
+Vue.component('bottom-footer', BottomFooter)
 Vue.config.productionTip = false
 
 axios.defaults.withCredentials = true
@@ -19,6 +22,9 @@ axios.defaults.headers['conten-type'] = 'application/x-www-form-urlencoded'
 Vue.prototype.$axios = axios
 
 router.beforeEach((to, from, next) => {
+  if(to.meta.title) {
+    document.title = to.meta.title
+  }
   if(to.path === '/') {
     next()
   } else {
