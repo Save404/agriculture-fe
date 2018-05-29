@@ -60,9 +60,10 @@ export default {
     onSubmit() {
       let password = md5(("" + this.salt.charAt(0) + this.salt.charAt(2) + this.MjLoginForm.password + this.salt.charAt(5) + this.salt))
       const data = {
-        'nhTelephone': this.MjLoginForm.telephone,
-        'nhPassword': password
+        'mjTelephone': this.MjLoginForm.telephone,
+        'mjPassword': password
       }
+      let store = this.$store
       let router = this.$router
       let message = this.$message
       this.$axios({
@@ -75,10 +76,11 @@ export default {
             //message('Axios Succeed!')
             //console.log(response)
             if(response.data.code === 0) {
-              message('登录成功')
+              store.commit('login', data.mjTelephone)
+              message({message:'登录成功',type:'success'})
               router.push({ name: 'Home' })
             } else {
-              message(response.data.msg)
+              message.error(response.data.msg)
             }
           }
         })

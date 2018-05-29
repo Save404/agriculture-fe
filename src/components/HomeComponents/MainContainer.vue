@@ -64,6 +64,7 @@
           <el-dropdown-menu slot="dropdown">
             <el-dropdown-item command="a">查看个人资料</el-dropdown-item>
             <el-dropdown-item command="b">修改个人资料</el-dropdown-item>
+            <el-dropdown-item command="c">退出登录</el-dropdown-item>
           </el-dropdown-menu>
         </el-dropdown>
       </el-header>
@@ -96,6 +97,9 @@ export default {
     goDetail(command) {
       if (command === 'b') {
         this.$router.push({ name: 'FarmerDetail' })
+      } else if (command === 'c') {
+        this.$store.commit('logout')
+        this.$router.push({ name: 'FarmerLogin' })
       } else {
         this.$message('Clicked')
       }

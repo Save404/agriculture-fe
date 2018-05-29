@@ -77,10 +77,10 @@ export default {
             console.log(response)
             if(response.data.code === 0) {
               store.commit('login', data.nhTelephone)
-              message('登录成功')
+              message({message: '登录成功', type: 'success'})
               router.push({ name: 'Home' })
             } else {
-              message(response.data.msg)
+              message.error(response.data.msg)
             }
           }
         })

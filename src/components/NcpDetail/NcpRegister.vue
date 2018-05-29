@@ -40,6 +40,7 @@
       <el-form-item>
         <el-button type="primary" @click="submitForm('NcpRegisterForm')">立即发布</el-button>
         <el-button @click="resetForm('NcpRegisterForm')">重置</el-button>
+        <el-button @click="goBack">返回</el-button>
       </el-form-item>
     </el-form>
   </div>
@@ -69,23 +70,23 @@ export default {
             area: '------- 区 -------',
         },
         fields: [
-          { comment: '产品特质', name: 'feature', value: '', rule: [{required: true, message: '产品特质不能为空', trigger: 'blur'}] },
-          { comment: '产品品牌', name: 'brand', value: ''},
-          { comment: '年产量', name: 'output', value: '', sample: '如:苹果300吨' },
-          { comment: '可供应量', name: 'amount', value: '', sample: '如：苹果300吨' },
-          { comment: '参考价格', name: 'reference_price', value: '', sample: '如：几元/几千克' },
+          { comment: '产品特质', name: 'Feature', value: '', rule: [{required: true, message: '产品特质不能为空', trigger: 'blur'}] },
+          { comment: '产品品牌', name: 'Brand', value: ''},
+          { comment: '年产量', name: 'AnnualOutput', value: '', sample: '如:苹果300吨' },
+          { comment: '可供应量', name: 'SupplyAmount', value: '', sample: '如：苹果300吨' },
+          { comment: '参考价格', name: 'ReferencePrice', value: '', sample: '如：几元/几千克' },
         ],
         more: [
-          { comment: '详情介绍', name: 'detail', value: '' },
-          { comment: '包装方式', name: 'package', value: '' },
-          { comment: '存储物流情况', name: 'delivery_info', value: '', sample: '县域内运输，县域内仓储，县域内包装／从县到大城市的远程运输／全国运输等等（请如实填写)' },
-          { comment: '生产过程', name: 'growth_info', value: '', sample: '如：种子、机械、化肥、农药、如何控制农药残留等，请尽量详细填写' },
-          { comment: '产品生长环境', name: 'growth_surrounding', value: '' },
-          { comment: '产品种植面积', name: 'plant_area', value: '', sample: '如:苹果300亩' },
-          { comment: '批量出仓价格', name: 'batch_price', value: '', sample: '如：出仓100斤，xx元' },
-          { comment: '仓储物流能力', name: 'delivery_ability', value: '' },
-          { comment: '起送量', name: 'min_count', value: '' },
-          { comment: '批量物流成本', name: 'delivery_cost', value: '' },
+          { comment: '详情介绍', name: 'Detail', value: '' },
+          { comment: '包装方式', name: 'Package', value: '' },
+          { comment: '存储物流情况', name: 'DeliveryInfo', value: '', sample: '县域内运输，县域内仓储，县域内包装／从县到大城市的远程运输／全国运输等等（请如实填写)' },
+          { comment: '生产过程', name: 'GrowthInfo', value: '', sample: '如：种子、机械、化肥、农药、如何控制农药残留等，请尽量详细填写' },
+          { comment: '产品生长环境', name: 'GrowthSurrounding', value: '' },
+          { comment: '产品种植面积', name: 'PlantArea', value: '', sample: '如:苹果300亩' },
+          { comment: '批量出仓价格', name: 'BatchPrice', value: '', sample: '如：出仓100斤，xx元' },
+          { comment: '仓储物流能力', name: 'DeliveryAbility', value: '' },
+          { comment: '起送量', name: 'MinCount', value: '' },
+          { comment: '批量物流成本', name: 'DeliveryCost', value: '' },
         ],
         qualities: [
           { label: '绿色食品认证', value: '1' },
@@ -126,19 +127,20 @@ export default {
     },
     onSubmit() {
       const data = {
-        ncp_p_code: this.NcpRegisterForm.name_code,
-        ncp_area_code: this.NcpRegisterForm.area_code,
-        ncp_address: this.NcpRegisterForm.address,
-        ncp_quality: this.NcpRegisterForm.qvalue,
-        ncp_supply_period: this.NcpRegisterForm.perieds+this.NcpRegisterForm.periede
+        ncpPCode: this.NcpRegisterForm.name_code,
+        ncpAreaCode: this.NcpRegisterForm.area_code,
+        ncpAddress: this.NcpRegisterForm.address,
+        ncpQuality: this.NcpRegisterForm.qvalue,
+        ncpSupplyPeriodStart: this.NcpRegisterForm.perieds,
+        ncpSupplyPeriodEnd: this.NcpRegisterForm.periede
       }
       const f = this.NcpRegisterForm.fields
       for(var i = 0; i < f.length; i++) {
-        data['ncp_'+f[i].name] = f[i].value 
+        data['ncp'+f[i].name] = f[i].value 
       }
       const m = this.NcpRegisterForm.more 
       for(var i = 0; i < m.length; i++) {
-        data['ncp_'+m[i].name] = m[i].value 
+        data['ncp'+m[i].name] = m[i].value 
       }/*
       for(let prop in data) {
         console.log(prop + ':' + data[prop])
@@ -159,6 +161,9 @@ export default {
     },
     resetForm(formName) {
       this.$refs[formName].resetFields();
+    },
+    goBack() {
+      this.$router.back()
     }
   }
 }

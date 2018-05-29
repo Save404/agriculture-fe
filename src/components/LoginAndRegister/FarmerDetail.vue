@@ -14,8 +14,8 @@
         <el-input :type="field.type" v-model="field.value" :placeholder="field.sample"></el-input>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" @click="submitForm('FarmerDetailForm')">立即创建</el-button>
-        <el-button>取消</el-button>
+        <el-button type="primary" @click="submitForm('FarmerDetailForm')">保存</el-button>
+        <el-button @click="goBack">取消</el-button>
       </el-form-item>
     </el-form>
   </div>
@@ -82,8 +82,8 @@ export default {
           message(error)
         })
     },
-    resetForm(formName) {
-      this.$refs[formName].resetFields();
+    goBack() {
+      this.$router.back()
     }
   }
 }

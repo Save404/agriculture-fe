@@ -81,8 +81,8 @@ export default {
     },
     onSubmit() {
       const data = {
-        nhTelephone: this.MjRegisterForm.telephone,
-        nhPassword: this.MjRegisterForm.password,
+        mjTelephone: this.MjRegisterForm.telephone,
+        mjPassword: this.MjRegisterForm.password,
         rePassword: this.MjRegisterForm.repassword
       }
       let router = this.$router
@@ -97,10 +97,10 @@ export default {
             //alert('Axios Succeed!')
             console.log(response)
             if (response.data.code === 0) {
-              message('注册成功')
+              message({message:'注册成功', type: 'success'})
               router.push({ name: 'Home' })
             } else {
-              message(response.data.msg)
+              message.error(response.data.msg)
             }
           }
         })
