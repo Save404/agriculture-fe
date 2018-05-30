@@ -9,11 +9,13 @@ import axios from 'axios'
 import 'normalize.css'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
+import VCharts from 'v-charts'
 import './assets/global.css'
 
 import BottomFooter from './components/HomeComponents/BottomFooter'
 
 Vue.use(ElementUI)
+Vue.use(VCharts)
 Vue.component('bottom-footer', BottomFooter)
 Vue.config.productionTip = false
 
@@ -25,7 +27,7 @@ router.beforeEach((to, from, next) => {
   if(to.meta.title) {
     document.title = to.meta.title
   }
-  if(to.path === '/') {
+  if(to.path === '/' || sessionStorage.user) {
     next()
   } else {
     if(!store.state.user && (to.path === '/Home' || to.path === '/NcpRegister')) {

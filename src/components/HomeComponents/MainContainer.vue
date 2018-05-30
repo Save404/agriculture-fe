@@ -60,7 +60,7 @@
           </el-dropdown-menu>
         </el-dropdown>
         <el-dropdown @command="goDetail">
-          <el-button type="info">{{this.$store.state.user}}</el-button>
+          <el-button type="info">{{user}}</el-button>
           <el-dropdown-menu slot="dropdown">
             <el-dropdown-item command="a">查看个人资料</el-dropdown-item>
             <el-dropdown-item command="b">修改个人资料</el-dropdown-item>
@@ -69,6 +69,7 @@
         </el-dropdown>
       </el-header>
       <el-main>
+        <pie></pie>
         <el-table :data="tableData">
           <el-table-column prop="date" label="日期" width="200" align="center">
           </el-table-column>
@@ -82,6 +83,7 @@
   </el-container>
 </template>
 <script>
+import Pie from '../Charts/Pie'
 export default {
   data() {
     const item = {
@@ -90,9 +92,11 @@ export default {
       address: '浙江农林大学'
     };
     return {
-      tableData: Array(20).fill(item)
+      user: sessionStorage.user,
+      tableData: Array(5).fill(item)
     }
   },
+  components: {Pie},
   methods: {
     goDetail(command) {
       if (command === 'b') {
