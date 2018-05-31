@@ -67,9 +67,10 @@ export default {
   methods: {
     getSecond() {
       this.second.length = 0
+      this.value2 = this.value3 = this.value4 = ''
       let id = this.value1
       for (let i in this.total) {
-        if (i.substr(0, 2) === id.substr(0, 2) && i.substr(4) === id.substr(4) && i !== id) {
+        if (i.substr(0, 2) === id.substr(0, 2) && i.substr(4) === id.substr(4)) {
           this.second.push({ value: i, label: this.total[i] })
         }
       }
@@ -77,28 +78,30 @@ export default {
     },
     getThird() {
       this.third.length = 0
+      this.value3 = this.value4 = ''
       let id = this.value2
       for (let i in this.total) {
-        if (i.substr(0, 4) === id.substr(0, 4) && i.substr(6) === id.substr(6) && i !== id) {
+        if (i.substr(0, 4) === id.substr(0, 4) && i.substr(6) === id.substr(6)) {
           this.third.push({ value: i, label: this.total[i] })
         }
       }
-      this.$message('Got third')
+      //this.$message('Got third')
     },
     getLast() {
       this.last.length = 0
+      this.value4 = ''
       let id = this.value3
       for (let i in this.total) {
-        if (i.substr(0, 6) === id.substr(0, 6) && i.substr(8) === id.substr(8) && i !== id) {
+        if (i.substr(0, 6) === id.substr(0, 6) && i.substr(8) === id.substr(8)) {
           this.last.push({ value: i, label: this.total[i] })
         }
       }
-      this.$message('Got last')
+      //this.$message('Got last')
     },
     getAll() {
-      if (this.value4 !== '产品名称') {
-        this.$emit('got', this.value4)
-        this.$message('Got all')
+      if (this.value4 !== '产品名称' && this.value4 !== '') {
+        this.$emit('got', {code: this.value4, name: this.total[this.value4]})
+        //this.$message('Got all')
       } else {
         this.$message('产品名称不能为空')
       }

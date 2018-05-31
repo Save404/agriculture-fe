@@ -16,7 +16,8 @@
         <el-dropdown-menu slot="dropdown">
           <el-dropdown-item command="a">查看个人资料</el-dropdown-item>
           <el-dropdown-item command="b">修改个人资料</el-dropdown-item>
-          <el-dropdown-item command="c">退出登录</el-dropdown-item>
+          <el-dropdown-item command="c">查看个人农产品</el-dropdown-item>
+          <el-dropdown-item command="d">退出登录</el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
     </el-header>
@@ -71,8 +72,8 @@
         </el-menu>
       </el-aside>
       <el-main>
-        <el-table stripe :data="tableData">
-          <el-table-column prop="name" label="名称" width="150" align="center">
+        <el-table stripe :data="lists">
+          <el-table-column prop="ncpName" label="名称" width="150" align="center">
           </el-table-column>
           <el-table-column prop="date" label="日期" width="150" align="center">
           </el-table-column>
@@ -82,9 +83,8 @@
           <el-table-column prop="brand" label="品牌" align="center"></el-table-column>
           <el-table-column label="操作" align="center">
             <template slot-scope="scope">
-              <el-button size="mini" @click="">详情</el-button>
+              <el-button size="mini" @click="getInfo">详情</el-button>
             </template>
-            
           </el-table-column>
         </el-table>
       </el-main>
@@ -101,6 +101,7 @@ export default {
     };
     return {
       user: sessionStorage.user,
+      lists: [],
       tableData: [{
         name: '西瓜',
         date: '2018-05-27',
@@ -122,19 +123,47 @@ export default {
       }]
     }
   },
+  created() {
+    //this.getInfo()
+    //console.log(this.lists)
+  },
   methods: {
     goDetail(command) {
       if (command === 'b') {
         this.$router.push({ name: 'FarmerDetail' })
-      } else if (command === 'c') {
+      } else if (command === 'd') {
         this.$store.commit('logout')
         this.$router.push({ name: 'FarmerLogin' })
-      } else {
+      } else if (command === 'c') {
         this.$message('Clicked')
+        this.getInfo()
       }
     },
     publishNcp() {
       this.$router.push({ name: 'NcpRegister' })
+    },
+    getInfo() {
+      let lists = this.lists
+      this.$axios({
+          method: 'get',
+          url: 'http://localhost:8080/ncp/get_ncp_list',
+        })
+        .then(function(response) {
+          //console.log(response.data.data instanceof Array)
+          for (let i in response.data.data) {
+            lists.push(response.data.data[i])
+          }
+          /*
+                  console.log(lists)
+                  for (let i in lists) {
+                    for (let j in lists[i]) {
+                      console.log(j+lists[i][j])
+                    }
+                  }*/
+        })
+        .catch(function(error) {
+          alert(error)
+        })
     }
   }
 }

@@ -30,11 +30,13 @@
       </el-form-item>
       <el-form-item label="产品供应期">
         <el-col :span="11">
-          <el-date-picker type="date" placeholder="起始日期" v-model="NcpRegisterForm.perieds" style="width: 100%;"></el-date-picker>
+          <el-date-picker type="date" placeholder="起始日期" format="yyyy 年 MM 月 dd 日"
+      value-format="yyyy-MM-dd" v-model="NcpRegisterForm.perieds" style="width: 100%;"></el-date-picker>
         </el-col>
         <el-col class="line" :span="2">-</el-col>
         <el-col :span="11">
-          <el-date-picker type="date" placeholder="截止日期" v-model="NcpRegisterForm.periede" style="width: 100%;"></el-date-picker>
+          <el-date-picker type="date" placeholder="截止日期" format="yyyy 年 MM 月 dd 日"
+      value-format="yyyy-MM-dd" v-model="NcpRegisterForm.periede" style="width: 100%;"></el-date-picker>
         </el-col>
       </el-form-item>
       <el-form-item>
@@ -56,6 +58,7 @@ export default {
     return {
       msg: '',
       NcpRegisterForm: {
+        name: '',
         name_code: '',
         province: '浙江省', 
         city: '杭州市', 
@@ -101,8 +104,9 @@ export default {
   },
   methods: {
     setName(msg) {
-      this.NcpRegisterForm.name_code = msg
-      console.log('fa got '+ msg)
+      this.NcpRegisterForm.name = msg.name
+      this.NcpRegisterForm.name_code = msg.code
+      //console.log('fa got '+ msg)
     },
     onSelected(data) {
       this.NcpRegisterForm.province = data.province.value
@@ -127,6 +131,7 @@ export default {
     },
     onSubmit() {
       const data = {
+        ncpName: this.NcpRegisterForm.name,
         ncpPCode: this.NcpRegisterForm.name_code,
         ncpAreaCode: this.NcpRegisterForm.area_code,
         ncpAddress: this.NcpRegisterForm.address,
@@ -141,16 +146,17 @@ export default {
       const m = this.NcpRegisterForm.more 
       for(var i = 0; i < m.length; i++) {
         data['ncp'+m[i].name] = m[i].value 
-      }/*
+      }
       for(let prop in data) {
         console.log(prop + ':' + data[prop])
-      }*/
+      }
       this.$axios({
-          method: 'get',
-          url: '/',
+          method: 'post',
+          url: 'http://localhost:8080/ncp/add_ncp',
           data: qs.stringify(data)
         })
         .then(function(response) {
+          console.log(response)
           if (response.status === 200) {
             alert('获取数据成功')
           }
