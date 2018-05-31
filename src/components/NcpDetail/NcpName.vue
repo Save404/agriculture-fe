@@ -12,21 +12,21 @@
       <el-option :value="placeholders.third">{{placeholders.third}}</el-option>
       <el-option v-for="(item, index) in third" :key="index" :label="item.label" :value="item.value"></el-option>
     </el-select>
-    <el-select v-model="value4" @change="getAll":placeholder="placeholders.last">
+    <el-select v-model="value4" @change="getAll" :placeholder="placeholders.last">
       <el-option :value="placeholders.last">{{placeholders.last}}</el-option>
       <el-option v-for="(item, index) in last" :key="index" :label="item.label" :value="item.value"></el-option>
     </el-select>
   </div>
 </template>
-
 <script>
 import qs from 'qs'
+import data from '../../assets/data.json'
 export default {
   name: 'ncp-name',
   props: {
     placeholders: {
       type: Object,
-      default() {
+      default () {
         return {
           first: '第一分类',
           second: '第二分类',
@@ -38,22 +38,23 @@ export default {
   },
   data() {
     return {
+      total: data,
       value1: '',
       value2: '',
       value3: '',
       value4: '',
       first: [
-        {value:'0100000000000', label:'粮食'},
-        {value:'0200000000000', label:'油料'},
-        {value:'0300000000000', label:'糖料'},
-        {value:'0400000000000', label:'蔬菜'},
-        {value:'0500000000000', label:'水果'},
-        {value:'0600000000000', label:'畜禽及肉类'},
-        {value:'0700000000000', label:'蛋类'},
-        {value:'0800000000000', label:'奶类'},
-        {value:'0900000000000', label:'水产品'},
-        {value:'1000000000000', label:'棉麻类'},
-        {value:'1100000000000', label:'其他农产品'}
+        { value: '0100000000000', label: '粮食' },
+        { value: '0200000000000', label: '油料' },
+        { value: '0300000000000', label: '糖料' },
+        { value: '0400000000000', label: '蔬菜' },
+        { value: '0500000000000', label: '水果' },
+        { value: '0600000000000', label: '畜禽及肉类' },
+        { value: '0700000000000', label: '蛋类' },
+        { value: '0800000000000', label: '奶类' },
+        { value: '0900000000000', label: '水产品' },
+        { value: '1000000000000', label: '棉麻类' },
+        { value: '1100000000000', label: '其他农产品' }
       ],
       second: [],
       third: [],
@@ -61,71 +62,41 @@ export default {
     }
   },
   created() {
-    this.$axios({
-      method: 'get',
-      url: '/',
-    })
-    .then(function(response) {
-      if(response.status === 200) {
-        console.log('get first and created')
-      }
-    })
-    .catch(function(error) {
-      alert(error)
-    })
+    //console.log(this.total)
   },
   methods: {
     getSecond() {
-      this.$emit('got', this.value1)
-      this.$axios({
-        method: 'get',
-        url: '/',
-        data: qs.stringify(this.value1)
-      })
-      .then(function(response) {
-        if(response.status === 200) {
-        //this.second = response.data
+      this.second.length = 0
+      let id = this.value1
+      for (let i in this.total) {
+        if (i.substr(0, 2) === id.substr(0, 2) && i.substr(4) === id.substr(4) && i !== id) {
+          this.second.push({ value: i, label: this.total[i] })
+        }
       }
-      })
-      .catch(function(error) {
-        alert(error)
-      })
-      this.$message('Got second')
+      //this.$message('Got second')
     },
     getThird() {
-      this.$emit('got', this.value2)
-      this.$axios({
-      method: 'get',
-      url: '/',
-      })
-      .then(function(response) {
-        if(response.status === 200) {
-        //this.third = response.data
+      this.third.length = 0
+      let id = this.value2
+      for (let i in this.total) {
+        if (i.substr(0, 4) === id.substr(0, 4) && i.substr(6) === id.substr(6) && i !== id) {
+          this.third.push({ value: i, label: this.total[i] })
+        }
       }
-      })
-      .catch(function(error) {
-        alert(error)
-      })
       this.$message('Got third')
     },
     getLast() {
-      this.$emit('got', this.value3)
-      this.$axios({
-      method: 'get',
-      url: '/',
-      })
-      .then(function(response) {
-        if(response.status === 200) {
-        //this.last = response.data
+      this.last.length = 0
+      let id = this.value3
+      for (let i in this.total) {
+        if (i.substr(0, 6) === id.substr(0, 6) && i.substr(8) === id.substr(8) && i !== id) {
+          this.last.push({ value: i, label: this.total[i] })
+        }
       }
-      })
-      .catch(function(error) {
-        alert(error)
-      })
       this.$message('Got last')
     },
     getAll() {
-      if(this.value4 !== '产品名称') {
+      if (this.value4 !== '产品名称') {
         this.$emit('got', this.value4)
         this.$message('Got all')
       } else {
@@ -134,10 +105,11 @@ export default {
     }
   }
 }
-</script>
 
+</script>
 <style scoped>
 .el-select {
   width: 24%;
 }
+
 </style>

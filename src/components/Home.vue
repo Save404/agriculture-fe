@@ -1,6 +1,5 @@
 <template>
   <div id="Home">
-    <top-navigation></top-navigation>
     <div class="container">
       <main-container></main-container>
     </div>
@@ -8,12 +7,11 @@
   </div>
 </template>
 <script>
-import TopNavigation from './HomeComponents/TopNavigation'
 import MainContainer from './HomeComponents/MainContainer'
 import BottomFooter from './HomeComponents/BottomFooter'
 export default {
   name: 'Home',
-  components: { TopNavigation, MainContainer, BottomFooter },
+  components: { MainContainer, BottomFooter },
   data() {
     return {
 
