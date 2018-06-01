@@ -73,14 +73,14 @@
       </el-aside>
       <el-main>
         <el-table stripe :data="lists">
-          <el-table-column prop="ncpName" label="名称" width="150" align="center">
+          <el-table-column prop="ncpName" sortable label="名称" width="150" align="center">
           </el-table-column>
-          <el-table-column prop="date" label="日期" width="150" align="center">
-          </el-table-column>
+          <el-table-column prop="category" label="分类" align="center"></el-table-column>
           <el-table-column prop="address" label="产地" align="center">
           </el-table-column>
-          <el-table-column prop="feature" label="特点" align="center"></el-table-column>
-          <el-table-column prop="brand" label="品牌" align="center"></el-table-column>
+          <el-table-column prop="ncpFeature" label="特点" align="center"></el-table-column>
+          <el-table-column prop="ncpPublishDate" sortable label="日期" width="150" align="center">
+          </el-table-column>
           <el-table-column label="操作" align="center">
             <template slot-scope="scope">
               <el-button size="mini" @click="getInfo">详情</el-button>
@@ -94,38 +94,13 @@
 <script>
 export default {
   data() {
-    const item = {
-      date: '2018-05-27',
-      name: 'ZYSzys',
-      address: '浙江农林大学'
-    };
     return {
       user: sessionStorage.user,
-      lists: [],
-      tableData: [{
-        name: '西瓜',
-        date: '2018-05-27',
-        address: '浙江农林大学',
-        feature: '果皮薄，剖面好，质地细腻',
-        brand: '玉麟'
-      }, {
-        name: '香蕉',
-        date: '2018-05-27',
-        address: '浙江农林大学',
-        feature: '果皮薄，剖面好，质地细腻',
-        brand: 'zafu'
-      }, {
-        name: '梨',
-        date: '2018-05-27',
-        address: '浙江农林大学',
-        feature: '果皮薄，剖面好，质地细腻',
-        brand: 'zafu'
-      }]
+      lists: []
     }
   },
   created() {
-    //this.getInfo()
-    //console.log(this.lists)
+    this.getInfo()
   },
   methods: {
     goDetail(command) {
@@ -136,30 +111,31 @@ export default {
         this.$router.push({ name: 'FarmerLogin' })
       } else if (command === 'c') {
         this.$message('Clicked')
-        this.getInfo()
       }
     },
     publishNcp() {
       this.$router.push({ name: 'NcpRegister' })
     },
+    dealLists(data) {
+      this.lists.length = 0
+      for (let i in data) {
+        let item = data[i]
+        item['ncpPublishDate'] = new Date(parseInt(item['ncpPublishDate']))
+        item['ncpPublishDate'] = item['ncpPublishDate'].toISOString().substr(0, 10)
+        item['category'] = item['c1Name'] + item['c2Name'] + item['c3Name']
+        item['address'] = item['nameP'] + item['nameC'] + item['nameA']
+        this.lists.push(item)
+      }
+      console.log(this.lists)
+    },
     getInfo() {
-      let lists = this.lists
+      let dealLists = this.dealLists
       this.$axios({
           method: 'get',
           url: 'http://localhost:8080/ncp/get_ncp_list',
         })
         .then(function(response) {
-          //console.log(response.data.data instanceof Array)
-          for (let i in response.data.data) {
-            lists.push(response.data.data[i])
-          }
-          /*
-                  console.log(lists)
-                  for (let i in lists) {
-                    for (let j in lists[i]) {
-                      console.log(j+lists[i][j])
-                    }
-                  }*/
+          dealLists(response.data.data)
         })
         .catch(function(error) {
           alert(error)
