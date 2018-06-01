@@ -15,7 +15,7 @@
         <el-button type="info">{{user}}</el-button>
         <el-dropdown-menu slot="dropdown">
           <el-dropdown-item command="a">查看个人资料</el-dropdown-item>
-          <el-dropdown-item command="b">修改个人资料</el-dropdown-item>
+          <el-dropdown-item command="b">登记个人信息</el-dropdown-item>
           <el-dropdown-item command="c">查看个人农产品</el-dropdown-item>
           <el-dropdown-item command="d">退出登录</el-dropdown-item>
         </el-dropdown-menu>
@@ -126,7 +126,7 @@ export default {
         item['address'] = item['nameP'] + item['nameC'] + item['nameA']
         this.lists.push(item)
       }
-      console.log(this.lists)
+      //console.log(this.lists)
     },
     getInfo() {
       let dealLists = this.dealLists
@@ -147,8 +147,7 @@ export default {
 </script>
 <style scoped>
 .el-container {
-  margin: 0;
-  padding: 0;
+  height: 100%;
 }
 
 .el-header {

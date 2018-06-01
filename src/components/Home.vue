@@ -27,6 +27,7 @@ export default {
 }
 .container {
   margin: 0;
+  height: 100%;
 }
 .bottom-footer {
   position: relative;

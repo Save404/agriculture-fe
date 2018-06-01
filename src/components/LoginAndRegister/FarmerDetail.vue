@@ -10,6 +10,9 @@
           <el-radio border label="女"></el-radio>
         </el-radio-group>
       </el-form-item>
+      <el-form-item class="picker" label="地区" prop="area" :rules="[{required: true, message: '地区不能为空', trigger: 'blur'}]">
+          <v-distpicker :province="FarmerDetailForm.province" :city="FarmerDetailForm.city" :area="FarmerDetailForm.area" :area_code="FarmerDetailForm.area_code" ref="location" @selected="onSelected" :placeholders="FarmerDetailForm.placeholders"></v-distpicker>
+      </el-form-item>
       <el-form-item v-for="(field, index) in FarmerDetailForm.more" :label="field.comment" :key="index" :prop="'more.'+index+'.value'" :rules="[{required:true, message: field.comment+'为必填项', trigger: 'blur'}]">
         <el-input :type="field.type" v-model="field.value" :placeholder="field.sample"></el-input>
       </el-form-item>
@@ -22,10 +25,15 @@
 </template>
 <script>
 import qs from 'qs'
+import VDistpicker from 'v-distpicker'
 export default {
   data() {
     return {
       FarmerDetailForm: {
+        province: '浙江省', 
+        city: '杭州市', 
+        area: '西湖区',
+        area_code: '330106',
         name: '',
         sex: '男',
         more: [
@@ -34,14 +42,22 @@ export default {
           { comment: '身份证', name: 'IdCard', value: '' },
           { comment: '政治面貌', name: 'Politics', value: '' },
           { comment: '供货单位地址', name: 'GhdwAddress', value: '' },
-          { comment: '供货地区编码', name: 'GhdwAreaCode', value: '' },
+          //{ comment: '供货地区编码', name: 'GhdwAreaCode', value: '' },
           { comment: '供货单位联系方式', name: 'GhdwPhone', value: '', sample: '座机或手机' },
           { comment: '支付密码', name: 'PayPassword', value: '', type: 'password' }
         ]
       }
     }
   },
+  components: {VDistpicker},
   methods: {
+    onSelected(data) {
+      this.FarmerDetailForm.province = data.province.value
+      this.FarmerDetailForm.city = data.city.value
+      this.FarmerDetailForm.area = data.area.value
+      this.FarmerDetailForm.area_code = data.area.code
+      this.$message(this.FarmerDetailForm.area)
+    },
     submitForm(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
@@ -55,7 +71,8 @@ export default {
     onSubmit() {
       const data = {
         nhRealName: this.FarmerDetailForm.name,
-        nhSex: this.FarmerDetailForm.sex
+        nhSex: this.FarmerDetailForm.sex,
+        nhGhdwAreaCode: this.FarmerDetailForm.area_code
       }
       const m = this.FarmerDetailForm.more
       for (var i = 0; i < m.length; i++) {
