@@ -83,7 +83,7 @@
           </el-table-column>
           <el-table-column label="操作" align="center">
             <template slot-scope="scope">
-              <el-button size="mini" @click="getInfo">详情</el-button>
+              <el-button size="mini" @click="getNcpSingle(scope.row.ncpBasicId)">详情</el-button>
             </template>
           </el-table-column>
         </el-table>
@@ -140,6 +140,11 @@ export default {
         .catch(function(error) {
           alert(error)
         })
+    },
+    getNcpSingle(id) {
+      this.$store.commit('choiceBasicId', id)
+      this.$router.push({name: 'NcpSingle'})
+      //this.$message('next')
     }
   }
 }

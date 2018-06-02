@@ -5,7 +5,8 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    user: false
+    user: false,
+    choiceId: '',
   },
   mutations: {
     login(state, user) {
@@ -15,6 +16,10 @@ export default new Vuex.Store({
     logout(state, user) {
       state.user = false
       sessionStorage.clear()
+    },
+    choiceBasicId(state, id) {
+      state.choiceId = id
+      sessionStorage.choiceId = id
     }
   }
 })

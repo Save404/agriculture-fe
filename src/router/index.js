@@ -9,6 +9,8 @@ import MjLogin from '@/components/LoginAndRegister/MjLogin'
 import MjRegister from '@/components/LoginAndRegister/MjRegister'
 import NcpRegister from '@/components/NcpDetail/NcpRegister'
 
+import NcpSingle from '@/components/NcpDetail/NcpSingle'
+
 Vue.use(Router)
 
 export default new Router({
@@ -50,6 +52,14 @@ export default new Router({
       component: MjRegister,
       meta: {
         title: '买家注册'
+      }
+    },
+    {
+      path: '/NcpSingle',
+      name: 'NcpSingle',
+      component: NcpSingle,
+      meta: {
+        title: '农产品详情'
       }
     },
     {
