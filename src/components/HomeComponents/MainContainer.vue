@@ -122,7 +122,7 @@ export default {
         let item = data[i]
         item['ncpPublishDate'] = new Date(parseInt(item['ncpPublishDate']))
         item['ncpPublishDate'] = item['ncpPublishDate'].toISOString().substr(0, 10)
-        item['category'] = item['c1Name'] + item['c2Name'] + item['c3Name']
+        item['category'] = item['c1Name'] + '/' + item['c2Name'] + '/' + item['c3Name']
         item['address'] = item['nameP'] + item['nameC'] + item['nameA']
         this.lists.push(item)
       }

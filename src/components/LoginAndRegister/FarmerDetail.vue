@@ -87,7 +87,7 @@ export default {
           data: qs.stringify(data)
         })
         .then(function(response) {
-          console.log(response)
+          //console.log(response)
           if (response.data.code === 0) {
             message('更新农户个人资料成功')
             router.push({name: 'Home'})

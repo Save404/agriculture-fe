@@ -150,15 +150,20 @@ export default {
       for(let prop in data) {
         console.log(prop + ':' + data[prop])
       }
+      let router = this.$router
+      let message = this.$message
       this.$axios({
           method: 'post',
           url: 'http://localhost:8080/ncp/add_ncp',
           data: qs.stringify(data)
         })
         .then(function(response) {
-          console.log(response)
-          if (response.status === 200) {
-            alert('获取数据成功')
+          //console.log(response)
+          if (response.data.code === 0) {
+            message('发布成功')
+            router.push({name: 'Home'})
+          } else {
+            message(response.data.msg)
           }
         })
         .catch(function(error) {
