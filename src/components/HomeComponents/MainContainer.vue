@@ -75,15 +75,17 @@
         <el-table stripe :data="lists">
           <el-table-column prop="ncpName" sortable label="名称" width="150" align="center">
           </el-table-column>
-          <el-table-column prop="category" label="分类" align="center"></el-table-column>
-          <el-table-column prop="address" label="产地" align="center">
+          <el-table-column prop="category" label="分类" align="center" width="200"></el-table-column>
+          <el-table-column prop="address" label="产地" align="center" width="200">
           </el-table-column>
-          <el-table-column prop="ncpFeature" label="特点" align="center"></el-table-column>
-          <el-table-column prop="ncpPublishDate" sortable label="日期" width="150" align="center">
+          <el-table-column prop="ncpFeature" label="特点" align="center" width="150"></el-table-column>
+          <el-table-column prop="ncpPublishDate" sortable label="日期" width="120" align="center">
           </el-table-column>
-          <el-table-column label="操作" align="center">
+          <el-table-column label="操作" align="center" width="250">
             <template slot-scope="scope">
               <el-button size="mini" @click="getNcpSingle(scope.row.ncpBasicId)">详情</el-button>
+              <el-button size="mini" type="danger" @click="">删除</el-button>
+              <el-button size="mini" type="primary" @click="">发布</el-button>
             </template>
           </el-table-column>
         </el-table>

@@ -12,6 +12,11 @@
   "usage": "添加农户详细信息"
 },
 {
+  "url": "http://localhost:8080/nh/get_nh_detail",
+  "usage": "获取农户详细信息",
+  "method": "get"
+}
+{
   "url": "http://localhost:8080/mj/mj_register",
   "usage": "买家注册"
 },
@@ -22,4 +27,18 @@
 {
   "url": "http://localhost:8080/ncp/add_ncp",
   "usage": "添加农产品信息"
+},
+{
+  "url": "http://localhost:8080/ncp/get_ncp_list",
+  "usage": "获取农产品列表",
+  "method": "get"
+},
+{
+  "url": "http://localhost:8080/ncp/get_ncp/{NcpBasicId}p",
+  "usage": "获取单个农产品信息",
+  "method": "get"
+},
+{
+  "url": "http://localhost:8080/ncp/modify_ncp/{NcpBasicId}",
+  "usage": "修改农产品信息"
 }]
