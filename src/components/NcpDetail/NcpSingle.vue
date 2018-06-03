@@ -102,7 +102,10 @@ export default {
   components: { VDistpicker, NcpName },
   created() {
     let form = this.NcpSingleForm
-    let link = 'http://localhost:8080/ncp/get_ncp/' + sessionStorage.choiceId
+    let link = 'http://localhost:8080/ncp/get_ncp/' + sessionStorage.ncpBasicId
+    form.province = sessionStorage.p 
+    form.city = sessionStorage.c 
+    form.area = sessionStorage.a
     this.$axios({
         method: 'get',
         url: link,
@@ -110,7 +113,7 @@ export default {
       .then(function(response) {
         if (response.data.code === 0) {
           const list = response.data.data
-          //console.log(list)
+          console.log(list)
           form.address = list['ncpAddress']
           form.fields[2].value = list['ncpAnnualOutput']
           form.area_code = list['ncpAreaCode']

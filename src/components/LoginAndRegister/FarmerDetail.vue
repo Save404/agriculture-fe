@@ -50,7 +50,41 @@ export default {
     }
   },
   components: {VDistpicker},
+  created() {
+    this.init()
+  },
   methods: {
+    init() {
+      let form = this.FarmerDetailForm
+      this.$axios({
+        method: 'get',
+        url: 'http://localhost:8080/nh/get_nh_detail'
+      })
+      .then(function(response) {
+        if(response.data.code === 0) {
+          const list = response.data.data
+          form.name = list['nhRealName']
+          form.sex = list['nhSex']
+          form.area_code = list['nhGhdwAreaCode']
+          let more = form.more 
+          for(let i = 0; i < more.length; i++) {
+            more[i].value = list['nh'+more[i].name]
+          }
+          /*
+          form.more[0].value = list['nhOrigin']
+          form.more[1].value = list['nhNation']
+          form.more[2].value = list['nhIdCard']
+          form.more[3].value = list['nhPolitics']
+          form.more[4].value = list['nhGhdwAddress']
+          form.more[5].value = list['nhGhdwPhone']
+          form.more[6].value = list['nhPayPassword']
+          */
+        }
+      })
+      .catch(function(error) {
+        alert(error)
+      })
+    },
     onSelected(data) {
       this.FarmerDetailForm.province = data.province.value
       this.FarmerDetailForm.city = data.city.value

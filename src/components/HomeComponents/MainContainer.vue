@@ -14,10 +14,8 @@
       <el-dropdown @command="goDetail">
         <el-button type="info">{{user}}</el-button>
         <el-dropdown-menu slot="dropdown">
-          <el-dropdown-item command="a">查看个人资料</el-dropdown-item>
-          <el-dropdown-item command="b">登记个人信息</el-dropdown-item>
-          <el-dropdown-item command="c">查看个人农产品</el-dropdown-item>
-          <el-dropdown-item command="d">退出登录</el-dropdown-item>
+          <el-dropdown-item command="a">编辑个人资料</el-dropdown-item>
+          <el-dropdown-item command="b">退出登录</el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
     </el-header>
@@ -83,7 +81,7 @@
           </el-table-column>
           <el-table-column label="操作" align="center" width="250">
             <template slot-scope="scope">
-              <el-button size="mini" @click="getNcpSingle(scope.row.ncpBasicId)">详情</el-button>
+              <el-button size="mini" @click="getNcpSingle(scope.row.ncpBasicId, scope.row.c1Name, scope.row.c2Name, scope.row.c3Name, scope.row.ncpName, scope.row.nameP, scope.row.nameC, scope.row.nameA)">详情</el-button>
               <el-button size="mini" type="danger" @click="">删除</el-button>
               <el-button size="mini" type="primary" @click="">发布</el-button>
             </template>
@@ -106,13 +104,11 @@ export default {
   },
   methods: {
     goDetail(command) {
-      if (command === 'b') {
+      if (command === 'a') {
         this.$router.push({ name: 'FarmerDetail' })
-      } else if (command === 'd') {
+      } else if (command === 'b') {
         this.$store.commit('logout')
         this.$router.push({ name: 'FarmerLogin' })
-      } else if (command === 'c') {
-        this.$message('Clicked')
       }
     },
     publishNcp() {
@@ -128,7 +124,7 @@ export default {
         item['address'] = item['nameP'] + item['nameC'] + item['nameA']
         this.lists.push(item)
       }
-      //console.log(this.lists)
+      console.log(this.lists)
     },
     getInfo() {
       let dealLists = this.dealLists
@@ -137,15 +133,17 @@ export default {
           url: 'http://localhost:8080/ncp/get_ncp_list',
         })
         .then(function(response) {
+          //console.log(response.data.data)
           dealLists(response.data.data)
         })
         .catch(function(error) {
           alert(error)
         })
     },
-    getNcpSingle(id) {
-      this.$store.commit('choiceBasicId', id)
-      this.$router.push({name: 'NcpSingle'})
+    getNcpSingle(choicedItem, c1, c2, c3, c4, p, c, a) {
+      console.log(choicedItem, c1, c2, c3, c4, p, c, a)
+      this.$store.commit('choiceBasicId', choicedItem, c1, c2, c3, c4, p, c, a)
+      this.$router.push({ name: 'NcpSingle' })
       //this.$message('next')
     }
   }
