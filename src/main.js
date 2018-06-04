@@ -21,25 +21,6 @@ Vue.use(ElementUI)
 Vue.use(VCharts)
 Vue.component('bottom-footer', BottomFooter)
 Vue.config.productionTip = false
-/*
-axios.defaults.withCredentials = true
-axios.defaults.headers['conten-type'] = 'application/x-www-form-urlencoded'
-Vue.prototype.$axios = axios
-*/
-router.beforeEach((to, from, next) => {
-  if(to.meta.title) {
-    document.title = to.meta.title
-  }
-  if(to.path === '/' || sessionStorage.user) {
-    next()
-  } else {
-    if(!store.state.user && (to.path === '/Home' || to.path === '/NcpRegister')) {
-      next({path:'/'})
-    } else {
-      next()
-    }
-  }
-})
 
 /* eslint-disable no-new */
 new Vue({
