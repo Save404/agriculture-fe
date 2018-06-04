@@ -13,7 +13,7 @@ import NcpSingle from '@/components/NcpDetail/NcpSingle'
 
 Vue.use(Router)
 
-export default new Router({
+const router = new Router({
   routes: [{
       path: '/',
       name: 'FarmerLogin',
@@ -80,3 +80,20 @@ export default new Router({
     }
   ]
 })
+
+router.beforeEach((to, from, next) => {
+  if(to.meta.title) {
+    document.title = to.meta.title
+  }
+  if(to.path === '/' || sessionStorage.user) {
+    next()
+  } else {
+    if(!sessionStorage.user && (to.path === '/Home' || to.path === '/NcpRegister' || to.path === '/NcpSingle' || to.path === '/FarmerDetail')) {
+      next({path:'/'})
+    } else {
+      next()
+    }
+  }
+})
+
+export default router
