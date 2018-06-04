@@ -3,7 +3,7 @@
     <h1>农产品详情</h1>
     <el-form :model="NcpSingleForm" ref="NcpSingleForm" label-width="120px">
       <el-form-item label="产品名称" prop="name_code" :rules="[{required: true,message:'产品名称不能为空',trigger:'blur'}]">
-        <ncp-name @got="setName" :msg="msg"></ncp-name>
+        <ncp-name @got="setName" :msg="msg" :placeholders="NcpSingleForm.initName"></ncp-name>
       </el-form-item>
       <el-form-item v-for="(field, index) in NcpSingleForm.fields" :label="field.comment" :key="field.name" :prop="'fields.'+index+'.value'" :rules="field.rule">
         <el-input v-model="field.value" :placeholder=field.sample style="width: 100%;"></el-input>
@@ -55,6 +55,7 @@ export default {
       id: '',
       msg: '',
       NcpSingleForm: {
+        initName: {},
         name: '',
         name_code: '',
         province: '浙江省',
@@ -106,6 +107,11 @@ export default {
     form.province = sessionStorage.p 
     form.city = sessionStorage.c 
     form.area = sessionStorage.a
+    form.initName.first = sessionStorage.c1
+    form.initName.second = sessionStorage.c2
+    form.initName.third = sessionStorage.c3
+    form.initName.last = sessionStorage.c4
+    //console.log(form.initName)
     this.$axios({
         method: 'get',
         url: link,
@@ -113,7 +119,7 @@ export default {
       .then(function(response) {
         if (response.data.code === 0) {
           const list = response.data.data
-          console.log(list)
+          //console.log(list)
           form.address = list['ncpAddress']
           form.fields[2].value = list['ncpAnnualOutput']
           form.area_code = list['ncpAreaCode']
@@ -186,14 +192,11 @@ export default {
       const m = this.NcpSingleForm.more
       for (var i = 0; i < m.length; i++) {
         data['ncp' + m[i].name] = m[i].value
-      }/*
-      for (let prop in data) {
-        console.log(prop + ':' + data[prop])
-      }*/
+      }
       let router = this.$router
       let message = this.$message
-      let link = 'http://localhost:8080/ncp/modify_ncp/' + sessionStorage.choiceId
-      console.log(link)
+      let link = 'http://localhost:8080/ncp/modify_ncp/' + sessionStorage.ncpBasicId
+      //console.log(link)
       this.$axios({
           method: 'post',
           url: link,

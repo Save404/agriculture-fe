@@ -124,7 +124,7 @@ export default {
         item['address'] = item['nameP'] + item['nameC'] + item['nameA']
         this.lists.push(item)
       }
-      console.log(this.lists)
+      //console.log(this.lists)
     },
     getInfo() {
       let dealLists = this.dealLists
@@ -141,8 +141,15 @@ export default {
         })
     },
     getNcpSingle(choicedItem, c1, c2, c3, c4, p, c, a) {
-      console.log(choicedItem, c1, c2, c3, c4, p, c, a)
-      this.$store.commit('choiceBasicId', choicedItem, c1, c2, c3, c4, p, c, a)
+      //console.log(c1, c2, c3, c4, p, c, a)
+      sessionStorage.setItem("c1", c1)
+      sessionStorage.setItem("c2", c2)
+      sessionStorage.setItem("c3", c3)
+      sessionStorage.setItem("c4", c4)
+      sessionStorage.setItem("p", p)
+      sessionStorage.setItem("c", c)
+      sessionStorage.setItem("a", a)
+      this.$store.commit('choiceBasicId', choicedItem)
       this.$router.push({ name: 'NcpSingle' })
       //this.$message('next')
     }
