@@ -11,7 +11,7 @@
         </el-radio-group>
       </el-form-item>
       <el-form-item class="picker" label="地区" prop="area" :rules="[{required: true, message: '地区不能为空', trigger: 'blur'}]">
-          <v-distpicker :province="FarmerDetailForm.province" :city="FarmerDetailForm.city" :area="FarmerDetailForm.area" :area_code="FarmerDetailForm.area_code" ref="location" @selected="onSelected" :placeholders="FarmerDetailForm.placeholders"></v-distpicker>
+        <v-distpicker :province="FarmerDetailForm.province" :city="FarmerDetailForm.city" :area="FarmerDetailForm.area" :area_code="FarmerDetailForm.area_code" ref="location" @selected="onSelected" :placeholders="FarmerDetailForm.placeholders"></v-distpicker>
       </el-form-item>
       <el-form-item v-for="(field, index) in FarmerDetailForm.more" :label="field.comment" :key="index" :prop="'more.'+index+'.value'" :rules="[{required:true, message: field.comment+'为必填项', trigger: 'blur'}]">
         <el-input :type="field.type" v-model="field.value" :placeholder="field.sample"></el-input>
@@ -30,8 +30,8 @@ export default {
   data() {
     return {
       FarmerDetailForm: {
-        province: '浙江省', 
-        city: '杭州市', 
+        province: '浙江省',
+        city: '杭州市',
         area: '西湖区',
         area_code: '330106',
         name: '',
@@ -49,7 +49,7 @@ export default {
       }
     }
   },
-  components: {VDistpicker},
+  components: { VDistpicker },
   created() {
     this.init()
   },
@@ -57,33 +57,22 @@ export default {
     init() {
       let form = this.FarmerDetailForm
       this.$axios({
-        method: 'get',
-        url: 'http://localhost:8080/nh/get_nh_detail'
-      })
-      .then(function(response) {
-        if(response.data.code === 0) {
-          const list = response.data.data
+          method: 'get',
+          url: 'http://localhost:8080/nh/get_nh_detail'
+        })
+        .then(res => {
+          const list = res
           form.name = list['nhRealName']
           form.sex = list['nhSex']
           form.area_code = list['nhGhdwAreaCode']
-          let more = form.more 
-          for(let i = 0; i < more.length; i++) {
-            more[i].value = list['nh'+more[i].name]
+          let more = form.more
+          for (let i = 0; i < more.length; i++) {
+            more[i].value = list['nh' + more[i].name]
           }
-          /*
-          form.more[0].value = list['nhOrigin']
-          form.more[1].value = list['nhNation']
-          form.more[2].value = list['nhIdCard']
-          form.more[3].value = list['nhPolitics']
-          form.more[4].value = list['nhGhdwAddress']
-          form.more[5].value = list['nhGhdwPhone']
-          form.more[6].value = list['nhPayPassword']
-          */
-        }
-      })
-      .catch(function(error) {
-        alert(error)
-      })
+        })
+        .catch(err => {
+          alert(err)
+        })
     },
     onSelected(data) {
       this.FarmerDetailForm.province = data.province.value
@@ -95,7 +84,18 @@ export default {
     submitForm(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          this.onSubmit()
+          // 是否确认更新资料的消息弹框
+          this.$confirm('确认更新个人资料?', '提示', {
+            confirmButtonText: '确定',
+            cancelButtonText: '取消',
+          }).then(() => {
+            this.onSubmit()
+          }).catch(() => {
+            this.$message({
+              type: 'info',
+              message: '已取消更新'
+            });
+          });
         } else {
           this.$message('请务必完整填写带*号的必填项')
           return false
@@ -112,25 +112,18 @@ export default {
       for (var i = 0; i < m.length; i++) {
         data['nh' + m[i].name] = m[i].value
       }
-      console.log(data)
-      let router = this.$router
-      let message = this.$message
+      // console.log(data) //查看更新个人资料后post的数据
       this.$axios({
           method: 'post',
           url: 'http://localhost:8080/nh/add_nh_detail',
           data: qs.stringify(data)
         })
-        .then(function(response) {
-          //console.log(response)
-          if (response.data.code === 0) {
-            message('更新农户个人资料成功')
-            router.push({name: 'Home'})
-          } else {
-            message(response.data.msg)
-          }
+        .then(res => {
+          this.$message({ message: '更新农户个人资料成功', type: 'success' })
+          this.$router.push({ name: 'Home' })
         })
-        .catch(function(error) {
-          message(error)
+        .catch(err => {
+          this.$message(err)
         })
     },
     goBack() {
@@ -147,4 +140,5 @@ export default {
   left: 50%;
   transform: translateX(-60%);
 }
+
 </style>

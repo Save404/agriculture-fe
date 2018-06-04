@@ -124,20 +124,17 @@ export default {
         item['address'] = item['nameP'] + item['nameC'] + item['nameA']
         this.lists.push(item)
       }
-      //console.log(this.lists)
     },
     getInfo() {
-      let dealLists = this.dealLists
       this.$axios({
           method: 'get',
           url: 'http://localhost:8080/ncp/get_ncp_list',
         })
-        .then(function(response) {
-          //console.log(response.data.data)
-          dealLists(response.data.data)
+        .then(res => {
+          this.dealLists(res)
         })
-        .catch(function(error) {
-          alert(error)
+        .catch(err => {
+          this.$message(err)
         })
     },
     getNcpSingle(choicedItem, c1, c2, c3, c4, p, c, a) {
@@ -151,7 +148,6 @@ export default {
       sessionStorage.setItem("a", a)
       this.$store.commit('choiceBasicId', choicedItem)
       this.$router.push({ name: 'NcpSingle' })
-      //this.$message('next')
     }
   }
 }

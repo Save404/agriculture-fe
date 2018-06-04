@@ -24,7 +24,7 @@ import qs from 'qs'
 import TransHeader from './TransHeader'
 export default {
   name: 'FarmerLogin',
-  components: {TransHeader},
+  components: { TransHeader },
   data() {
     return {
       salt: "z0fdf7f8g9o1",
@@ -63,28 +63,18 @@ export default {
         'nhTelephone': this.FarmerLoginForm.telephone,
         'nhPassword': password
       }
-      let router = this.$router
-      let store = this.$store
-      let message = this.$message
       this.$axios({
           method: 'post',
           url: 'http://localhost:8080/nh/nh_login',
           data: qs.stringify(data)
         })
-        .then(function(response) {
-          if (response.status === 200) {
-            if(response.data.code === 0) {
-              store.commit('login', data.nhTelephone)
-              message({message: '登录成功', type: 'success'})
-              router.push({ name: 'Home' })
-            } else {
-              message.error(response.data.msg)
-            }
-          }
+        .then(res => {
+          this.$store.commit('login', data.nhTelephone)
+          this.$message({ message: '登录成功', type: 'success' })
+          this.$router.push({ name: 'Home' })
         })
-        .catch(function(error) {
-          message('Axios Failed')
-          console.log(error)
+        .catch(err => {
+          this.$message('登录失败，请重试')
         })
     },
     resetPassword() {
@@ -110,7 +100,7 @@ export default {
 }
 
 el-form-item {
-  transform: translateX(-100px); 
+  transform: translateX(-100px);
 }
 
 div el-form-item:after {
@@ -126,4 +116,5 @@ div el-form-item:after {
   position: relative;
   padding-top: 70px;
 }
+
 </style>

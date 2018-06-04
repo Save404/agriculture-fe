@@ -104,8 +104,8 @@ export default {
   created() {
     let form = this.NcpSingleForm
     let link = 'http://localhost:8080/ncp/get_ncp/' + sessionStorage.ncpBasicId
-    form.province = sessionStorage.p 
-    form.city = sessionStorage.c 
+    form.province = sessionStorage.p
+    form.city = sessionStorage.c
     form.area = sessionStorage.a
     form.initName.first = sessionStorage.c1
     form.initName.second = sessionStorage.c2
@@ -116,36 +116,32 @@ export default {
         method: 'get',
         url: link,
       })
-      .then(function(response) {
-        if (response.data.code === 0) {
-          const list = response.data.data
-          //console.log(list)
-          form.address = list['ncpAddress']
-          form.fields[2].value = list['ncpAnnualOutput']
-          form.area_code = list['ncpAreaCode']
-          form.more[6].value = list['ncpBatchPrice']
-          form.fields[1].value = list['ncpBrand']
-          form.more[7].value = list['ncpDeliveryAbility']
-          form.more[9].value = list['ncpDeliveryCost']
-          form.more[2].value = list['ncpDeliveryInfo']
-          form.more[0].value = list['ncpDetail']
-          form.fields[0].value = list['ncpFeature']
-          form.more[3].value = list['ncpGrowthInfo']
-          form.more[4].value = list['ncpGrowthSurrounding']
-          form.more[8].value = list['ncpMinCount']
-          form.name = list['ncpName']
-          form.name_code = list['ncpPCode']
-          form.more[1].value = list['ncpPackage']
-          form.more[5].value = list['ncpPlantArea']
-          form.qvalue = list['ncpQuality']
-          form.fields[4].value = list['ncpReferencePrice']
-          form.fields[3].value = list['ncpSupplyAmount']
-          form.perieds = list['ncpSupplyPeriodStart']
-          form.periede = list['ncpSupplyPeriodEnd']
-        }
+      .then(res => {
+        form.address = res['ncpAddress']
+        form.fields[2].value = res['ncpAnnualOutput']
+        form.area_code = res['ncpAreaCode']
+        form.more[6].value = res['ncpBatchPrice']
+        form.fields[1].value = res['ncpBrand']
+        form.more[7].value = res['ncpDeliveryAbility']
+        form.more[9].value = res['ncpDeliveryCost']
+        form.more[2].value = res['ncpDeliveryInfo']
+        form.more[0].value = res['ncpDetail']
+        form.fields[0].value = res['ncpFeature']
+        form.more[3].value = res['ncpGrowthInfo']
+        form.more[4].value = res['ncpGrowthSurrounding']
+        form.more[8].value = res['ncpMinCount']
+        form.name = res['ncpName']
+        form.name_code = res['ncpPCode']
+        form.more[1].value = res['ncpPackage']
+        form.more[5].value = res['ncpPlantArea']
+        form.qvalue = res['ncpQuality']
+        form.fields[4].value = res['ncpReferencePrice']
+        form.fields[3].value = res['ncpSupplyAmount']
+        form.perieds = res['ncpSupplyPeriodStart']
+        form.periede = res['ncpSupplyPeriodEnd']
       })
-      .catch(function(error) {
-        console.log(error)
+      .catch(err => {
+        alert(err)
       })
   },
   methods: {
@@ -193,26 +189,19 @@ export default {
       for (var i = 0; i < m.length; i++) {
         data['ncp' + m[i].name] = m[i].value
       }
-      let router = this.$router
-      let message = this.$message
-      let link = 'http://localhost:8080/ncp/modify_ncp/' + sessionStorage.ncpBasicId
+      const link = 'http://localhost:8080/ncp/modify_ncp/' + sessionStorage.ncpBasicId
       //console.log(link)
       this.$axios({
           method: 'post',
           url: link,
           data: qs.stringify(data)
         })
-        .then(function(response) {
-          //console.log(response)
-          if (response.data.code === 0) {
-            message('发布成功')
-            router.push({ name: 'Home' })
-          } else {
-            message(response.data.msg)
-          }
+        .then(res => {
+          this.$message({ message: '更新成功', type: 'success' })
+          this.$router.push({ name: 'Home' })
         })
-        .catch(function(error) {
-          alert(error)
+        .catch(err => {
+          alert(err)
         })
     },
     resetForm(formName) {
