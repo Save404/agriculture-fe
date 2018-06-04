@@ -61,9 +61,6 @@ export default {
       last: []
     }
   },
-  created() {
-    //console.log(this.total)
-  },
   methods: {
     getSecond() {
       this.second.length = 0

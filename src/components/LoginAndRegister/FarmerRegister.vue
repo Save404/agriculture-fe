@@ -85,29 +85,17 @@ export default {
         nhPassword: this.FarmerRegisterForm.password,
         rePassword: this.FarmerRegisterForm.repassword
       }
-      let router = this.$router
-      let message = this.$message
       this.$axios({
           method: 'post',
           url: 'http://localhost:8080/nh/nh_register',
           data: qs.stringify(data)
         })
-        .then(function(response) {
-          if (response.status === 200) {
-            //alert('Axios Succeed!')
-            console.log(response)
-            if (response.data.code === 0) {
-              message('注册成功')
-              router.push({ name: 'Home' })
-            } else {
-              message(response.data.msg)
-            }
-          }
+        .then(res => {
+          //this.$store.commit('login', data.nhTelephone)
+          this.$message({ message: '注册成功', type: 'success' })
+          this.$router.push({ name: 'FarmerLogin' })
         })
-        .catch(function(error) {
-          alert('Axios Failed')
-          console.log(error)
-        })
+        .catch(err => {})
     },
     goLogin() {
       this.$router.push({ name: 'FarmerLogin' })
