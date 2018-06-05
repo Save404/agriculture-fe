@@ -16,8 +16,10 @@
 ``` bash
 # install dependencies
 npm install
+# or
+yarn
 
-# serve with hot reload at localhost:8080
+# serve with hot reload at localhost:8081
 npm run dev
 
 # build for production with minification
@@ -30,7 +32,21 @@ npm run build --report
 For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
 
 
+
 ## Todos
 - [ ] 优化界面
-- [ ] 登录注册账号密码的预检验
+- [ ] 农产品登记的各种预检验
 - [ ] 其余模块
+
+- 农户模块
+    - [x] 登录与注册
+    - [x] 编辑个人资料
+    - [x] 发布农产品
+    - [x] 查看个人发布农产品
+
+- 买家
+    - [ ] 登录与注册
+
+- 政府人员
+
+- 管理员
