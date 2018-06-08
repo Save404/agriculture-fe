@@ -5,6 +5,17 @@
       <el-form-item label="产品名称" prop="name_code" :rules="[{required: true,message:'产品名称不能为空',trigger:'blur'}]">
         <ncp-name @got="setName" :msg="msg"></ncp-name>
       </el-form-item>
+      <el-form-item class="picker" label="供应量" prop="SupplyAmount" :rules="[{required: true,message:'供应量不能为空',trigger:'blur'}]">
+        <el-input v-model="NcpRegisterForm.SupplyAmount" placeholder="" style="width:200px;"></el-input>
+        <span style="margin: 0 10px 0 40px;">单位</span>
+        <el-select v-model="NcpRegisterForm.unit" placeholder="斤">
+            <el-option v-for="item in unitOptions"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value">
+            </el-option>
+        </el-select>
+      </el-form-item>
       <el-form-item v-for="(field, index) in NcpRegisterForm.fields" :label="field.comment" :key="field.name" :prop="'fields.'+index+'.value'" :rules="field.rule">
         <el-input v-model="field.value" :placeholder=field.sample style="width: 100%;"></el-input>
       </el-form-item>
@@ -55,6 +66,13 @@ export default {
   data() {
     return {
       msg: '',
+      unitOptions: [
+        {value:'克',label:'克'},
+        {value:'斤',label:'斤'},
+        {value:'公斤',label:'公斤'},
+        {value:'千克',label:'千克'},
+        {value:'吨',label:'吨'},
+      ],
       NcpRegisterForm: {
         name: '',
         name_code: '',
@@ -63,6 +81,8 @@ export default {
         area: '西湖区',
         area_code: '330106',
         address: '',
+        SupplyAmount: '',
+        supplyUnit: '',
         perieds: '',
         periede: '',
         placeholders: {
@@ -73,9 +93,9 @@ export default {
         fields: [
           { comment: '产品特质', name: 'Feature', value: '', rule: [{ required: true, message: '产品特质不能为空', trigger: 'blur' }] },
           { comment: '产品品牌', name: 'Brand', value: '' },
-          { comment: '年产量', name: 'AnnualOutput', value: '', sample: '如:苹果300吨' },
-          { comment: '可供应量', name: 'SupplyAmount', value: '', sample: '如：苹果300吨' },
-          { comment: '参考价格', name: 'ReferencePrice', value: '', sample: '如：几元/几千克' },
+          //{ comment: '年产量', name: 'AnnualOutput', value: '', sample: '如:苹果300吨' },
+          //{ comment: '可供应量', name: 'SupplyAmount', value: '', sample: '如：苹果300吨' },
+          //{ comment: '参考价格', name: 'ReferencePrice', value: '', sample: '如：几元/几千克' },
         ],
         more: [
           { comment: '详情介绍', name: 'Detail', value: '' },
@@ -84,19 +104,19 @@ export default {
           { comment: '生产过程', name: 'GrowthInfo', value: '', sample: '如：种子、机械、化肥、农药、如何控制农药残留等，请尽量详细填写' },
           { comment: '产品生长环境', name: 'GrowthSurrounding', value: '' },
           { comment: '产品种植面积', name: 'PlantArea', value: '', sample: '如:苹果300亩' },
-          { comment: '批量出仓价格', name: 'BatchPrice', value: '', sample: '如：出仓100斤，xx元' },
+          //{ comment: '批量出仓价格', name: 'BatchPrice', value: '', sample: '如：出仓100斤，xx元' },
           { comment: '仓储物流能力', name: 'DeliveryAbility', value: '' },
-          { comment: '起送量', name: 'MinCount', value: '' },
-          { comment: '批量物流成本', name: 'DeliveryCost', value: '' },
+          //{ comment: '起送量', name: 'MinCount', value: '' },
+          //{ comment: '批量物流成本', name: 'DeliveryCost', value: '' },
         ],
         qualities: [
-          { label: '绿色食品认证', value: '1' },
-          { label: '有机食品认证', value: '2' },
-          { label: '无公害农产品认证', value: '3' },
-          { label: '国家地理标志认证', value: '4' },
-          { label: '其它', value: '5' }
+          { label: '绿色食品认证', value: '绿色食品认证' },
+          { label: '有机食品认证', value: '有机食品认证' },
+          { label: '无公害农产品认证', value: '无公害农产品认证' },
+          { label: '国家地理标志认证', value: '国家地理标志认证' },
+          { label: '其它', value: '其它' }
         ],
-        qvalue: '5'
+        qvalue: '其他'
       }
     }
   },
@@ -135,7 +155,9 @@ export default {
         ncpAddress: this.NcpRegisterForm.address,
         ncpQuality: this.NcpRegisterForm.qvalue,
         ncpSupplyPeriodStart: this.NcpRegisterForm.perieds,
-        ncpSupplyPeriodEnd: this.NcpRegisterForm.periede
+        ncpSupplyPeriodEnd: this.NcpRegisterForm.periede,
+        ncpSupplyAmount: this.NcpRegister.SupplyAmount,
+        supplyUnit: this.NcpRegisterForm.supplyUnit
       }
       const f = this.NcpRegisterForm.fields
       for (var i = 0; i < f.length; i++) {

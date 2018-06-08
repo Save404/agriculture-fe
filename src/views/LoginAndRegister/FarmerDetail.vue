@@ -64,6 +64,9 @@ export default {
           const list = res
           form.name = list['nhRealName']
           form.sex = list['nhSex']
+          form.province = list['nameP']
+          form.city = list['nameC']
+          form.area = list['nameA']
           form.area_code = list['nhGhdwAreaCode']
           let more = form.more
           for (let i = 0; i < more.length; i++) {
@@ -79,7 +82,7 @@ export default {
       this.FarmerDetailForm.city = data.city.value
       this.FarmerDetailForm.area = data.area.value
       this.FarmerDetailForm.area_code = data.area.code
-      this.$message(this.FarmerDetailForm.area)
+      //this.$message(this.FarmerDetailForm.area)
     },
     submitForm(formName) {
       this.$refs[formName].validate((valid) => {

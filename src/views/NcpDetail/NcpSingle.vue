@@ -5,6 +5,17 @@
       <el-form-item label="产品名称" prop="name_code" :rules="[{required: true,message:'产品名称不能为空',trigger:'blur'}]">
         <ncp-name @got="setName" :msg="msg" :placeholders="NcpSingleForm.initName"></ncp-name>
       </el-form-item>
+      <el-form-item class="picker" label="供应量" prop="SupplyAmount" :rules="[{required: true,message:'供应量不能为空',trigger:'blur'}]">
+        <el-input v-model="NcpSingleForm.SupplyAmount" placeholder="" style="width:200px;"></el-input>
+        <span style="margin: 0 10px 0 40px;">单位</span>
+        <el-select v-model="NcpSingleForm.supplyUnit" placeholder="斤">
+            <el-option v-for="item in unitOptions"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value">
+            </el-option>
+        </el-select>
+      </el-form-item>
       <el-form-item v-for="(field, index) in NcpSingleForm.fields" :label="field.comment" :key="field.name" :prop="'fields.'+index+'.value'" :rules="field.rule">
         <el-input v-model="field.value" :placeholder=field.sample style="width: 100%;"></el-input>
       </el-form-item>
@@ -54,6 +65,13 @@ export default {
     return {
       id: '',
       msg: '',
+      unitOptions: [
+        {value:'克',label:'克'},
+        {value:'斤',label:'斤'},
+        {value:'公斤',label:'公斤'},
+        {value:'千克',label:'千克'},
+        {value:'吨',label:'吨'},
+      ],
       NcpSingleForm: {
         initName: {},
         name: '',
@@ -63,6 +81,8 @@ export default {
         area: '西湖区',
         area_code: '330106',
         address: '',
+        SupplyAmount: '',
+        supplyUnit: '',
         perieds: '',
         periede: '',
         placeholders: {
@@ -73,9 +93,9 @@ export default {
         fields: [
           { comment: '产品特质', name: 'Feature', value: '', rule: [{ required: true, message: '产品特质不能为空', trigger: 'blur' }] },
           { comment: '产品品牌', name: 'Brand', value: '' },
-          { comment: '年产量', name: 'AnnualOutput', value: '', sample: '如:苹果300吨' },
-          { comment: '可供应量', name: 'SupplyAmount', value: '', sample: '如：苹果300吨' },
-          { comment: '参考价格', name: 'ReferencePrice', value: '', sample: '如：几元/几千克' },
+          //{ comment: '年产量', name: 'AnnualOutput', value: '', sample: '如:苹果300吨' },
+          //{ comment: '可供应量', name: 'SupplyAmount', value: '', sample: '如：苹果300吨' },
+          //{ comment: '参考价格', name: 'ReferencePrice', value: '', sample: '如：几元/几千克' },
         ],
         more: [
           { comment: '详情介绍', name: 'Detail', value: '' },
@@ -84,19 +104,19 @@ export default {
           { comment: '生产过程', name: 'GrowthInfo', value: '', sample: '如：种子、机械、化肥、农药、如何控制农药残留等，请尽量详细填写' },
           { comment: '产品生长环境', name: 'GrowthSurrounding', value: '' },
           { comment: '产品种植面积', name: 'PlantArea', value: '', sample: '如:苹果300亩' },
-          { comment: '批量出仓价格', name: 'BatchPrice', value: '', sample: '如：出仓100斤，xx元' },
+          //{ comment: '批量出仓价格', name: 'BatchPrice', value: '', sample: '如：出仓100斤，xx元' },
           { comment: '仓储物流能力', name: 'DeliveryAbility', value: '' },
-          { comment: '起送量', name: 'MinCount', value: '' },
-          { comment: '批量物流成本', name: 'DeliveryCost', value: '' },
+          //{ comment: '起送量', name: 'MinCount', value: '' },
+          //{ comment: '批量物流成本', name: 'DeliveryCost', value: '' },
         ],
         qualities: [
-          { label: '绿色食品认证', value: '1' },
-          { label: '有机食品认证', value: '2' },
-          { label: '无公害农产品认证', value: '3' },
-          { label: '国家地理标志认证', value: '4' },
-          { label: '其它', value: '5' }
+          { label: '绿色食品认证', value: '绿色食品认证' },
+          { label: '有机食品认证', value: '有机食品认证' },
+          { label: '无公害农产品认证', value: '无公害农产品认证' },
+          { label: '国家地理标志认证', value: '国家地理标志认证' },
+          { label: '其它', value: '其它' }
         ],
-        qvalue: '5'
+        qvalue: '其他'
       }
     }
   },
@@ -118,31 +138,34 @@ export default {
       })
       .then(res => {
         form.address = res['ncpAddress']
-        form.fields[2].value = res['ncpAnnualOutput']
+        //form.fields[2].value = res['ncpAnnualOutput']
         form.area_code = res['ncpAreaCode']
-        form.more[6].value = res['ncpBatchPrice']
+        //form.more[6].value = res['ncpBatchPrice']
         form.fields[1].value = res['ncpBrand']
-        form.more[7].value = res['ncpDeliveryAbility']
-        form.more[9].value = res['ncpDeliveryCost']
+        form.more[6].value = res['ncpDeliveryAbility']
+        //form.more[9].value = res['ncpDeliveryCost']
         form.more[2].value = res['ncpDeliveryInfo']
         form.more[0].value = res['ncpDetail']
         form.fields[0].value = res['ncpFeature']
         form.more[3].value = res['ncpGrowthInfo']
         form.more[4].value = res['ncpGrowthSurrounding']
-        form.more[8].value = res['ncpMinCount']
+        //form.more[8].value = res['ncpMinCount']
         form.name = res['ncpName']
         form.name_code = res['ncpPCode']
         form.more[1].value = res['ncpPackage']
         form.more[5].value = res['ncpPlantArea']
         form.qvalue = res['ncpQuality']
-        form.fields[4].value = res['ncpReferencePrice']
-        form.fields[3].value = res['ncpSupplyAmount']
+        //form.fields[4].value = res['ncpReferencePrice']
+        //form.fields[2].value = res['ncpSupplyAmount']
+        form.SupplyAmount = res['ncpSupplyAmount']
+        form.supplyUnit = res['supplyUnit']
         form.perieds = res['ncpSupplyPeriodStart']
         form.periede = res['ncpSupplyPeriodEnd']
       })
       .catch(err => {
         alert(err)
       })
+    console.log(form)
   },
   methods: {
     setName(msg) {
@@ -179,7 +202,9 @@ export default {
         ncpAddress: this.NcpSingleForm.address,
         ncpQuality: this.NcpSingleForm.qvalue,
         ncpSupplyPeriodStart: this.NcpSingleForm.perieds,
-        ncpSupplyPeriodEnd: this.NcpSingleForm.periede
+        ncpSupplyPeriodEnd: this.NcpSingleForm.periede,
+        ncpSupplyAmount: this.NcpSingleForm.SupplyAmount,
+        supplyUnit: this.NcpSingleForm.supplyUnit
       }
       const f = this.NcpSingleForm.fields
       for (var i = 0; i < f.length; i++) {

@@ -6,7 +6,7 @@ axios.defaults.withCredentials = true
 axios.defaults.headers['conten-type'] = 'application/x-www-form-urlencoded'
 
 axios.interceptors.response.use(res => {
-  //console.log(res) //打印返回数据，便于调试
+  console.log(res) //打印返回数据，便于调试
   if (res.data.code !== undefined) {
     if (res.data.code !== 0) {
       Message.error(res.data.msg)

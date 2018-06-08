@@ -8,10 +8,10 @@
 </template>
 <script>
 import MainContainer from './HomeComponents/MainContainer'
-import BottomFooter from './HomeComponents/BottomFooter'
+//import BottomFooter from './HomeComponents/BottomFooter'
 export default {
   name: 'Home',
-  components: { MainContainer, BottomFooter },
+  components: { MainContainer},// BottomFooter },
   data() {
     return {
 
