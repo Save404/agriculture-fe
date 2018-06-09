@@ -10,15 +10,15 @@ import store from './store/store'
 import 'normalize.css'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
-import VCharts from 'v-charts'
+//import VCharts from 'v-charts'
 import './assets/global.css'
 
-import BottomFooter from './components/HomeComponents/BottomFooter'
+import BottomFooter from '@/components/BottomFooter'
 
 import './util/axios'
 
 Vue.use(ElementUI)
-Vue.use(VCharts)
+//Vue.use(VCharts)
 Vue.component('bottom-footer', BottomFooter)
 Vue.config.productionTip = false
 

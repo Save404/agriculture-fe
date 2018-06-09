@@ -1,37 +1,30 @@
 <template>
-  <div id="farmer-login">
-    <trans-header/>
-    <el-form :model="FarmerLoginForm" :rules="rules" ref="FarmerLoginForm" label-width="80px">
+  <div class="login">
+    <el-form :model="form" ref="form" :rules="rules" label-width="80px">
       <el-form-item label="手机号码" prop="telephone">
-        <el-input v-model="FarmerLoginForm.telephone" placeholder="请输入11位手机号码"></el-input>
+        <el-input v-model="form.telephone" placeholder="请输入11位手机号码"></el-input>
       </el-form-item>
       <el-form-item label="登录密码" prop="password">
-        <el-input type="password" v-model="FarmerLoginForm.password" placeholder="请输入登录密码"></el-input>
+        <el-input type="password" v-model="form.password" placeholder="请输入登录密码"></el-input>
       </el-form-item>
-      <el-button type="primary" @click="submitForm('FarmerLoginForm')">立即登录</el-button>
-      <el-button @click="resetForm('FarmerLoginForm')">取消</el-button>
+      <el-button type="primary" @click="submitForm('form')">立即登录</el-button>
+      <el-button @click="resetForm('form')">取消</el-button>
       <br>
       <br>
       <el-button type="info" @click="resetPassword">忘记密码</el-button>
       <el-button type="success" @click="goRegister">无账号，去注册</el-button>
     </el-form>
-    <bottom-footer/>
   </div>
 </template>
 <script>
 import md5 from 'js-md5'
 import qs from 'qs'
-import TransHeader from './TransHeader'
 export default {
-  name: 'FarmerLogin',
-  components: { TransHeader },
+  name: 'login-form',
+  props: ['form', 'url'],
   data() {
     return {
       salt: "z0fdf7f8g9o1",
-      FarmerLoginForm: {
-        telephone: '',
-        password: ''
-      },
       rules: {
         telephone: [
           { required: true, message: '请输入手机号码', trigger: 'blur' },
@@ -48,40 +41,46 @@ export default {
   methods: {
     submitForm(formName) {
       this.$refs[formName].validate((valid) => {
-        if (valid) {
-          //this.$message('Validation passed')
+        if (valid) { // 如果规则校验通过就进行下一步登录
+          //this.$message('Validation passed') 
           this.onSubmit()
         } else {
-          this.$message('密码错误');
+          this.$message('请检查手机号码或密码格式');
           return false
         }
       })
     },
     onSubmit() {
-      let password = md5(("" + this.salt.charAt(0) + this.salt.charAt(2) + this.FarmerLoginForm.password + this.salt.charAt(5) + this.salt))
-      const data = {
-        'nhTelephone': this.FarmerLoginForm.telephone,
-        'nhPassword': password
+      const password = md5(("" + this.salt.charAt(0) + this.salt.charAt(2) + this.form.password + this.salt.charAt(5) + this.salt))
+      const data = {}
+      if (this.url.includes('nh')) {
+        data.nhTelephone = this.form.telephone
+        data.nhPassword = password
+      } else if (this.url.includes('mj')) {
+        data.mjTelephone = this.form.telephone
+        data.mjPassword = password
       }
       this.$axios({
           method: 'post',
-          url: 'http://localhost:8080/nh/nh_login',
+          url: this.url,
           data: qs.stringify(data)
         })
         .then(res => {
-          this.$store.commit('login', data.nhTelephone)
+          this.$store.commit('login', this.form.telephone)
           this.$message({ message: '登录成功', type: 'success' })
           this.$router.push({ name: 'Home' })
         })
-        .catch(err => {
-          this.$message('登录失败，请重试')
-        })
+        .catch(err => {})
     },
     resetPassword() {
       this.$message('重置密码！！')
     },
     goRegister() {
-      this.$router.push({ name: 'FarmerRegister' })
+      if (this.url.includes('nh')) {
+        this.$router.push({ name: 'FarmerRegister' })
+      } else {
+        this.$router.push({ name: 'MjRegister' })
+      }
     },
     resetForm(formName) {
       this.$refs[formName].resetFields();
@@ -90,31 +89,9 @@ export default {
 }
 
 </script>
+
 <style scoped>
-.el-form {
-  width: 40%;
-  margin-top: 70px;
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
+.el-form-item {
+  transform: translateX(-40px);
 }
-
-el-form-item {
-  transform: translateX(-100px);
-}
-
-div el-form-item:after {
-  clear: both;
-  content: ".";
-  display: block;
-  height: 0;
-  width: 0;
-  visibility: hidden;
-}
-
-.trans-header {
-  position: relative;
-  padding-top: 70px;
-}
-
 </style>

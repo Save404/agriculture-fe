@@ -1,15 +1,15 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
-import Home from '@/components/Home'
-import FarmerLogin from '@/components/LoginAndRegister/FarmerLogin'
-import FarmerRegister from '@/components/LoginAndRegister/FarmerRegister'
-import FarmerDetail from '@/components/LoginAndRegister/FarmerDetail'
-import MjLogin from '@/components/LoginAndRegister/MjLogin'
-import MjRegister from '@/components/LoginAndRegister/MjRegister'
-import NcpRegister from '@/components/NcpDetail/NcpRegister'
+import Home from '@/views/Home'
+import FarmerLogin from '@/views/nh/FarmerLogin'
+import FarmerRegister from '@/views/nh/FarmerRegister'
+import FarmerDetail from '@/views/nh/FarmerDetail'
+import MjLogin from '@/views/mj/MjLogin'
+import MjRegister from '@/views/mj/MjRegister'
+import NcpRegister from '@/views/NcpDetail/NcpRegister'
 
-import NcpSingle from '@/components/NcpDetail/NcpSingle'
+import NcpSingle from '@/views/NcpDetail/NcpSingle'
 
 Vue.use(Router)
 
@@ -72,7 +72,7 @@ const router = new Router({
       }
     },
     {
-      path: '/ml/register',
+      path: '/mj/register',
       name: 'MjRegister',
       component: MjRegister,
       meta: {
