@@ -9,11 +9,16 @@
         <el-input v-model="NcpSingleForm.SupplyAmount" placeholder="" style="width:200px;"></el-input>
         <span style="margin: 0 10px 0 40px;">单位</span>
         <el-select v-model="NcpSingleForm.supplyUnit" placeholder="斤">
-            <el-option v-for="item in unitOptions"
-                :key="item.value"
-                :label="item.label"
-                :value="item.value">
-            </el-option>
+          <el-option v-for="item in unitsOptions" :key="item.value" :label="item.label" :value="item.value">
+          </el-option>
+        </el-select>
+      </el-form-item>
+      <el-form-item class="picker" label="价格" prop="Price" :rules="[{required: true,message:'价格不能为空',trigger:'blur'}]">
+        <el-input v-model="NcpSingleForm.Price" style="width:200px;"></el-input>
+        <span style="margin: 0 10px 0 40px;">单位</span>
+        <el-select v-model="NcpSingleForm.priceUnit">
+          <el-option v-for="item in unitpOptions" :key="item.value" :label="item.label" :value="item.value">
+          </el-option>
         </el-select>
       </el-form-item>
       <el-form-item v-for="(field, index) in NcpSingleForm.fields" :label="field.comment" :key="field.name" :prop="'fields.'+index+'.value'" :rules="field.rule">
@@ -66,12 +71,19 @@ export default {
     return {
       id: '',
       msg: '',
-      unitOptions: [
-        {value:'克',label:'克'},
-        {value:'斤',label:'斤'},
-        {value:'公斤',label:'公斤'},
-        {value:'千克',label:'千克'},
-        {value:'吨',label:'吨'},
+      unitsOptions: [
+        { value: '克', label: '克' },
+        { value: '斤', label: '斤' },
+        { value: '公斤', label: '公斤' },
+        { value: '千克', label: '千克' },
+        { value: '吨', label: '吨' },
+      ],
+      unitpOptions: [
+        { value: '元/克', label: '元/克' },
+        { value: '元/斤', label: '元/斤' },
+        { value: '元/公斤', label: '元/公斤' },
+        { value: '元/千克', label: '元/千克' },
+        { value: '元/吨', label: '元/吨' },
       ],
       NcpSingleForm: {
         initName: {},
@@ -83,7 +95,9 @@ export default {
         area_code: '330106',
         address: '',
         SupplyAmount: '',
-        supplyUnit: '',
+        supplyUnit: '斤',
+        Price: '',
+        priceUnit: '元/斤',
         perieds: '',
         periede: '',
         placeholders: {
@@ -162,6 +176,11 @@ export default {
         form.supplyUnit = res['supplyUnit']
         form.perieds = res['ncpSupplyPeriodStart']
         form.periede = res['ncpSupplyPeriodEnd']
+
+        form.SupplyAmount = res['ncpSupplyAmount']
+        form.supplyUnit = res['supplyUnit']
+        form.Price = res['ncpPrice']
+        form.priceUnit = res['priceUnit']
       })
       .catch(err => {
         alert(err)
@@ -205,7 +224,9 @@ export default {
         ncpSupplyPeriodStart: this.NcpSingleForm.perieds,
         ncpSupplyPeriodEnd: this.NcpSingleForm.periede,
         ncpSupplyAmount: this.NcpSingleForm.SupplyAmount,
-        supplyUnit: this.NcpSingleForm.supplyUnit
+        supplyUnit: this.NcpSingleForm.supplyUnit,
+        ncpPrice: this.NcpSingleForm.Price,
+        priceUnit: this.NcpSingleForm.priceUnit
       }
       const f = this.NcpSingleForm.fields
       for (var i = 0; i < f.length; i++) {

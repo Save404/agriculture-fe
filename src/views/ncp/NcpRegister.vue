@@ -9,7 +9,18 @@
         <el-input v-model="NcpRegisterForm.SupplyAmount" style="width:200px;"></el-input>
         <span style="margin: 0 10px 0 40px;">单位</span>
         <el-select v-model="NcpRegisterForm.supplyUnit">
-            <el-option v-for="item in unitOptions"
+            <el-option v-for="item in unitsOptions"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value">
+            </el-option>
+        </el-select>
+      </el-form-item>
+      <el-form-item class="picker" label="价格" prop="Price" :rules="[{required: true,message:'价格不能为空',trigger:'blur'}]">
+        <el-input v-model="NcpRegisterForm.Price" style="width:200px;"></el-input>
+        <span style="margin: 0 10px 0 40px;">单位</span>
+        <el-select v-model="NcpRegisterForm.priceUnit">
+            <el-option v-for="item in unitpOptions"
                 :key="item.value"
                 :label="item.label"
                 :value="item.value">
@@ -66,12 +77,19 @@ export default {
   data() {
     return {
       msg: '',
-      unitOptions: [
+      unitsOptions: [
         {value:'克',label:'克'},
         {value:'斤',label:'斤'},
         {value:'公斤',label:'公斤'},
         {value:'千克',label:'千克'},
         {value:'吨',label:'吨'},
+      ],
+      unitpOptions: [
+        {value:'元/克',label:'元/克'},
+        {value:'元/斤',label:'元/斤'},
+        {value:'元/公斤',label:'元/公斤'},
+        {value:'元/千克',label:'元/千克'},
+        {value:'元/吨',label:'元/吨'},
       ],
       NcpRegisterForm: {
         name: '',
@@ -83,6 +101,8 @@ export default {
         address: '',
         SupplyAmount: '',
         supplyUnit: '斤',
+        Price: '',
+        priceUnit: '元/斤',
         perieds: '',
         periede: '',
         placeholders: {
@@ -158,7 +178,8 @@ export default {
         ncpSupplyPeriodEnd: this.NcpRegisterForm.periede,
         ncpSupplyAmount: this.NcpRegisterForm.SupplyAmount,
         supplyUnit: this.NcpRegisterForm.supplyUnit,
-        ncpPrice: '100',
+        ncpPrice: this.NcpRegisterForm.Price,
+        priceUnit: this.NcpRegisterForm.priceUnit
       }
       const f = this.NcpRegisterForm.fields
       for (var i = 0; i < f.length; i++) {
