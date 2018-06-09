@@ -1,127 +1,35 @@
 <template>
   <div id="Mj-login">
     <trans-header/>
-    <el-form :model="MjLoginForm" :rules="rules" ref="MjLoginForm" label-width="80px">
-      <el-form-item label="手机号码" prop="telephone">
-        <el-input v-model="MjLoginForm.telephone" placeholder="请输入11位手机号码"></el-input>
-      </el-form-item>
-      <el-form-item label="登录密码" prop="password">
-        <el-input type="password" v-model="MjLoginForm.password" placeholder="请输入登录密码"></el-input>
-      </el-form-item>
-      <el-button type="primary" @click="submitForm('MjLoginForm')">立即登录</el-button>
-      <el-button @click="resetForm('MjLoginForm')">取消</el-button>
-      <br>
-      <br>
-      <el-button type="info" @click="resetPassword">忘记密码</el-button>
-      <el-button type="success" @click="goRegister">无账号，去注册</el-button>
-    </el-form>
+    <login :form="MjLoginForm" :url="url" />
     <bottom-footer/>
   </div>
 </template>
 <script>
-import md5 from 'js-md5'
-import qs from 'qs'
 import TransHeader from './TransHeader'
+import Login from '@/components/Login'
 export default {
   name: 'MjLogin',
-  components: {TransHeader},
+  components: { TransHeader, Login },
   data() {
     return {
-      salt: "z0fdf7f8g9o1",
+      url: 'http://localhost:8080/mj/mj_login',
       MjLoginForm: {
         telephone: '',
         password: ''
-      },
-      rules: {
-        telephone: [
-          { required: true, message: '请输入手机号码', trigger: 'blur' },
-          { min: 11, max: 11, message: '请输入11位手机号码', trigger: 'blur' },
-          { pattern: /^1[34578]\d{9}$/, message: '目前只支持中国大陆的手机号码', trigger: 'blur' }
-        ],
-        password: [
-          { required: true, message: '请输入登录密码', trigger: 'blur' },
-          { min: 6, max: 20, message: '请输入6-20位密码', trigger: 'blur' }
-        ]
       }
-    }
-  },
-  methods: {
-    submitForm(formName) {
-      this.$refs[formName].validate((valid) => {
-        if (valid) {
-          //this.$message('Validation passed')
-          this.onSubmit()
-        } else {
-          this.$message('密码错误');
-          return false
-        }
-      })
-    },
-    onSubmit() {
-      let password = md5(("" + this.salt.charAt(0) + this.salt.charAt(2) + this.MjLoginForm.password + this.salt.charAt(5) + this.salt))
-      const data = {
-        'mjTelephone': this.MjLoginForm.telephone,
-        'mjPassword': password
-      }
-      let store = this.$store
-      let router = this.$router
-      let message = this.$message
-      this.$axios({
-          method: 'post',
-          url: 'http://localhost:8080/mj/mj_login',
-          data: qs.stringify(data)
-        })
-        .then(function(response) {
-          if (response.status === 200) {
-            //message('Axios Succeed!')
-            //console.log(response)
-            if(response.data.code === 0) {
-              store.commit('login', data.mjTelephone)
-              message({message:'登录成功',type:'success'})
-              router.push({ name: 'Home' })
-            } else {
-              message.error(response.data.msg)
-            }
-          }
-        })
-        .catch(function(error) {
-          message('Axios Failed')
-          console.log(error)
-        })
-    },
-    resetPassword() {
-      this.$message('重置密码！！')
-    },
-    goRegister() {
-      this.$router.push({ name: 'MjRegister' })
-    },
-    resetForm(formName) {
-      this.$refs[formName].resetFields();
     }
   }
 }
 
 </script>
 <style scoped>
-.el-form {
+.login {
   width: 40%;
   margin-top: 70px;
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
-}
-
-el-form-item {
-  transform: translateX(-100px); 
-}
-
-div el-form-item:after {
-  clear: both;
-  content: ".";
-  display: block;
-  height: 0;
-  width: 0;
-  visibility: hidden;
 }
 
 .trans-header {
