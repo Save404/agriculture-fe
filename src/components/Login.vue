@@ -66,7 +66,7 @@ export default {
           data: qs.stringify(data)
         })
         .then(res => {
-          this.$store.commit('login', data.nhTelephone)
+          this.$store.commit('login', this.form.telephone)
           this.$message({ message: '登录成功', type: 'success' })
           this.$router.push({ name: 'Home' })
         })

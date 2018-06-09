@@ -1,16 +1,11 @@
 <template>
   <el-footer class="bottom-footer" height="20px">
-    <span>Copyright by zafu</span>
+    <span>Copyright © 2018 ZAFU</span>
   </el-footer>
 </template>
 <script>
 export default {
   name: 'bottom-footer',
-  data() {
-    return {
-
-    }
-  }
 }
 
 </script>

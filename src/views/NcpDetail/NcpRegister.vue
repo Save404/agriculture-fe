@@ -156,7 +156,7 @@ export default {
         ncpQuality: this.NcpRegisterForm.qvalue,
         ncpSupplyPeriodStart: this.NcpRegisterForm.perieds,
         ncpSupplyPeriodEnd: this.NcpRegisterForm.periede,
-        ncpSupplyAmount: this.NcpRegister.SupplyAmount,
+        ncpSupplyAmount: this.NcpRegisterForm.SupplyAmount,
         supplyUnit: this.NcpRegisterForm.supplyUnit
       }
       const f = this.NcpRegisterForm.fields

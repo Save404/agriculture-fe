@@ -2,11 +2,11 @@ import Vue from 'vue'
 import Router from 'vue-router'
 
 import Home from '@/views/Home'
-import FarmerLogin from '@/views/LoginAndRegister/FarmerLogin'
-import FarmerRegister from '@/views/LoginAndRegister/FarmerRegister'
-import FarmerDetail from '@/views/LoginAndRegister/FarmerDetail'
-import MjLogin from '@/views/LoginAndRegister/MjLogin'
-import MjRegister from '@/views/LoginAndRegister/MjRegister'
+import FarmerLogin from '@/views/nh/FarmerLogin'
+import FarmerRegister from '@/views/nh/FarmerRegister'
+import FarmerDetail from '@/views/nh/FarmerDetail'
+import MjLogin from '@/views/mj/MjLogin'
+import MjRegister from '@/views/mj/MjRegister'
 import NcpRegister from '@/views/NcpDetail/NcpRegister'
 
 import NcpSingle from '@/views/NcpDetail/NcpSingle'
@@ -72,7 +72,7 @@ const router = new Router({
       }
     },
     {
-      path: '/ml/register',
+      path: '/mj/register',
       name: 'MjRegister',
       component: MjRegister,
       meta: {

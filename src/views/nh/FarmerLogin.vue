@@ -1,20 +1,20 @@
 <template>
-  <div id="Mj-login">
+  <div id="farmer-login">
     <trans-header/>
-    <login :form="MjLoginForm" :url="url" />
+    <login :form="FarmerLoginForm" :url="url" />
     <bottom-footer/>
   </div>
 </template>
 <script>
-import TransHeader from './TransHeader'
+import TransHeader from '@/components/TransHeader'
 import Login from '@/components/Login'
 export default {
-  name: 'MjLogin',
+  name: 'FarmerLogin',
   components: { TransHeader, Login },
   data() {
     return {
-      url: 'http://localhost:8080/mj/mj_login',
-      MjLoginForm: {
+      url: 'http://localhost:8080/nh/nh_login',
+      FarmerLoginForm: {
         telephone: '',
         password: ''
       }
