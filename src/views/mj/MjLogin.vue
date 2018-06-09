@@ -1,8 +1,8 @@
 <template>
   <div id="Mj-login">
     <trans-header/>
-    <login :form="MjLoginForm" :url="url" />
-    <bottom-footer/>
+    <login :form="MjLoginForm" :url="url"></login>
+    <bottom-footer></bottom-footer>
   </div>
 </template>
 <script>

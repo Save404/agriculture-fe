@@ -1,8 +1,8 @@
 <template>
   <div id="farmer-login">
-    <trans-header/>
-    <login :form="FarmerLoginForm" :url="url" />
-    <bottom-footer/>
+    <trans-header></trans-header>
+    <login :form="FarmerLoginForm" :url="url"></login>
+    <bottom-footer></bottom-footer>
   </div>
 </template>
 <script>

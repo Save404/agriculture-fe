@@ -1,15 +1,15 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
-import Home from '@/views/Home'
+import Home from '@/views/home/Home'
 import FarmerLogin from '@/views/nh/FarmerLogin'
 import FarmerRegister from '@/views/nh/FarmerRegister'
 import FarmerDetail from '@/views/nh/FarmerDetail'
 import MjLogin from '@/views/mj/MjLogin'
 import MjRegister from '@/views/mj/MjRegister'
-import NcpRegister from '@/views/NcpDetail/NcpRegister'
 
-import NcpSingle from '@/views/NcpDetail/NcpSingle'
+import NcpRegister from '@/views/ncp/NcpRegister'
+import NcpSingle from '@/views/ncp/NcpSingle'
 
 Vue.use(Router)
 

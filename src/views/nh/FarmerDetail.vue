@@ -27,6 +27,7 @@
 import qs from 'qs'
 import VDistpicker from 'v-distpicker'
 export default {
+  name: 'FarmerDetail',
   data() {
     return {
       FarmerDetailForm: {

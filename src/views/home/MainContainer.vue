@@ -93,6 +93,7 @@
 </template>
 <script>
 export default {
+  name: 'MainContainer',
   data() {
     return {
       user: sessionStorage.user,

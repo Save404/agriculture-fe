@@ -45,7 +45,7 @@ For a detailed explanation on how things work, check out the [guide](http://vuej
     - [x] 查看个人发布农产品
 
 - 买家
-    - [ ] 登录与注册
+    - [x] 登录与注册
 
 - 政府人员
 

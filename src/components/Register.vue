@@ -27,7 +27,7 @@
 <script>
 import qs from 'qs'
 export default {
-  name: 'register-form',
+  name: 'Register',
   props: ['form', 'url'],
   data() {
     var repass = (rule, value, callback) => {

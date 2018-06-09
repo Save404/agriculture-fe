@@ -22,7 +22,7 @@
 import qs from 'qs'
 import data from '@/assets/data.json'
 export default {
-  name: 'ncp-name',
+  name: 'NcpName',
   props: {
     placeholders: {
       type: Object,

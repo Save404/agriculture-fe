@@ -20,7 +20,7 @@
 import md5 from 'js-md5'
 import qs from 'qs'
 export default {
-  name: 'login-form',
+  name: 'Login',
   props: ['form', 'url'],
   data() {
     return {

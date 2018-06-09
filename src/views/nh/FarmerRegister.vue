@@ -1,7 +1,7 @@
 <template>
   <div id="farmer-register">
-    <register :form="FarmerRegisterForm" :url="url" />
-    <bottom-footer/>
+    <register :form="FarmerRegisterForm" :url="url"></register>
+    <bottom-footer></bottom-footer>
   </div>
 </template>
 <script>

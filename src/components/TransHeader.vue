@@ -9,6 +9,7 @@
 </template>
 <script>
 export default {
+  name: 'TransHeader',
   methods: {
     transMj() {
       this.$router.push({name: 'MjLogin'})

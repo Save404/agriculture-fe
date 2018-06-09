@@ -7,11 +7,10 @@
   </div>
 </template>
 <script>
-import MainContainer from './HomeComponents/MainContainer'
-//import BottomFooter from './HomeComponents/BottomFooter'
+import MainContainer from './MainContainer'
 export default {
   name: 'Home',
-  components: { MainContainer},// BottomFooter },
+  components: { MainContainer },
   data() {
     return {
 
@@ -25,11 +24,14 @@ export default {
   width: 100%;
   height: 100%;
 }
+
 .container {
   margin: 0;
   height: 100%;
 }
+
 .bottom-footer {
   position: relative;
 }
+
 </style>

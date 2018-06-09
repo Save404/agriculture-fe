@@ -1,14 +1,14 @@
 <template>
-  <div id="ncp-register">
-    <h1>农产品发布</h1>
-    <el-form :model="NcpRegisterForm" ref="NcpRegisterForm" label-width="120px">
+  <div id="ncp-single">
+    <h1>农产品详情</h1>
+    <el-form :model="NcpSingleForm" ref="NcpSingleForm" label-width="120px">
       <el-form-item label="产品名称" prop="name_code" :rules="[{required: true,message:'产品名称不能为空',trigger:'blur'}]">
-        <ncp-name @got="setName" :msg="msg"></ncp-name>
+        <ncp-name @got="setName" :msg="msg" :placeholders="NcpSingleForm.initName"></ncp-name>
       </el-form-item>
       <el-form-item class="picker" label="供应量" prop="SupplyAmount" :rules="[{required: true,message:'供应量不能为空',trigger:'blur'}]">
-        <el-input v-model="NcpRegisterForm.SupplyAmount" placeholder="" style="width:200px;"></el-input>
+        <el-input v-model="NcpSingleForm.SupplyAmount" placeholder="" style="width:200px;"></el-input>
         <span style="margin: 0 10px 0 40px;">单位</span>
-        <el-select v-model="NcpRegisterForm.unit" placeholder="斤">
+        <el-select v-model="NcpSingleForm.supplyUnit" placeholder="斤">
             <el-option v-for="item in unitOptions"
                 :key="item.value"
                 :label="item.label"
@@ -16,41 +16,41 @@
             </el-option>
         </el-select>
       </el-form-item>
-      <el-form-item v-for="(field, index) in NcpRegisterForm.fields" :label="field.comment" :key="field.name" :prop="'fields.'+index+'.value'" :rules="field.rule">
+      <el-form-item v-for="(field, index) in NcpSingleForm.fields" :label="field.comment" :key="field.name" :prop="'fields.'+index+'.value'" :rules="field.rule">
         <el-input v-model="field.value" :placeholder=field.sample style="width: 100%;"></el-input>
       </el-form-item>
       <el-form-item class="picker" label="地区" prop="area" :rules="[{required: true, message: '地区不能为空', trigger: 'blur'}]">
-        <v-distpicker :province="NcpRegisterForm.province" :city="NcpRegisterForm.city" :area="NcpRegisterForm.area" :area_code="NcpRegisterForm.area_code" ref="location" @selected="onSelected" :placeholders="NcpRegisterForm.placeholders"></v-distpicker>
+        <v-distpicker :province="NcpSingleForm.province" :city="NcpSingleForm.city" :area="NcpSingleForm.area" :area_code="NcpSingleForm.area_code" ref="location" @selected="onSelected" :placeholders="NcpSingleForm.placeholders"></v-distpicker>
       </el-form-item>
       <el-form-item class="picker" label="详细地址" prop="address" :rules="[{required: true, message: '详细地址不能为空', trigger: 'blur'}]">
-        <el-input type='textarea' v-model="NcpRegisterForm.address" placeholder="详细地址"></el-input>
+        <el-input type='textarea' v-model="NcpSingleForm.address" placeholder="详细地址"></el-input>
       </el-form-item>
       <el-form-item label="更多详细信息" style="font-weight: bold;">
         <hr>
         <hr>
         <hr>
       </el-form-item>
-      <el-form-item v-for="(field, index) in NcpRegisterForm.more" :label="field.comment" :key="field.name" :prop="'more.'+index+'.value'">
+      <el-form-item v-for="(field, index) in NcpSingleForm.more" :label="field.comment" :key="field.name" :prop="'more.'+index+'.value'">
         <el-input type='textarea' v-model="field.value" :placeholder=field.sample style="width: 100%;"></el-input>
       </el-form-item>
       <el-form-item class="picker" label="品质认证">
-        <el-select v-model="NcpRegisterForm.qvalue">
-          <el-option v-for="item in NcpRegisterForm.qualities" :key="item.value" :value="item.value" :label="item.label">
+        <el-select v-model="NcpSingleForm.qvalue">
+          <el-option v-for="item in NcpSingleForm.qualities" :key="item.value" :value="item.value" :label="item.label">
           </el-option>
         </el-select>
       </el-form-item>
       <el-form-item label="产品供应期">
         <el-col :span="11">
-          <el-date-picker type="date" placeholder="起始日期" format="yyyy 年 MM 月 dd 日" value-format="yyyy-MM-dd" v-model="NcpRegisterForm.perieds" style="width: 100%;"></el-date-picker>
+          <el-date-picker type="date" placeholder="起始日期" format="yyyy 年 MM 月 dd 日" value-format="yyyy-MM-dd" v-model="NcpSingleForm.perieds" style="width: 100%;"></el-date-picker>
         </el-col>
         <el-col class="line" :span="2">-</el-col>
         <el-col :span="11">
-          <el-date-picker type="date" placeholder="截止日期" format="yyyy 年 MM 月 dd 日" value-format="yyyy-MM-dd" v-model="NcpRegisterForm.periede" style="width: 100%;"></el-date-picker>
+          <el-date-picker type="date" placeholder="截止日期" format="yyyy 年 MM 月 dd 日" value-format="yyyy-MM-dd" v-model="NcpSingleForm.periede" style="width: 100%;"></el-date-picker>
         </el-col>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" @click="submitForm('NcpRegisterForm')">立即发布</el-button>
-        <el-button @click="resetForm('NcpRegisterForm')">重置</el-button>
+        <el-button type="primary" @click="submitForm('NcpSingleForm')">保存</el-button>
+        <el-button @click="resetForm('NcpSingleForm')">重置</el-button>
         <el-button @click="goBack">返回</el-button>
       </el-form-item>
     </el-form>
@@ -61,10 +61,10 @@ import qs from 'qs'
 import VDistpicker from 'v-distpicker'
 import NcpName from './NcpName'
 export default {
-  name: 'NcpRegister',
-  components: { VDistpicker, NcpName },
+  name: 'NcpSingle',
   data() {
     return {
+      id: '',
       msg: '',
       unitOptions: [
         {value:'克',label:'克'},
@@ -73,7 +73,8 @@ export default {
         {value:'千克',label:'千克'},
         {value:'吨',label:'吨'},
       ],
-      NcpRegisterForm: {
+      NcpSingleForm: {
+        initName: {},
         name: '',
         name_code: '',
         province: '浙江省',
@@ -120,23 +121,69 @@ export default {
       }
     }
   },
+  components: { VDistpicker, NcpName },
+  created() {
+    let form = this.NcpSingleForm
+    let link = 'http://localhost:8080/ncp/get_ncp/' + sessionStorage.ncpBasicId
+    form.province = sessionStorage.p
+    form.city = sessionStorage.c
+    form.area = sessionStorage.a
+    form.initName.first = sessionStorage.c1
+    form.initName.second = sessionStorage.c2
+    form.initName.third = sessionStorage.c3
+    form.initName.last = sessionStorage.c4
+    //console.log(form.initName)
+    this.$axios({
+        method: 'get',
+        url: link,
+      })
+      .then(res => {
+        form.address = res['ncpAddress']
+        //form.fields[2].value = res['ncpAnnualOutput']
+        form.area_code = res['ncpAreaCode']
+        //form.more[6].value = res['ncpBatchPrice']
+        form.fields[1].value = res['ncpBrand']
+        form.more[6].value = res['ncpDeliveryAbility']
+        //form.more[9].value = res['ncpDeliveryCost']
+        form.more[2].value = res['ncpDeliveryInfo']
+        form.more[0].value = res['ncpDetail']
+        form.fields[0].value = res['ncpFeature']
+        form.more[3].value = res['ncpGrowthInfo']
+        form.more[4].value = res['ncpGrowthSurrounding']
+        //form.more[8].value = res['ncpMinCount']
+        form.name = res['ncpName']
+        form.name_code = res['ncpPCode']
+        form.more[1].value = res['ncpPackage']
+        form.more[5].value = res['ncpPlantArea']
+        form.qvalue = res['ncpQuality']
+        //form.fields[4].value = res['ncpReferencePrice']
+        //form.fields[2].value = res['ncpSupplyAmount']
+        form.SupplyAmount = res['ncpSupplyAmount']
+        form.supplyUnit = res['supplyUnit']
+        form.perieds = res['ncpSupplyPeriodStart']
+        form.periede = res['ncpSupplyPeriodEnd']
+      })
+      .catch(err => {
+        alert(err)
+      })
+    console.log(form)
+  },
   methods: {
     setName(msg) {
-      this.NcpRegisterForm.name = msg.name
-      this.NcpRegisterForm.name_code = msg.code
-      //console.log('fa got '+ msg)
+      this.NcpSingleForm.name = msg.name
+      this.NcpSingleForm.name_code = msg.code
     },
     onSelected(data) {
-      this.NcpRegisterForm.province = data.province.value
-      this.NcpRegisterForm.city = data.city.value
-      this.NcpRegisterForm.area = data.area.value
-      this.NcpRegisterForm.area_code = data.area.code
-      this.$message(this.NcpRegisterForm.area)
+      this.NcpSingleForm.province = data.province.value
+      this.NcpSingleForm.city = data.city.value
+      this.NcpSingleForm.area = data.area.value
+      this.NcpSingleForm.area_code = data.area.code
+      this.$message(this.NcpSingleForm.area)
     },
     submitForm(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          if (this.NcpRegisterForm.area === this.NcpRegisterForm.placeholders.area) {
+          if (this.NcpSingleForm.area === this.NcpSingleForm.placeholders.area) {
             this.$message('请将地区选择完整')
           } else {
             this.onSubmit()
@@ -148,42 +195,38 @@ export default {
       })
     },
     onSubmit() {
+      console.log(this.id)
       const data = {
-        ncpName: this.NcpRegisterForm.name,
-        ncpPCode: this.NcpRegisterForm.name_code,
-        ncpAreaCode: this.NcpRegisterForm.area_code,
-        ncpAddress: this.NcpRegisterForm.address,
-        ncpQuality: this.NcpRegisterForm.qvalue,
-        ncpSupplyPeriodStart: this.NcpRegisterForm.perieds,
-        ncpSupplyPeriodEnd: this.NcpRegisterForm.periede,
-        ncpSupplyAmount: this.NcpRegisterForm.SupplyAmount,
-        supplyUnit: this.NcpRegisterForm.supplyUnit
+        ncpName: this.NcpSingleForm.name,
+        ncpPCode: this.NcpSingleForm.name_code,
+        ncpAreaCode: this.NcpSingleForm.area_code,
+        ncpAddress: this.NcpSingleForm.address,
+        ncpQuality: this.NcpSingleForm.qvalue,
+        ncpSupplyPeriodStart: this.NcpSingleForm.perieds,
+        ncpSupplyPeriodEnd: this.NcpSingleForm.periede,
+        ncpSupplyAmount: this.NcpSingleForm.SupplyAmount,
+        supplyUnit: this.NcpSingleForm.supplyUnit
       }
-      const f = this.NcpRegisterForm.fields
+      const f = this.NcpSingleForm.fields
       for (var i = 0; i < f.length; i++) {
         data['ncp' + f[i].name] = f[i].value
       }
-      const m = this.NcpRegisterForm.more
+      const m = this.NcpSingleForm.more
       for (var i = 0; i < m.length; i++) {
         data['ncp' + m[i].name] = m[i].value
       }
-      for (let prop in data) {
-        console.log(prop + ':' + data[prop])
-      }
-      let router = this.$router
-      let message = this.$message
+      const link = 'http://localhost:8080/ncp/modify_ncp/' + sessionStorage.ncpBasicId
+      //console.log(link)
       this.$axios({
           method: 'post',
-          url: 'http://localhost:8080/ncp/add_ncp',
+          url: link,
           data: qs.stringify(data)
         })
         .then(res => {
-          this.$message({ message: '发布成功', type: 'success' })
+          this.$message({ message: '更新成功', type: 'success' })
           this.$router.push({ name: 'Home' })
         })
-        .catch(err => {
-          alert(err)
-        })
+        .catch(err => {})
     },
     resetForm(formName) {
       this.$refs[formName].resetFields();
@@ -194,6 +237,7 @@ export default {
   }
 }
 
+</script>
 </script>
 <style scoped>
 .el-form {

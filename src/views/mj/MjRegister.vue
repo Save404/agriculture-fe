@@ -1,7 +1,7 @@
 <template>
   <div id="Mj-register">
-    <register :form="MjRegisterForm" :url="url" />
-    <bottom-footer/>
+    <register :form="MjRegisterForm" :url="url"></register>
+    <bottom-footer></bottom-footer>
   </div>
 </template>
 <script>
