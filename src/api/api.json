@@ -30,7 +30,12 @@
 },
 {
   "url": "http://localhost:8080/ncp/get_ncp_list",
-  "usage": "获取农产品列表",
+  "usage": "获取农户个人农产品列表",
+  "method": "get"
+},
+{
+  "url": "http://localhost:8080/ncp/get_all_ncp_list",
+  "usage": "获取所有农产品列表",
   "method": "get"
 },
 {

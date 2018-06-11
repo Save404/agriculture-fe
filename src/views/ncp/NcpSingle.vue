@@ -153,25 +153,19 @@ export default {
       })
       .then(res => {
         form.address = res['ncpAddress']
-        //form.fields[2].value = res['ncpAnnualOutput']
         form.area_code = res['ncpAreaCode']
-        //form.more[6].value = res['ncpBatchPrice']
         form.fields[1].value = res['ncpBrand']
         form.more[6].value = res['ncpDeliveryAbility']
-        //form.more[9].value = res['ncpDeliveryCost']
         form.more[2].value = res['ncpDeliveryInfo']
         form.more[0].value = res['ncpDetail']
         form.fields[0].value = res['ncpFeature']
         form.more[3].value = res['ncpGrowthInfo']
         form.more[4].value = res['ncpGrowthSurrounding']
-        //form.more[8].value = res['ncpMinCount']
         form.name = res['ncpName']
         form.name_code = res['ncpPCode']
         form.more[1].value = res['ncpPackage']
         form.more[5].value = res['ncpPlantArea']
         form.qvalue = res['ncpQuality']
-        //form.fields[4].value = res['ncpReferencePrice']
-        //form.fields[2].value = res['ncpSupplyAmount']
         form.SupplyAmount = res['ncpSupplyAmount']
         form.supplyUnit = res['supplyUnit']
         form.perieds = res['ncpSupplyPeriodStart']
@@ -185,7 +179,7 @@ export default {
       .catch(err => {
         alert(err)
       })
-    console.log(form)
+    //console.log(form)
   },
   methods: {
     setName(msg) {

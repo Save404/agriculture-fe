@@ -1,16 +1,25 @@
 <template>
-  <div id="Home">
-    <div class="container">
-      <main-container></main-container>
-    </div>
-    <bottom-footer></bottom-footer>
-  </div>
+  <el-container id="home">
+    <el-header height="40px">
+      <home-header></home-header>
+    </el-header>
+    <el-container>
+      <el-aside width="200px">
+        <home-aside></home-aside>
+      </el-aside>
+      <el-main height="">
+        <home-main></home-main>
+      </el-main>
+    </el-container>
+  </el-container>
 </template>
 <script>
-import MainContainer from './MainContainer'
+import HomeHeader from './HomeHeader'
+import HomeAside from './HomeAside'
+import HomeMain from './HomeMain'
 export default {
   name: 'Home',
-  components: { MainContainer },
+  components: { HomeHeader, HomeAside, HomeMain },
   data() {
     return {
 
@@ -25,13 +34,30 @@ export default {
   height: 100%;
 }
 
-.container {
+.el-container {
   margin: 0;
   height: 100%;
 }
 
 .bottom-footer {
   position: relative;
+}
+
+.el-header {
+  margin: 0;
+  padding: 0;
+  background-color: #B3C0D1;
+  color: #333;
+  line-height: 40px;
+  width: 100%;
+}
+
+.el-aside {
+  color: #333;
+}
+
+.el-table-column {
+  width: 1000px;
 }
 
 </style>
