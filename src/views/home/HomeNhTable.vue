@@ -21,7 +21,7 @@
 </template>
 <script>
 export default {
-  name: 'HomeMain',
+  name: 'HomeNhTable',
   data() {
     return {
       lists: []

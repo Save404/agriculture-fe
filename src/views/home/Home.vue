@@ -8,7 +8,7 @@
         <home-aside></home-aside>
       </el-aside>
       <el-main height="">
-        <home-main></home-main>
+        <home-nh-table></home-nh-table>
       </el-main>
     </el-container>
   </el-container>
@@ -16,10 +16,11 @@
 <script>
 import HomeHeader from './HomeHeader'
 import HomeAside from './HomeAside'
-import HomeMain from './HomeMain'
+import HomeNhTable from './HomeNhTable'
+import HomeMjTable from './HomeMjTable'
 export default {
   name: 'Home',
-  components: { HomeHeader, HomeAside, HomeMain },
+  components: { HomeHeader, HomeAside, HomeNhTable, HomeMjTable },
   data() {
     return {
 
