@@ -14,6 +14,7 @@ import NcpSingle from '@/views/ncp/NcpSingle'
 Vue.use(Router)
 
 const router = new Router({
+  mode: 'history',
   routes: [{
       path: '/',
       name: 'FarmerLogin',
@@ -83,17 +84,17 @@ const router = new Router({
 })
 
 router.beforeEach((to, from, next) => {
-  if (to.meta.title) {
-    document.title = to.meta.title
-  }
-  if (to.path === '/' || sessionStorage.user) {
-    next()
-  } else {
-    if (!sessionStorage.user && (to.path === '/nh' || to.path === '/nh/ncpregister' || to.path === '/nh/ncpsingle' || to.path === '/nh/detail')) {
-      next({ path: '/' })
-    } else {
+  if (!sessionStorage.user) {
+    if (to.path === '/' || to.path === '/nh/register' || to.path === '/mj/login' || to.path === '/mj/register') {
+      if (to.meta.title) {
+        document.title = to.meta.title
+      }
       next()
+    } else {
+      next({ path: '/' })
     }
+  } else {
+    next()
   }
 })
 
