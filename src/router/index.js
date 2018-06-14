@@ -84,17 +84,19 @@ const router = new Router({
 })
 
 router.beforeEach((to, from, next) => {
-  if (!sessionStorage.user) {
-    if (to.path === '/' || to.path === '/nh/register' || to.path === '/mj/login' || to.path === '/mj/register') {
-      if (to.meta.title) {
-        document.title = to.meta.title
+  if (to.meta.title) {
+    document.title = to.meta.title
+    if (!sessionStorage.user) {
+      if (to.path === '/' || to.path === '/nh/register' || to.path === '/mj/login' || to.path === '/mj/register') {
+        next()
+      } else {
+        next({ path: '/' })
       }
-      next()
     } else {
-      next({ path: '/' })
+      next()
     }
   } else {
-    next()
+    next({ path: '/' })
   }
 })
 
