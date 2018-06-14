@@ -44,8 +44,7 @@ export default {
           { comment: '政治面貌', name: 'Politics', value: '' },
           { comment: '供货单位地址', name: 'GhdwAddress', value: '' },
           //{ comment: '供货地区编码', name: 'GhdwAreaCode', value: '' },
-          { comment: '供货单位联系方式', name: 'GhdwPhone', value: '', sample: '座机或手机' },
-          { comment: '支付密码', name: 'PayPassword', value: '', type: 'password' }
+          { comment: '供货单位联系方式', name: 'GhdwPhone', value: '', sample: '座机或手机' }
         ]
       }
     }
