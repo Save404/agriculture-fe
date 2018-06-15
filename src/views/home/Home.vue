@@ -8,7 +8,12 @@
         <home-aside></home-aside>
       </el-aside>
       <el-main height="">
-        <home-nh-table></home-nh-table>
+        <template v-if="usertype === 'nh'">
+          <home-nh-table></home-nh-table>
+        </template>
+        <template v-else>
+          <home-mj-table></home-mj-table>
+        </template>
       </el-main>
     </el-container>
   </el-container>
@@ -23,7 +28,7 @@ export default {
   components: { HomeHeader, HomeAside, HomeNhTable, HomeMjTable },
   data() {
     return {
-
+      usertype: sessionStorage.usertype
     }
   }
 }

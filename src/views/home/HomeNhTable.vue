@@ -1,19 +1,19 @@
 <template>
   <div>
     <el-table stripe :data="lists">
-      <el-table-column prop="ncpName" sortable label="名称" width="150" align="center">
+      <el-table-column prop="ncpName" sortable label="名称" min-width="80" align="center">
       </el-table-column>
-      <el-table-column prop="category" label="分类" align="center" width="200"></el-table-column>
-      <el-table-column prop="address" label="产地" align="center" width="200">
+      <el-table-column prop="category" label="分类" align="center" min-width="80"></el-table-column>
+      <el-table-column prop="address" label="产地" align="center" min-width="80">
       </el-table-column>
-      <el-table-column prop="ncpFeature" label="特点" align="center" width="150"></el-table-column>
-      <el-table-column prop="ncpPublishDate" sortable label="日期" width="120" align="center">
+      <el-table-column prop="ncpFeature" label="特点" align="center" min-width="80"></el-table-column>
+      <el-table-column prop="ncpPublishDate" sortable label="日期" min-width="100" align="center">
       </el-table-column>
-      <el-table-column label="操作" align="center" width="250">
+      <el-table-column label="操作" align="center" min-width="150">
         <template slot-scope="scope">
           <el-button size="mini" @click="getNcpSingle(scope.row.ncpBasicId, scope.row.c1Name, scope.row.c2Name, scope.row.c3Name, scope.row.ncpName, scope.row.nameP, scope.row.nameC, scope.row.nameA)">详情</el-button>
-          <el-button size="mini" type="danger" @click="">删除</el-button>
-          <el-button size="mini" type="primary" @click="">发布</el-button>
+          <el-button size="mini" type="danger" @click="deleteNcp(scope.row.ncpBasicId)">删除</el-button>
+          <el-button size="mini" type="primary" @click="sellNcp(scope.row.ncpBasicId)">上架</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -65,6 +65,30 @@ export default {
       sessionStorage.setItem("a", a)
       this.$store.commit('choiceBasicId', choicedItem)
       this.$router.push({ name: 'NcpSingle' })
+    },
+    deleteNcp(id) {
+      this.$axios({
+        method: 'post',
+        url: 'http://localhost:8080/ncp/delete_ncp/' + id,
+      })
+      .then(res => {
+        this.$message({message:'删除农产品成功', type: 'success'})
+        this.$router.go(0)
+      })
+      .catch(err => {
+        this.$message(err)
+      })
+    },
+    sellNcp(id) {
+      this.$axios({
+        method: 'post',
+        url: 'http://localhost:8080/ncp/on_sell/' + id,
+      })
+      .then(res => {
+        this.$message({message:'发布农产品成功', type: 'success'})
+        this.$router.push({name: 'Home'})
+      })
+      .catch(err => {})
     }
   }
 }

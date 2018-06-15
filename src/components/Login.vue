@@ -53,20 +53,24 @@ export default {
     onSubmit() {
       const password = md5(("" + this.salt.charAt(0) + this.salt.charAt(2) + this.form.password + this.salt.charAt(5) + this.salt))
       const data = {}
+      const user = {}
       if (this.url.includes('nh')) {
         data.nhTelephone = this.form.telephone
         data.nhPassword = password
+        user.type = 'nh'
       } else if (this.url.includes('mj')) {
         data.mjTelephone = this.form.telephone
         data.mjPassword = password
+        user.type = 'mj'
       }
+      user.user = this.form.telephone
       this.$axios({
           method: 'post',
           url: this.url,
           data: qs.stringify(data)
         })
         .then(res => {
-          this.$store.commit('login', this.form.telephone)
+          this.$store.commit('login', user)
           this.$message({ message: '登录成功', type: 'success' })
           this.$router.push({ name: 'Home' })
         })
