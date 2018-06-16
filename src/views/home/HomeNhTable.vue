@@ -13,7 +13,8 @@
         <template slot-scope="scope">
           <el-button size="mini" @click="getNcpSingle(scope.row.ncpBasicId, scope.row.c1Name, scope.row.c2Name, scope.row.c3Name, scope.row.ncpName, scope.row.nameP, scope.row.nameC, scope.row.nameA)">详情</el-button>
           <el-button size="mini" type="danger" @click="deleteNcp(scope.row.ncpBasicId)">删除</el-button>
-          <el-button size="mini" type="primary" @click="sellNcp(scope.row.ncpBasicId)">上架</el-button>
+          <el-button v-if="scope.row.ncpStatus == 0" size="mini" type="primary" @click="onOffNcp(scope.row.ncpBasicId, scope.row.ncpStatus)">上架</el-button>
+          <el-button v-else size="mini" type="warning" @click="onOffNcp(scope.row.ncpBasicId, scope.row.ncpStatus)">下架</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -21,6 +22,7 @@
 </template>
 <script>
 export default {
+  inject: ['reload'],
   name: 'HomeNhTable',
   data() {
     return {
@@ -68,27 +70,33 @@ export default {
     },
     deleteNcp(id) {
       this.$axios({
-        method: 'post',
-        url: 'http://localhost:8080/ncp/delete_ncp/' + id,
-      })
-      .then(res => {
-        this.$message({message:'删除农产品成功', type: 'success'})
-        this.$router.go(0)
-      })
-      .catch(err => {
-        this.$message(err)
-      })
+          method: 'post',
+          url: 'http://localhost:8080/ncp/delete_ncp/' + id,
+        })
+        .then(res => {
+          this.$message({ message: '删除农产品成功', type: 'success' })
+          this.reload()
+        })
+        .catch(err => {
+          this.$message(err)
+        })
     },
-    sellNcp(id) {
+    onOffNcp(id, status) {
       this.$axios({
-        method: 'post',
-        url: 'http://localhost:8080/ncp/on_sell/' + id,
-      })
-      .then(res => {
-        this.$message({message:'发布农产品成功', type: 'success'})
-        this.$router.push({name: 'Home'})
-      })
-      .catch(err => {})
+          method: 'post',
+          url: 'http://localhost:8080/ncp/on_sell/' + id,
+        })
+        .then(res => {
+          let msg = '上下架农产品成功'
+          if (status == 0) {
+            msg = '上架农产品成功'
+          } else {
+            msg = '下架农产品成功'
+          }
+          this.$message({ message: msg, type: 'success' })
+          this.reload()
+        })
+        .catch(err => {})
     }
   }
 }
