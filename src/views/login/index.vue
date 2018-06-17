@@ -1,5 +1,10 @@
 <template>
-  <div class="login-container">
+
+  <div class="login-form">
+    <trans-header></trans-header>
+    <login-container :form="FarmerLoginForm" :url="url"></login-container>
+    <bottom-footer></bottom-footer>
+    <!--
     <el-form class="login-form" autoComplete="on" :model="loginForm" :rules="loginRules" ref="loginForm" label-position="left">
       <h3 class="title">vue-element-admin</h3>
       <el-form-item prop="username">
@@ -25,15 +30,18 @@
         <span style="margin-right:20px;">username: admin</span>
         <span> password: admin</span>
       </div>
-    </el-form>
+    </el-form>-->
   </div>
 </template>
 
 <script>
 import { isvalidUsername } from '@/utils/validate'
-
+import TransHeader from '@/components/Login/TransHeader'
+import LoginContainer from '@/components/Login/LoginContainer'
+import BottomFooter from '@/components/Login/BottomFooter'
 export default {
   name: 'login',
+  components: {TransHeader, LoginContainer, BottomFooter},
   data() {
     const validateUsername = (rule, value, callback) => {
       if (!isvalidUsername(value)) {
@@ -50,6 +58,11 @@ export default {
       }
     }
     return {
+      url: '/nh/nh_login',
+      FarmerLoginForm: {
+        telephone: '',
+        password: ''
+      },/*
       loginForm: {
         username: 'admin',
         password: 'admin'
@@ -59,9 +72,9 @@ export default {
         password: [{ required: true, trigger: 'blur', validator: validatePass }]
       },
       loading: false,
-      pwdType: 'password'
+      pwdType: 'password'*/
     }
-  },
+  },/*
   methods: {
     showPwd() {
       if (this.pwdType === 'password') {
@@ -72,7 +85,7 @@ export default {
     },
     handleLogin() {
       this.$refs.loginForm.validate(valid => {
-        if (valid) {
+        if (!valid) {
           this.loading = true
           this.$store.dispatch('Login', this.loginForm).then(() => {
             this.loading = false
@@ -86,10 +99,29 @@ export default {
         }
       })
     }
-  }
+  }*/
 }
 </script>
 
+<style scoped>
+.login-form {
+  height: 100%;
+  width: 100%;
+}
+.login {
+  width: 40%;
+  margin-top: 70px;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.trans-header {
+  position: relative;
+  padding-top: 70px;
+}
+</style>
+
+<!--
 <style rel="stylesheet/scss" lang="scss">
 $bg:#2d3a4b;
 $light_gray:#eee;
@@ -121,6 +153,8 @@ $light_gray:#eee;
     color: #454545;
   }
 }
+
+
 
 </style>
 
@@ -180,3 +214,4 @@ $light_gray:#eee;
   }
 }
 </style>
+-->

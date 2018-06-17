@@ -49,7 +49,7 @@
   </div>
 </template>
 <script>
-import { getNcp } from '@/api/login'
+import { mjGetNcp } from '@/api/mj'
 export default {
   name: 'HomeMjTable',
   data() {
@@ -81,7 +81,7 @@ export default {
       }
     },
     getInfo() {
-      getNcp()
+      mjGetNcp()
         .then(res => {
           //console.log(res)
           this.dealLists(res)
