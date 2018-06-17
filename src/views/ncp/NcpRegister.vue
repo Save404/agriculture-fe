@@ -225,5 +225,4 @@ export default {
 hr:nth-child(odd) {
   visibility: hidden;
 }
-
 </style>

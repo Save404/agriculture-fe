@@ -1,6 +1,6 @@
 <template>
   <div style="text-align: right; font-size: 12px" height="40px">
-    <span style="float: left; font-size: 15px">您好，欢迎来到zafu-DA</span>
+    <span style="float: left; font-size: 15px;margin-left: 20px;">您好，欢迎来到zafu-DA</span>
     <el-dropdown>
       <i class="el-icon-setting" style="margin-right: 15px"></i>
       <el-dropdown-menu slot="dropdown">

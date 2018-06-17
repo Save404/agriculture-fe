@@ -65,5 +65,9 @@ export default {
 .el-table-column {
   width: 1000px;
 }
-
+#home {
+  background-image: url('../../assets/agri.jpg');
+  background-repeat: no-repeat;
+  background-size: 100%;
+}
 </style>
