@@ -61,16 +61,18 @@ export default {
           url: 'http://localhost:8080/nh/get_nh_detail'
         })
         .then(res => {
-          const list = res
-          form.name = list['nhRealName']
-          form.sex = list['nhSex']
-          form.province = list['nameP']
-          form.city = list['nameC']
-          form.area = list['nameA']
-          form.area_code = list['nhGhdwAreaCode']
-          let more = form.more
-          for (let i = 0; i < more.length; i++) {
-            more[i].value = list['nh' + more[i].name]
+          if (res !== null) {
+            const list = res
+            form.name = list['nhRealName']
+            form.sex = list['nhSex']
+            form.province = list['nameP']
+            form.city = list['nameC']
+            form.area = list['nameA']
+            form.area_code = list['nhGhdwAreaCode']
+            let more = form.more
+            for (let i = 0; i < more.length; i++) {
+              more[i].value = list['nh' + more[i].name]
+            }
           }
         })
         .catch(err => {

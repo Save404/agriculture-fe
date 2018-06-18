@@ -7,6 +7,7 @@ import FarmerRegister from '@/views/nh/FarmerRegister'
 import FarmerDetail from '@/views/nh/FarmerDetail'
 import MjLogin from '@/views/mj/MjLogin'
 import MjRegister from '@/views/mj/MjRegister'
+import MjDetail from '@/views/mj/MjDetail'
 
 import NcpRegister from '@/views/ncp/NcpRegister'
 import NcpSingle from '@/views/ncp/NcpSingle'
@@ -79,6 +80,14 @@ const router = new Router({
       component: MjRegister,
       meta: {
         title: '买家注册'
+      }
+    },
+    {
+      path: '/mj/detail',
+      name: 'MjDetail',
+      component: MjDetail,
+      meta: {
+        title: '个人资料设置(买家)'
       }
     },
     {

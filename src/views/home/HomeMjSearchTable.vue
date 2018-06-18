@@ -82,12 +82,12 @@ export default {
     getInfo() {
       this.$axios({
           method: 'get',
-          url: 'http://localhost:8080/ncp/get_mj_all_ncp_list',
+          url: 'http://localhost:8080/ncp/getByProduct/' + sessionStorage.searchCode,
         })
         .then(res => {
           //console.log(res)
           this.dealLists(res)
-          console.log(sessionStorage.searchCode)
+          //console.log(sessionStorage.searchCode)
         })
         .catch(err => {})
     },

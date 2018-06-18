@@ -11,7 +11,7 @@
         <template v-if="usertype === 'nh'">
           <home-nh-table></home-nh-table>
         </template>
-        <template v-else-if="msg === ''">
+        <template v-else-if="msg.code === ''">
           <home-mj-table></home-mj-table>
         </template>
         <template v-else>
@@ -33,14 +33,14 @@ export default {
   data() {
     return {
       usertype: sessionStorage.usertype,
-      msg: ''
+      msg: {code:''}
     }
   },
   methods: {
     doSearch(msg) {
       this.msg = msg
       sessionStorage.setItem('searchCode', msg.code)
-      console.log(msg)
+      //console.log(msg)
     }
   }
 }

@@ -2,7 +2,8 @@
   <div style="text-align: right; font-size: 12px" height="40px">
     <span style="float: left; font-size: 15px;margin-left: 20px;">您好，欢迎来到zafu-DA</span>
     <ncp-name v-if="usertype === 'mj'" style="float: left;" @got="setName" :msg="msg"></ncp-name>
-    <el-button  v-if="usertype === 'mj'" style="float: left;" type="primary" @click="ncpSearch">查询</el-button>
+    <el-button v-if="usertype === 'mj'" style="float: left;" type="primary" @click="ncpSearch">查询</el-button>
+    <el-button v-if="usertype === 'mj'" style="float: left;" type="info" @click="goBack">取消</el-button>
     <el-dropdown @command="goCharts">
       <i class="el-icon-setting" style="margin-right: 15px"></i>
       <el-dropdown-menu slot="dropdown">
@@ -23,7 +24,7 @@
 import NcpName from '../ncp/NcpName'
 export default {
   name: 'HomeHeader',
-  components: {NcpName},
+  components: { NcpName },
   data() {
     return {
       user: sessionStorage.user,
@@ -44,7 +45,11 @@ export default {
     },
     goDetail(command) {
       if (command === 'a') {
-        this.$router.push({ name: 'FarmerDetail' })
+        if (this.usertype === 'nh') { 
+          this.$router.push({ name: 'FarmerDetail' }) 
+        } else {
+          this.$router.push({ name: 'MjDetail' })
+        }
       } else if (command === 'b') {
         this.$store.commit('logout')
         this.$router.push({ name: 'FarmerLogin' })
@@ -56,7 +61,10 @@ export default {
       //this.$message(msg.name+msg.code)
     },
     ncpSearch() {
-      this.$emit('search', {code: this.filterCode})
+      this.$emit('search', { code: this.filterCode })
+    },
+    goBack() {
+      this.$emit('search', { code: '' })
     }
   }
 }
