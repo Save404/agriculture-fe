@@ -1,6 +1,8 @@
 <template>
   <div style="text-align: right; font-size: 12px" height="40px">
     <span style="float: left; font-size: 15px;margin-left: 20px;">您好，欢迎来到zafu-DA</span>
+    <ncp-name v-if="usertype === 'mj'" style="float: left;" @got="setName" :msg="msg"></ncp-name>
+    <el-button  v-if="usertype === 'mj'" style="float: left;" type="primary" @click="ncpSearch">查询</el-button>
     <el-dropdown @command="goCharts">
       <i class="el-icon-setting" style="margin-right: 15px"></i>
       <el-dropdown-menu slot="dropdown">
@@ -18,12 +20,17 @@
   </div>
 </template>
 <script>
+import NcpName from '../ncp/NcpName'
 export default {
   name: 'HomeHeader',
+  components: {NcpName},
   data() {
     return {
       user: sessionStorage.user,
-      usertype: sessionStorage.usertype
+      usertype: sessionStorage.usertype,
+      filterName: '',
+      filterCode: '',
+      msg: ''
     }
   },
   methods: {
@@ -42,6 +49,14 @@ export default {
         this.$store.commit('logout')
         this.$router.push({ name: 'FarmerLogin' })
       }
+    },
+    setName(msg) {
+      this.filterName = msg.name
+      this.filterCode = msg.code
+      //this.$message(msg.name+msg.code)
+    },
+    ncpSearch() {
+      this.$emit('search', {code: this.filterCode})
     }
   }
 }

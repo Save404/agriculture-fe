@@ -1,7 +1,7 @@
 <template>
   <el-container id="home">
     <el-header height="40px">
-      <home-header></home-header>
+      <home-header @search="doSearch" :msg="msg"></home-header>
     </el-header>
     <el-container>
       <el-aside width="200px">
@@ -11,8 +11,11 @@
         <template v-if="usertype === 'nh'">
           <home-nh-table></home-nh-table>
         </template>
-        <template v-else>
+        <template v-else-if="msg === ''">
           <home-mj-table></home-mj-table>
+        </template>
+        <template v-else>
+          <home-mj-search-table></home-mj-search-table>
         </template>
       </el-main>
     </el-container>
@@ -23,12 +26,21 @@ import HomeHeader from './HomeHeader'
 import HomeAside from './HomeAside'
 import HomeNhTable from './HomeNhTable'
 import HomeMjTable from './HomeMjTable'
+import HomeMjSearchTable from './HomeMjSearchTable'
 export default {
   name: 'Home',
-  components: { HomeHeader, HomeAside, HomeNhTable, HomeMjTable },
+  components: { HomeHeader, HomeAside, HomeNhTable, HomeMjTable, HomeMjSearchTable },
   data() {
     return {
-      usertype: sessionStorage.usertype
+      usertype: sessionStorage.usertype,
+      msg: ''
+    }
+  },
+  methods: {
+    doSearch(msg) {
+      this.msg = msg
+      sessionStorage.setItem('searchCode', msg.code)
+      console.log(msg)
     }
   }
 }
