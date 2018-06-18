@@ -1,21 +1,23 @@
 <template>
-  <div style="text-align: right; font-size: 12px" height="40px">
-    <span style="float: left; font-size: 15px;margin-left: 20px;">您好，欢迎来到zafu-DA</span>
+  <div style="text-align: left; font-size: 12px" height="40px">
+    <!--<span style="float: left; font-size: 15px;margin-left: 20px;">您好，欢迎来到zafu-DA</span>-->
     <ncp-name v-if="usertype === 'mj'" style="float: left;" @got="setName" :msg="msg"></ncp-name>
-    <el-button v-if="usertype === 'mj'" style="float: left;" type="primary" @click="ncpSearch">查询</el-button>
-    <el-button v-if="usertype === 'mj'" style="float: left;" type="info" @click="goBack">取消</el-button>
-    <el-dropdown @command="goCharts">
-      <i class="el-icon-setting" style="margin-right: 15px"></i>
-      <el-dropdown-menu slot="dropdown">
-        <el-dropdown-item command="a">统计</el-dropdown-item>
-      </el-dropdown-menu>
-    </el-dropdown>
-    <el-button v-if="usertype === 'nh'" type="success" size="medium" @click="publishNcp">发布农产品</el-button>
-    <el-dropdown @command="goDetail">
-      <el-button type="info">{{user}}</el-button>
+    <el-button-group v-if="usertype === 'mj'" style="transform: translateX(-20px);">
+      <el-button type="primary" @click="ncpSearch">查询</el-button>
+      <el-button @click="goBack">取消</el-button>
+    </el-button-group>
+    <el-dropdown style="float: right;" @command="goDetail">
+      <el-button type="primary">{{user}}</el-button>
       <el-dropdown-menu slot="dropdown">
         <el-dropdown-item command="a">编辑个人资料</el-dropdown-item>
         <el-dropdown-item command="b">退出登录</el-dropdown-item>
+      </el-dropdown-menu>
+    </el-dropdown>
+    <el-button style="float:right;" v-if="usertype === 'nh'" type="success" @click="publishNcp">发布农产品</el-button>
+    <el-dropdown style="float: right;" @command="goCharts">
+      <i class="el-icon-setting" style="margin-right: 15px"></i>
+      <el-dropdown-menu slot="dropdown">
+        <el-dropdown-item command="a">统计</el-dropdown-item>
       </el-dropdown-menu>
     </el-dropdown>
   </div>
@@ -45,8 +47,8 @@ export default {
     },
     goDetail(command) {
       if (command === 'a') {
-        if (this.usertype === 'nh') { 
-          this.$router.push({ name: 'FarmerDetail' }) 
+        if (this.usertype === 'nh') {
+          this.$router.push({ name: 'FarmerDetail' })
         } else {
           this.$router.push({ name: 'MjDetail' })
         }
