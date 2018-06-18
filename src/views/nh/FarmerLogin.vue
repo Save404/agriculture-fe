@@ -13,7 +13,7 @@ export default {
   components: { TransHeader, Login },
   data() {
     return {
-      url: 'http://localhost:8080/nh/nh_login',
+      url: '/nh/nh_login',
       FarmerLoginForm: {
         telephone: '',
         password: ''

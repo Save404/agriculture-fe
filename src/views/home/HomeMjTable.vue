@@ -42,7 +42,7 @@
       </el-table-column>
       <el-table-column label="操作" align="center" min-width="100">
         <template slot-scope="scope">
-          <el-button size="mini" type="primary" @click="">联系商家</el-button>
+          <el-button size="mini" type="primary" @click="contactNh">联系商家</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -101,6 +101,9 @@ export default {
       sessionStorage.setItem("a", a)
       this.$store.commit('choiceBasicId', choicedItem)
       this.$router.push({ name: 'NcpSingle' })
+    },
+    contactNh() {
+      this.$alert('商家联系电话为: 17367077526', '您好')
     }
   }
 }

@@ -1,15 +1,13 @@
 <template>
   <div style="text-align: right; font-size: 12px" height="40px">
     <span style="float: left; font-size: 15px;margin-left: 20px;">您好，欢迎来到zafu-DA</span>
-    <el-dropdown>
+    <el-dropdown @command="goCharts">
       <i class="el-icon-setting" style="margin-right: 15px"></i>
       <el-dropdown-menu slot="dropdown">
-        <el-dropdown-item>查看</el-dropdown-item>
-        <el-dropdown-item>新增</el-dropdown-item>
-        <el-dropdown-item>删除</el-dropdown-item>
+        <el-dropdown-item command="a">统计</el-dropdown-item>
       </el-dropdown-menu>
     </el-dropdown>
-    <el-button type="success" size="medium" @click="publishNcp">发布农产品</el-button>
+    <el-button v-if="usertype === 'nh'" type="success" size="medium" @click="publishNcp">发布农产品</el-button>
     <el-dropdown @command="goDetail">
       <el-button type="info">{{user}}</el-button>
       <el-dropdown-menu slot="dropdown">
@@ -24,12 +22,18 @@ export default {
   name: 'HomeHeader',
   data() {
     return {
-      user: sessionStorage.user
+      user: sessionStorage.user,
+      usertype: sessionStorage.usertype
     }
   },
   methods: {
     publishNcp() {
       this.$router.push({ name: 'NcpRegister' })
+    },
+    goCharts(command) {
+      if (command === 'a') {
+        this.$router.push({ name: 'NcpCharts' })
+      }
     },
     goDetail(command) {
       if (command === 'a') {

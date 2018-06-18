@@ -2,6 +2,7 @@ import Vue from 'vue'
 import { Message } from 'element-ui'
 import axios from 'axios'
 
+axios.defaults.baseURL = 'http://localhost:8080';
 axios.defaults.withCredentials = true
 axios.defaults.headers['conten-type'] = 'application/x-www-form-urlencoded'
 

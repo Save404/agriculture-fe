@@ -10,6 +10,7 @@ import MjRegister from '@/views/mj/MjRegister'
 
 import NcpRegister from '@/views/ncp/NcpRegister'
 import NcpSingle from '@/views/ncp/NcpSingle'
+import NcpCharts from '@/views/charts/NcpCharts'
 
 Vue.use(Router)
 
@@ -78,6 +79,14 @@ const router = new Router({
       component: MjRegister,
       meta: {
         title: '买家注册'
+      }
+    },
+    {
+      path: '/ncp/charts',
+      name: 'NcpCharts',
+      component: NcpCharts,
+      meta: {
+        title: '农产品统计'
       }
     }
   ]

@@ -1,8 +1,11 @@
 <template>
   <div width="200px" style="background-color: rgb(238, 241, 246)">
-    <el-menu :default-openeds="['-1']">
+    <el-menu :default-openeds="['粮食','油料', '糖料']">
       <el-submenu v-for="(fir, index) in first" :index="fir.label" :key="index">
         <template slot="title"><i class="el-icon-menu"></i>{{fir.label}}</template>
+        <el-menu-item-group>
+          <template slot="title">{{fir.label}}</template>
+        </el-menu-item-group>
       </el-submenu>
     </el-menu>
   </div>

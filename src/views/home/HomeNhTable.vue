@@ -69,17 +69,28 @@ export default {
       this.$router.push({ name: 'NcpSingle' })
     },
     deleteNcp(id) {
-      this.$axios({
-          method: 'post',
-          url: 'http://localhost:8080/ncp/delete_ncp/' + id,
-        })
-        .then(res => {
-          this.$message({ message: '删除农产品成功', type: 'success' })
-          this.reload()
-        })
-        .catch(err => {
-          this.$message(err)
-        })
+      this.$confirm('确认删除此农产品吗?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        this.$axios({
+            method: 'post',
+            url: 'http://localhost:8080/ncp/delete_ncp/' + id,
+          })
+          .then(res => {
+            this.$message({ message: '删除农产品成功', type: 'success' })
+            this.reload()
+          })
+          .catch(err => {
+            this.$message(err)
+          })
+      }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: '已取消删除'
+        });
+      });
     },
     onOffNcp(id, status) {
       this.$axios({
