@@ -43,9 +43,14 @@ For a detailed explanation on how things work, check out the [guide](http://vuej
     - [x] 编辑个人资料
     - [x] 发布农产品
     - [x] 查看个人发布农产品
+    - [ ] 首页消息显示
+    - [ ] 农情上报
 
 - 买家
     - [x] 登录与注册
+    - [ ] 查看所有上架农产品
+    - [ ] 分类查找
+    - [ ] 发送合同
 
 - 政府人员
 
