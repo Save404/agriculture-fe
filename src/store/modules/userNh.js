@@ -5,7 +5,7 @@ const userNh = {
   state: {
     nhtoken: getToken(),
     nhname: '',
-    nhavatar: '',
+    nhphone: '',
     nhroles: []
   },
 
@@ -16,8 +16,8 @@ const userNh = {
     SET_NAME: (state, name) => {
       state.nhname = name
     },
-    SET_AVATAR: (state, avatar) => {
-      state.nhavatar = avatar
+    SET_PHONE: (state, phone) => {
+      state.nhphone = phone
     },
     SET_ROLES: (state, roles) => {
       state.nhroles = roles
@@ -54,7 +54,7 @@ const userNh = {
             reject('getInfo: roles must be a non-null array !')
           }
           commit('SET_NAME', data.name)
-          commit('SET_AVATAR', data.avatar)*/
+          commit('SET_PHONE', data.phone)*/
           resolve(response)
         }).catch(error => {
           reject(error)

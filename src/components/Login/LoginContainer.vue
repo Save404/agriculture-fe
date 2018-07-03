@@ -86,6 +86,7 @@ export default {
         user.type = 'nh'*/
       } else if (this.url.includes('mj')) {
         this.loading = true
+        //console.log('mjjjjjjj')
         this.$store.dispatch('MjLogin', this.form).then(() => {
           this.loading = false
           this.$router.push({ path: '/' })
@@ -96,7 +97,7 @@ export default {
         data.mjTelephone = this.form.telephone
         data.mjPassword = password
         user.type = 'mj'*/
-      }
+      }/*
       user.user = this.form.telephone
       this.$axios({
           method: 'post',
@@ -108,7 +109,7 @@ export default {
           this.$message({ message: '登录成功', type: 'success' })
           this.$router.push({ name: 'Home' })
         })
-        .catch(err => {})
+        .catch(err => {})*/
     },
     resetPassword() {
       this.$message('重置密码！！')

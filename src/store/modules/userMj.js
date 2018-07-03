@@ -5,7 +5,7 @@ const userMj = {
   state: {
     mjtoken: getToken(),
     mjname: '',
-    mjavatar: '',
+    mjphone: '',
     mjroles: []
   },
 
@@ -16,8 +16,8 @@ const userMj = {
     SET_NAME: (state, name) => {
       state.mjname = name
     },
-    SET_AVATAR: (state, avatar) => {
-      state.mjavatar = avatar
+    SET_PHONE: (state, phone) => {
+      state.mjphone = phone
     },
     SET_ROLES: (state, roles) => {
       state.mjroles = roles
@@ -28,12 +28,12 @@ const userMj = {
     // 登录
     MjLogin({ commit }, userInfo) {
       const username = userInfo.telephone.trim()
-      
+      //console.log(username)
       return new Promise((resolve, reject) => {
         mjLogin(username, userInfo.password)
         .then(response => {
           //const data = response.data
-          //console.log(username)
+          //console.log(response)
           setToken(username)
           commit('SET_TOKEN', username)
           resolve()

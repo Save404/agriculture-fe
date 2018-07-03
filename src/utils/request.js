@@ -35,7 +35,6 @@ service.interceptors.response.use(
     } else {
       console.log(res.data)
       return res.data
-      
     }
     
     
@@ -65,7 +64,7 @@ service.interceptors.response.use(
     }*/
   },
   error => {
-    console.log('err' + error)// for debug
+    console.log('fuckerr' + error)// for debug
     Message({
       message: error.message,
       type: 'error',

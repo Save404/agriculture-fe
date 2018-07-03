@@ -21,8 +21,9 @@
   </div>
 </template>
 <script>
+import { ncpNhGet } from '@/api/ncp'
 export default {
-  inject: ['reload'],
+  //inject: ['reload'],
   name: 'HomeNhTable',
   data() {
     return {
@@ -43,7 +44,7 @@ export default {
         item['address'] = item['nameP'] + item['nameC'] + item['nameA']
         this.lists.push(item)
       }
-    },
+    },/*
     getInfo() {
       this.$axios({
           method: 'get',
@@ -55,6 +56,14 @@ export default {
         .catch(err => {
           this.$message(err)
         })
+    },*/
+    getInfo() {
+      ncpNhGet()
+        .then(res => {
+          console.log(res)
+          //this.dealLists(res)
+        })
+        .catch(err => {})
     },
     getNcpSingle(choicedItem, c1, c2, c3, c4, p, c, a) {
       //console.log(c1, c2, c3, c4, p, c, a)

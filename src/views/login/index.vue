@@ -58,7 +58,7 @@ export default {
       }
     }
     return {
-      url: '/nh/nh_login',
+      url: '/nh/nh_login',//'/mj/mj_login',
       FarmerLoginForm: {
         telephone: '',
         password: ''
@@ -104,6 +104,9 @@ export default {
 </script>
 
 <style scoped>
+* {
+  text-align: center;
+}
 .login-form {
   height: 100%;
   width: 100%;
