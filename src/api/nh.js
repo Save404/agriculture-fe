@@ -43,11 +43,11 @@ export function nhAddDetail(detailObj) {
   })
 }
 
-
-/*
 export function nhLogout() {
   return new Promise(resolve => {resolve()})
 }
+/*
+
 
 export function nhGetNcp() {
   return request({

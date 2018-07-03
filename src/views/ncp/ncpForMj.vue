@@ -49,7 +49,7 @@
   </div>
 </template>
 <script>
-import { mjGetNcp } from '@/api/mj'
+import { ncpMjGet } from '@/api/ncp'
 export default {
   name: 'HomeMjTable',
   data() {
@@ -81,9 +81,9 @@ export default {
       }
     },
     getInfo() {
-      mjGetNcp()
+      ncpMjGet()
         .then(res => {
-          //console.log(res)
+          console.log(res)
           this.dealLists(res)
         })
         .catch(err => {})

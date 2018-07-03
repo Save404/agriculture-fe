@@ -47,13 +47,63 @@ export const constantRouterMap = [{
     }]
   },
   {
+    path: '/nh',
+    component: Layout,
+    children: [{
+      path: 'detail',
+      name: 'nhDetail',
+      component: () => import('@/views/nh/nhDetail'),
+      meta: {title: '个人(nh)', icon: 'table'}
+    }]
+  },
+  {
+    path: '/mj',
+    component: Layout,
+    children: [{
+      path: 'detail',
+      name: 'mjDetail',
+      component: () => import('@/views/mj/mjDetail'),
+      meta: {title: '个人(mj)', icon: 'table'}
+    }]
+  },
+  {
     path: '/ncp',
     component: Layout,
     children: [{
-      path: 'index',
-      name: 'Ncp',
-      component: () => import('@/views/ncp/index'),
-      meta: {title: '农产品', icon: 'table'}
+      path: 'ncpformj',
+      name: 'NcpForMj',
+      component: () => import('@/views/ncp/ncpForMj'),
+      meta: {title: '农产品(mj)', icon: 'table'}
+    }]
+  },
+  {
+    path: '/ncp',
+    component: Layout,
+    children: [{
+      path: 'ncpfornh',
+      name: 'NcpForNh',
+      component: () => import('@/views/ncp/ncpForNh'),
+      meta: {title: '农产品(nh)', icon: 'table'}
+    }]
+  },
+  {
+    path: '/ncp',
+    component: Layout,
+    children: [{
+      path: 'ncpregister',
+      name: 'ncpRegister',
+      component: () => import('@/views/ncp/ncpRegister'),
+      meta: {title: '农产品登记', icon: 'eye'}
+    }]
+  },
+  {
+    path: '/ncp',
+    component: Layout,
+    children: [{
+      path: 'ncpsingle',
+      name: 'ncpSingle',
+      component: () => import('@/views/ncp/ncpSingle'),
+      meta: {title: '农产品修改', icon: 'eye'}
     }]
   },
   {

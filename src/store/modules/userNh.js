@@ -46,7 +46,7 @@ const userNh = {
     // 获取用户信息
     NhGetInfo({ commit, state }) {
       return new Promise((resolve, reject) => {
-        nhGetInfo(state.nhtoken).then(response => {
+        nhGetDetail(state.nhtoken).then(response => {
           /*const data = response.data
           if (data.roles && data.roles.length > 0) { // 验证返回的roles是否是一个非空数组
             commit('SET_ROLES', data.roles)

@@ -43,7 +43,9 @@ export function mjAddDetail(detailObj) {
   })
 }
 
-
+export function mjLogout() {
+  return new Promise(resolve => {resolve()})
+}
 
 /*
 export function mjGetInfo(token) {
@@ -53,9 +55,7 @@ export function mjGetInfo(token) {
     params: { token }
   })
 }
-export function mjLogout() {
-  return new Promise(resolve => {resolve()})
-}
+
 
 export function mjGetNcp() {
   return request({

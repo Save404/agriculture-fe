@@ -46,7 +46,7 @@ const userMj = {
     // 获取用户信息
     MjGetInfo({ commit, state }) {
       return new Promise((resolve, reject) => {
-        mjGetInfo(state.mjtoken).then(response => {
+        mjGetDetail(state.mjtoken).then(response => {
           /*const data = response.data
           if (data.roles && data.roles.length > 0) { // 验证返回的roles是否是一个非空数组
             commit('SET_ROLES', data.roles)
