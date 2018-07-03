@@ -52,8 +52,9 @@ export const constantRouterMap = [{
     children: [{
       path: 'detail',
       name: 'nhDetail',
-      component: () => import('@/views/nh/nhDetail'),
-      meta: {title: '个人(nh)', icon: 'table'}
+      component: () =>
+        import ('@/views/nh/nhDetail'),
+      meta: { title: '个人(nh)', icon: 'table' }
     }]
   },
   {
@@ -62,8 +63,9 @@ export const constantRouterMap = [{
     children: [{
       path: 'detail',
       name: 'mjDetail',
-      component: () => import('@/views/mj/mjDetail'),
-      meta: {title: '个人(mj)', icon: 'table'}
+      component: () =>
+        import ('@/views/mj/mjDetail'),
+      meta: { title: '个人(mj)', icon: 'table' }
     }]
   },
   {
@@ -72,8 +74,9 @@ export const constantRouterMap = [{
     children: [{
       path: 'ncpformj',
       name: 'NcpForMj',
-      component: () => import('@/views/ncp/ncpForMj'),
-      meta: {title: '农产品(mj)', icon: 'table'}
+      component: () =>
+        import ('@/views/ncp/ncpForMj'),
+      meta: { title: '农产品(mj)', icon: 'table' }
     }]
   },
   {
@@ -82,8 +85,9 @@ export const constantRouterMap = [{
     children: [{
       path: 'ncpfornh',
       name: 'NcpForNh',
-      component: () => import('@/views/ncp/ncpForNh'),
-      meta: {title: '农产品(nh)', icon: 'table'}
+      component: () =>
+        import ('@/views/ncp/ncpForNh'),
+      meta: { title: '农产品(nh)', icon: 'table' }
     }]
   },
   {
@@ -92,8 +96,9 @@ export const constantRouterMap = [{
     children: [{
       path: 'ncpregister',
       name: 'ncpRegister',
-      component: () => import('@/views/ncp/ncpRegister'),
-      meta: {title: '农产品登记', icon: 'eye'}
+      component: () =>
+        import ('@/views/ncp/ncpRegister'),
+      meta: { title: '农产品登记', icon: 'eye' }
     }]
   },
   {
@@ -102,8 +107,9 @@ export const constantRouterMap = [{
     children: [{
       path: 'ncpsingle',
       name: 'ncpSingle',
-      component: () => import('@/views/ncp/ncpSingle'),
-      meta: {title: '农产品修改', icon: 'eye'}
+      component: () =>
+        import ('@/views/ncp/ncpSingle'),
+      meta: { title: '农产品修改', icon: 'eye' }
     }]
   },
   {
@@ -149,3 +155,12 @@ export default new Router({
   scrollBehavior: () => ({ y: 0 }),
   routes: constantRouterMap
 })
+
+export const asyncRouterMap = [{
+  path: '/permission',
+  component: Layout,
+  name: '权限测试',
+  meta: {
+    role: ['admin', 'nh']
+  }
+}]

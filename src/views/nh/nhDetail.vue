@@ -139,11 +139,14 @@ export default {
 
 </script>
 <style scoped>
+* {
+  text-align: center;
+}
 .el-form {
   position: absolute;
   width: 500px;
   left: 50%;
-  transform: translateX(-60%);
+  transform: translateX(-50%);
 }
 
 </style>

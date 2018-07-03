@@ -21,9 +21,9 @@
   </div>
 </template>
 <script>
-import { ncpNhGet } from '@/api/ncp'
+import { ncpNhGet, ncpOnOff } from '@/api/ncp'
 export default {
-  //inject: ['reload'],
+  inject: ['reload'],
   name: 'HomeNhTable',
   data() {
     return {
@@ -61,7 +61,7 @@ export default {
       ncpNhGet()
         .then(res => {
           console.log(res)
-          //this.dealLists(res)
+          this.dealLists(res)
         })
         .catch(err => {})
     },
@@ -102,6 +102,19 @@ export default {
       });
     },
     onOffNcp(id, status) {
+      ncpOnOff(id)
+        .then(res => {
+          let msg = '上下架农产品成功'
+          if (status == 0) {
+            msg = '上架农产品成功'
+          } else {
+            msg = '下架农产品成功'
+          }
+          this.$message({ message: msg, type: 'success' })
+          this.reload()
+        })
+        .catch(err => {})
+      /*
       this.$axios({
           method: 'post',
           url: 'http://localhost:8080/ncp/on_sell/' + id,
@@ -116,7 +129,7 @@ export default {
           this.$message({ message: msg, type: 'success' })
           this.reload()
         })
-        .catch(err => {})
+        .catch(err => {})*/
     }
   }
 }
