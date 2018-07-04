@@ -23,9 +23,12 @@ export default {
 
 </script>
 <style scoped>
+* {
+  text-align: center;
+}
 .register {
   width: 40%;
-  margin-top: 15%;
+  margin-top: 13%;
   position: absolute;
   left: 50%;
   transform: translateX(-50%);

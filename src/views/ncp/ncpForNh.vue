@@ -48,7 +48,6 @@ export default {
     getInfo() {
       ncpNhGet()
         .then(res => {
-          console.log(res)
           this.dealLists(res)
         })
         .catch(err => {})

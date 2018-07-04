@@ -24,25 +24,39 @@ const user = {
     },
     SET_ROLES: (state, roles) => {
       state.roles = roles
-      sessionStorage.setItem('userroles', roles)
     }
   },
 
   actions: {
     // 农户登录
     NhLogin({ commit }, userInfo) {
-      const username = userInfo.telephone.trim()
+      const telephone = userInfo.telephone.trim()
       return new Promise((resolve, reject) => {
-        nhLogin(username, userInfo.password).then(response => {
+        nhLogin(telephone, userInfo.password).then(response => {
           //const data = response.data
-          setToken(username) //(data.token)
-          //commit('SET_TOKEN', data.token)
-          commit('SET_PHONE', username)
-          commit('SET_NAME', username)
-          commit('SET_ROLES', ['NH'])
+          setToken(telephone) //(data.token)
+          commit('SET_PHONE', telephone)
+          commit('SET_NAME', telephone)
+          sessionStorage.setItem('userroles', ['NH'])
           resolve()
         }).catch(error => {
           reject(error)
+        })
+      })
+    },
+
+    // 农户注册
+    NhRegister({ commit }, userInfo) {
+      const telephone = useriInfo.telephone.trim()
+      return new Promise((resolve, reject) => {
+        nhRegister(telephone, userInfo.password).then(() => {
+          setToken(telephone)
+          commit('SET_PHONE', telephone)
+          commit('SET_NAME', telephone)
+          sessionStorage.setItem('userroles', ['NH'])
+          resolve()
+        }).catch(err => {
+          reject(err)
         })
       })
     },
@@ -57,7 +71,7 @@ const user = {
           //commit('SET_TOKEN', data.token)
           commit('SET_PHONE', username)
           commit('SET_NAME', username)
-          commit('SET_ROLES', ['MJ'])
+          sessionStorage.setItem('userroles', ['MJ'])
           resolve()
         }).catch(error => {
           reject(error)
@@ -66,10 +80,12 @@ const user = {
     },
 
     // 获取用户信息
-    GetInfo({ commit }) {
+    GetUserInfo({ commit }) {
+      const tmp = sessionStorage.getItem('userroles')
       commit('SET_PHONE', sessionStorage.getItem('userphone'))
       commit('SET_NAME', sessionStorage.getItem('username'))
-      commit('SET_ROLES', sessionStorage.getItem('userroles'))
+      commit('SET_ROLES', [tmp])
+      return new Promise((resolve, reject) => {resolve()})
     },
     /*
     GetInfo({ commit, state }) {

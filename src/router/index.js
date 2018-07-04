@@ -2,7 +2,6 @@ import Vue from 'vue'
 import Router from 'vue-router'
 
 // in development-env not use lazy-loading, because lazy-loading too many pages will cause webpack hot update too slow. so only in production use lazy-loading;
-// detail: https://panjiachen.github.io/vue-element-admin-site/#/lazy-loading
 
 Vue.use(Router)
 
@@ -55,7 +54,6 @@ export const constantRouterMap = [{
       import ('@/views/404'),
     hidden: true
   },
-
   {
     path: '/',
     component: Layout,
@@ -69,78 +67,19 @@ export const constantRouterMap = [{
     }]
   },
   {
-    path: '/nh',
-    component: Layout,
-    children: [{
-      path: 'detail',
-      name: 'nhDetail',
-      component: () =>
-        import ('@/views/nh/nhDetail'),
-      meta: { title: '个人资料', icon: 'form' }
-    }]
-  },
-  {
-    path: '/mj',
-    component: Layout,
-    children: [{
-      path: 'detail',
-      name: 'mjDetail',
-      component: () =>
-        import ('@/views/mj/mjDetail'),
-      meta: { title: '个人(mj)', icon: 'table' }
-    }]
-  },
-  {
-    path: '/ncp',
-    component: Layout,
-    children: [{
-      path: 'ncpformj',
-      name: 'NcpForMj',
-      component: () =>
-        import ('@/views/ncp/ncpForMj'),
-      meta: { title: '农产品(mj)', icon: 'table' }
-    }]
-  },
-  {
-    path: '/ncp',
-    component: Layout,
-    children: [{
-      path: 'ncpfornh',
-      name: 'NcpForNh',
-      component: () =>
-        import ('@/views/ncp/ncpForNh'),
-      meta: { title: '农产品(nh)', icon: 'table' }
-    }]
-  },
-  {
-    path: '/ncp',
-    component: Layout,
-    children: [{
-      path: 'ncpregister',
-      name: 'ncpRegister',
-      component: () =>
-        import ('@/views/ncp/ncpRegister'),
-      meta: { title: '农产品登记', icon: 'eye' }
-    }]
-  },
-  {
-    path: '/ncp',
-    component: Layout,
-    children: [{
-      path: 'ncpsingle',
-      name: 'ncpSingle',
-      component: () =>
-        import ('@/views/ncp/ncpSingle'),
-      meta: { title: '农产品修改', icon: 'eye' }
-    }]
-  },
-  {
     path: '/example',
     component: Layout,
     redirect: '/example/table',
     name: 'Example',
     meta: { title: 'Example', icon: 'example' },
-    children: [{
+    children: [
+      {
+        path: 'form',
+        name: 'Form',
+        component: () => import ('@/views/form/index'),
+        meta: { title: 'Form', icon: 'form'}
+      },
+      {
         path: 'table',
         name: 'Table',
         component: () =>
@@ -155,21 +94,7 @@ export const constantRouterMap = [{
         meta: { title: 'Tree', icon: 'tree' }
       }
     ]
-  },
-
-  {
-    path: '/form',
-    component: Layout,
-    children: [{
-      path: 'index',
-      name: 'Form',
-      component: () =>
-        import ('@/views/form/index'),
-      meta: { title: 'Form', icon: 'form' }
-    }]
-  },
-
-  { path: '*', redirect: '/404', hidden: true }
+  }
 ]
 
 export default new Router({
@@ -179,10 +104,76 @@ export default new Router({
 })
 
 export const asyncRouterMap = [{
-  path: '/permission',
-  component: Layout,
-  name: '权限测试',
-  meta: {
-    role: ['admin', 'nh']
-  }
-}]
+    path: '/nh',
+    component: Layout,
+    meta: { roles: ['NH'] },
+    children: [{
+      path: 'detail',
+      name: 'nhDetail',
+      component: () =>
+        import ('@/views/nh/nhDetail'),
+      meta: { title: '个人资料', icon: 'user', roles: ['NH'] }
+    }]
+  },
+  {
+    path: '/mj',
+    component: Layout,
+    meta: { roles: ['MJ'] },
+    children: [{
+      path: 'detail',
+      name: 'mjDetail',
+      component: () =>
+        import ('@/views/mj/mjDetail'),
+      meta: { title: '个人资料', icon: 'user', roles: ['MJ'] }
+    }]
+  },
+  {
+    path: '/ncp',
+    component: Layout,
+    meta: { roles: ['MJ'] },
+    children: [{
+      path: 'ncpformj',
+      name: 'NcpForMj',
+      component: () =>
+        import ('@/views/ncp/ncpForMj'),
+      meta: { title: '农产品', icon: 'table', roles: ['MJ'] }
+    }]
+  },
+  {
+    path: '/ncp',
+    component: Layout,
+    meta: { roles: ['NH'] },
+    children: [{
+      path: 'ncpfornh',
+      name: 'NcpForNh',
+      component: () =>
+        import ('@/views/ncp/ncpForNh'),
+      meta: { title: '个人农产品', icon: 'table', roles: ['NH'] }
+    }]
+  },
+  {
+    path: '/ncp',
+    component: Layout,
+    meta: { roles: ['NH'] },
+    children: [{
+      path: 'ncpregister',
+      name: 'ncpRegister',
+      component: () =>
+        import ('@/views/ncp/ncpRegister'),
+      meta: { title: '农产品登记', icon: 'form', roles: ['NH'] }
+    }]
+  },
+  {
+    path: '/ncp',
+    component: Layout,
+    meta: { roles: ['NH'] },
+    children: [{
+      path: 'ncpsingle',
+      name: 'ncpSingle',
+      component: () =>
+        import ('@/views/ncp/ncpSingle'),
+      meta: { title: '农产品修改', icon: 'form', roles: ['NH'] }
+    }]
+  },
+  { path: '*', redirect: '/404', hidden: true }
+]

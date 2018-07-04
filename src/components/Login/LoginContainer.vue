@@ -70,8 +70,6 @@ export default {
     },
     onSubmit() {
       //const password = md5(("" + this.salt.charAt(0) + this.salt.charAt(2) + this.form.password + this.salt.charAt(5) + this.salt))
-      //const data = {}
-      //const user = {}
       if (this.url.includes('nh')) {
         this.loading = true
         this.$store.dispatch('NhLogin', this.form).then(() => {
@@ -79,37 +77,16 @@ export default {
           this.$router.push({ path: '/' })
         }).catch(() => {
           this.loading = false
-        })/*
-        nhLogin(this.form.telephone, this.form.password)
-        data.nhTelephone = this.form.telephone
-        data.nhPassword = password
-        user.type = 'nh'*/
+        })
       } else if (this.url.includes('mj')) {
         this.loading = true
-        //console.log('mjjjjjjj')
         this.$store.dispatch('MjLogin', this.form).then(() => {
           this.loading = false
           this.$router.push({ path: '/' })
         }).catch(() => {
           this.loading = false
         })
-        /*
-        data.mjTelephone = this.form.telephone
-        data.mjPassword = password
-        user.type = 'mj'*/
-      }/*
-      user.user = this.form.telephone
-      this.$axios({
-          method: 'post',
-          url: this.url,
-          data: qs.stringify(data)
-        })
-        .then(res => {
-          this.$store.commit('login', user)
-          this.$message({ message: '登录成功', type: 'success' })
-          this.$router.push({ name: 'Home' })
-        })
-        .catch(err => {})*/
+      }
     },
     resetPassword() {
       this.$message('重置密码！！')
