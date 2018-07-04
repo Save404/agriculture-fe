@@ -21,7 +21,7 @@
   </div>
 </template>
 <script>
-import { ncpNhGet, ncpOnOff } from '@/api/ncp'
+import { ncpNhGet, ncpDelete, ncpOnOff } from '@/api/ncp'
 export default {
   inject: ['reload'],
   name: 'HomeNhTable',
@@ -44,19 +44,7 @@ export default {
         item['address'] = item['nameP'] + item['nameC'] + item['nameA']
         this.lists.push(item)
       }
-    },/*
-    getInfo() {
-      this.$axios({
-          method: 'get',
-          url: 'http://localhost:8080/ncp/get_ncp_list',
-        })
-        .then(res => {
-          this.dealLists(res)
-        })
-        .catch(err => {
-          this.$message(err)
-        })
-    },*/
+    },
     getInfo() {
       ncpNhGet()
         .then(res => {
@@ -74,8 +62,9 @@ export default {
       sessionStorage.setItem("p", p)
       sessionStorage.setItem("c", c)
       sessionStorage.setItem("a", a)
-      this.$store.commit('choiceBasicId', choicedItem)
-      this.$router.push({ name: 'NcpSingle' })
+      sessionStorage.setItem('ncpBasicId', choicedItem)
+      //this.$store.commit('choiceBasicId', choicedItem)
+      this.$router.push({ name: 'ncpSingle' })
     },
     deleteNcp(id) {
       this.$confirm('确认删除此农产品吗?', '提示', {
@@ -83,10 +72,7 @@ export default {
         cancelButtonText: '取消',
         type: 'warning'
       }).then(() => {
-        this.$axios({
-            method: 'post',
-            url: 'http://localhost:8080/ncp/delete_ncp/' + id,
-          })
+        ncpDelete(id)
           .then(res => {
             this.$message({ message: '删除农产品成功', type: 'success' })
             this.reload()

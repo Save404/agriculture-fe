@@ -1,6 +1,5 @@
 <template>
   <div id="ncp-single">
-    <h1>农产品详情</h1>
     <el-form :model="NcpSingleForm" ref="NcpSingleForm" label-width="120px">
       <el-form-item label="产品名称" prop="name_code" :rules="[{required: true,message:'产品名称不能为空',trigger:'blur'}]">
         <ncp-name @got="setName" :msg="msg" :placeholders="NcpSingleForm.initName"></ncp-name>
@@ -65,6 +64,7 @@
 import qs from 'qs'
 import VDistpicker from 'v-distpicker'
 import NcpName from './ncpName'
+import { ncpGetSingle } from '@/api/ncp'
 export default {
   name: 'NcpSingle',
   data() {
@@ -138,7 +138,7 @@ export default {
   components: { VDistpicker, NcpName },
   created() {
     let form = this.NcpSingleForm
-    let link = 'http://localhost:8080/ncp/get_ncp/' + sessionStorage.ncpBasicId
+    //let link = 'http://localhost:8080/ncp/get_ncp/' + sessionStorage.ncpBasicId
     form.province = sessionStorage.p
     form.city = sessionStorage.c
     form.area = sessionStorage.a
@@ -146,11 +146,7 @@ export default {
     form.initName.second = sessionStorage.c2
     form.initName.third = sessionStorage.c3
     form.initName.last = sessionStorage.c4
-    //console.log(form.initName)
-    this.$axios({
-        method: 'get',
-        url: link,
-      })
+    ncpGetSingle(sessionStorage.ncpBasicId)
       .then(res => {
         form.address = res['ncpAddress']
         form.area_code = res['ncpAreaCode']

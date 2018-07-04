@@ -1,6 +1,5 @@
 <template>
   <div id="farmer-detail">
-    <h1>农户详细信息</h1>
     <el-form :model="FarmerDetailForm" ref="FarmerDetailForm" label-width="140px">
       <el-form-item class="picker" label="姓名" prop="name" :rules="[{required: true,message:'姓名不能为空',trigger:'blur'}]">
         <el-input v-model="FarmerDetailForm.name" placeholder="真实姓名" style="width:120px;"></el-input>
@@ -10,8 +9,8 @@
           <el-radio border label="女"></el-radio>
         </el-radio-group>
       </el-form-item>
-      <el-form-item class="picker" label="地区" prop="area" :rules="[{required: true, message: '地区不能为空', trigger: 'blur'}]">
-        <v-distpicker :province="FarmerDetailForm.province" :city="FarmerDetailForm.city" :area="FarmerDetailForm.area" :area_code="FarmerDetailForm.area_code" ref="location" @selected="onSelected" :placeholders="FarmerDetailForm.placeholders"></v-distpicker>
+      <el-form-item label="地区" prop="area" :rules="[{required: true, message: '地区不能为空', trigger: 'blur'}]">
+        <v-distpicker class="picker" :province="FarmerDetailForm.province" :city="FarmerDetailForm.city" :area="FarmerDetailForm.area" :area_code="FarmerDetailForm.area_code" ref="location" @selected="onSelected" :placeholders="FarmerDetailForm.placeholders"></v-distpicker>
       </el-form-item>
       <el-form-item v-for="(field, index) in FarmerDetailForm.more" :label="field.comment" :key="index" :prop="'more.'+index+'.value'" :rules="[{required:true, message: field.comment+'为必填项', trigger: 'blur'}]">
         <el-input :type="field.type" v-model="field.value" :placeholder="field.sample"></el-input>
@@ -26,6 +25,7 @@
 <script>
 import qs from 'qs'
 import VDistpicker from 'v-distpicker'
+import { nhGetDetail, nhAddDetail } from '@/api/nh'
 export default {
   name: 'FarmerDetail',
   data() {
@@ -56,10 +56,7 @@ export default {
   methods: {
     init() {
       let form = this.FarmerDetailForm
-      this.$axios({
-          method: 'get',
-          url: 'http://localhost:8080/nh/get_nh_detail'
-        })
+      nhGetDetail()
         .then(res => {
           if (res !== null) {
             const list = res
@@ -118,14 +115,10 @@ export default {
         data['nh' + m[i].name] = m[i].value
       }
       // console.log(data) //查看更新个人资料后post的数据
-      this.$axios({
-          method: 'post',
-          url: 'http://localhost:8080/nh/add_nh_detail',
-          data: qs.stringify(data)
-        })
+      nhAddDetail(data)
         .then(res => {
           this.$message({ message: '更新农户个人资料成功', type: 'success' })
-          this.$router.push({ name: 'Home' })
+          //this.$router.push({ name: 'Home' })
         })
         .catch(err => {
           this.$message(err)
@@ -139,12 +132,13 @@ export default {
 
 </script>
 <style scoped>
-* {
-  text-align: center;
+#farmer-detail {
+  padding-top: 5%;
 }
+
 .el-form {
   position: absolute;
-  width: 500px;
+  width: 700px;
   left: 50%;
   transform: translateX(-50%);
 }

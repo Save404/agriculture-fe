@@ -1,6 +1,5 @@
 <template>
   <div id="farmer-detail">
-    <h1>买家详细信息</h1>
     <el-form :model="FarmerDetailForm" ref="FarmerDetailForm" label-width="140px">
       <el-form-item class="picker" label="姓名" prop="name" :rules="[{required: true,message:'姓名不能为空',trigger:'blur'}]">
         <el-input v-model="FarmerDetailForm.name" placeholder="真实姓名" style="width:120px;"></el-input>
@@ -26,6 +25,7 @@
 <script>
 import qs from 'qs'
 import VDistpicker from 'v-distpicker'
+import { mjGetDetail } from '@/api/mj'
 export default {
   name: 'MjDetail',
   data() {
@@ -56,10 +56,7 @@ export default {
   methods: {
     init() {
       let form = this.FarmerDetailForm
-      this.$axios({
-          method: 'get',
-          url: 'http://localhost:8080/mj/get_mj_detail'
-        })
+      mjGetDetail()
         .then(res => {
           if (res !== null) {
             const list = res

@@ -22,9 +22,31 @@ import Layout from '../views/layout/Layout'
   }
 **/
 export const constantRouterMap = [{
-    path: '/login',
+    path: '/nhlogin',
+    name: 'nhLogin',
     component: () =>
-      import ('@/views/login/index'),
+      import ('@/views/nh/nhLogin'),
+    hidden: true
+  },
+  {
+    path: '/mjlogin',
+    name: 'mjLogin',
+    component: () =>
+      import ('@/views/mj/mjLogin'),
+    hidden: true
+  },
+  {
+    path: '/nhregister',
+    name: 'nhRegister',
+    component: () =>
+      import ('@/views/nh/nhRegister'),
+    hidden: true
+  },
+  {
+    path: '/mjregister',
+    name: 'mjRegister',
+    component: () =>
+      import ('@/views/mj/mjRegister'),
     hidden: true
   },
   {
@@ -54,7 +76,7 @@ export const constantRouterMap = [{
       name: 'nhDetail',
       component: () =>
         import ('@/views/nh/nhDetail'),
-      meta: { title: '个人(nh)', icon: 'table' }
+      meta: { title: '个人资料', icon: 'form' }
     }]
   },
   {

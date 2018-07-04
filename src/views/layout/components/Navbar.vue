@@ -5,7 +5,7 @@
     <el-dropdown class="avatar-container" trigger="click">
       <div class="avatar-wrapper">
         <!--<img class="user-avatar" :src="avatar+'?imageView2/1/w/80/h/80'">-->
-        <el-button type="text" @click="">{{nhtoken}}</el-button>
+        <el-button type="primary" size="medium" @click="">{{name}}</el-button>
         <i class="el-icon-caret-bottom"></i>
       </div>
       <el-dropdown-menu class="user-dropdown" slot="dropdown">
@@ -35,7 +35,7 @@ export default {
   computed: {
     ...mapGetters([
       'sidebar',
-      'nhtoken'
+      'name'
     ])
   },
   methods: {
@@ -43,7 +43,7 @@ export default {
       this.$store.dispatch('ToggleSideBar')
     },
     logout() {
-      this.$store.dispatch('MjLogOut').then(() => {
+      this.$store.dispatch('LogOut').then(() => {
         location.reload() // 为了重新实例化vue-router对象 避免bug
       })
     }

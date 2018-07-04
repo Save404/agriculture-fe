@@ -116,9 +116,9 @@ export default {
     },
     goRegister() {
       if (this.url.includes('nh')) {
-        this.$router.push({ name: 'FarmerRegister' })
+        this.$router.push({ name: 'nhRegister' })
       } else {
-        this.$router.push({ name: 'MjRegister' })
+        this.$router.push({ name: 'mjRegister' })
       }
     },
     resetForm(formName) {

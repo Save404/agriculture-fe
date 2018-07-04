@@ -1,6 +1,5 @@
 <template>
   <div id="ncp-register">
-    <h1>农产品发布</h1>
     <el-form :model="NcpRegisterForm" ref="NcpRegisterForm" label-width="120px">
       <el-form-item label="产品名称" prop="name_code" :rules="[{required: true,message:'产品名称不能为空',trigger:'blur'}]">
         <ncp-name @got="setName" :msg="msg"></ncp-name>
