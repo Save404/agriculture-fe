@@ -83,7 +83,7 @@ export default {
     getInfo() {
       ncpMjGet()
         .then(res => {
-          console.log(res)
+          //console.log(res)
           this.dealLists(res)
         })
         .catch(err => {})

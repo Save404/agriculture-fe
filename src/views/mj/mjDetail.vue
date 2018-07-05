@@ -1,36 +1,35 @@
 <template>
   <div id="mj-detail">
-    <el-form :model="FarmerDetailForm" ref="FarmerDetailForm" label-width="140px">
+    <el-form :model="MjDetailForm" ref="MjDetailForm" label-width="140px">
       <el-form-item class="picker" label="姓名" prop="name" :rules="[{required: true,message:'姓名不能为空',trigger:'blur'}]">
-        <el-input v-model="FarmerDetailForm.name" placeholder="真实姓名" style="width:120px;"></el-input>
+        <el-input v-model="MjDetailForm.name" placeholder="真实姓名" style="width:120px;"></el-input>
         <span style="margin: 0 10px 0 40px;">性别</span>
-        <el-radio-group v-model="FarmerDetailForm.sex">
+        <el-radio-group v-model="MjDetailForm.sex">
           <el-radio border label="男"></el-radio>
           <el-radio border label="女"></el-radio>
         </el-radio-group>
       </el-form-item>
       <el-form-item class="picker" label="地区" prop="area" :rules="[{required: true, message: '地区不能为空', trigger: 'blur'}]">
-        <v-distpicker :province="FarmerDetailForm.province" :city="FarmerDetailForm.city" :area="FarmerDetailForm.area" :area_code="FarmerDetailForm.area_code" ref="location" @selected="onSelected" :placeholders="FarmerDetailForm.placeholders"></v-distpicker>
+        <v-distpicker :province="MjDetailForm.province" :city="MjDetailForm.city" :area="MjDetailForm.area" :area_code="MjDetailForm.area_code" ref="location" @selected="onSelected" :placeholders="MjDetailForm.placeholders"></v-distpicker>
       </el-form-item>
-      <el-form-item v-for="(field, index) in FarmerDetailForm.more" :label="field.comment" :key="index" :prop="'more.'+index+'.value'" :rules="[{required:true, message: field.comment+'为必填项', trigger: 'blur'}]">
+      <el-form-item v-for="(field, index) in MjDetailForm.more" :label="field.comment" :key="index" :prop="'more.'+index+'.value'" :rules="[{required:true, message: field.comment+'为必填项', trigger: 'blur'}]">
         <el-input :type="field.type" v-model="field.value" :placeholder="field.sample"></el-input>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" @click="submitForm('FarmerDetailForm')">保存</el-button>
+        <el-button type="primary" @click="submitForm('MjDetailForm')">保存</el-button>
         <el-button @click="goBack">取消</el-button>
       </el-form-item>
     </el-form>
   </div>
 </template>
 <script>
-import qs from 'qs'
 import VDistpicker from 'v-distpicker'
-import { mjGetDetail } from '@/api/mj'
+import { mjGetDetail, mjAddDetail } from '@/api/mj'
 export default {
   name: 'MjDetail',
   data() {
     return {
-      FarmerDetailForm: {
+      MjDetailForm: {
         province: '浙江省',
         city: '杭州市',
         area: '西湖区',
@@ -42,9 +41,6 @@ export default {
           { comment: '民族', name: 'Nation', value: '' },
           { comment: '身份证', name: 'IdCard', value: '' },
           { comment: '政治面貌', name: 'Politics', value: '' },
-          { comment: '供货单位地址', name: 'GhdwAddress', value: '' },
-          //{ comment: '供货地区编码', name: 'GhdwAreaCode', value: '' },
-          { comment: '供货单位联系方式', name: 'GhdwPhone', value: '', sample: '座机或手机' }
         ]
       }
     }
@@ -55,20 +51,20 @@ export default {
   },
   methods: {
     init() {
-      let form = this.FarmerDetailForm
+      let form = this.MjDetailForm
       mjGetDetail()
         .then(res => {
           if (res !== null) {
             const list = res
-            form.name = list['nhRealName']
-            form.sex = list['nhSex']
+            form.name = list['mjRealName']
+            form.sex = list['mjSex']
             form.province = list['nameP']
             form.city = list['nameC']
             form.area = list['nameA']
-            form.area_code = list['nhGhdwAreaCode']
+            form.area_code = list['mjGhdwAreaCode']
             let more = form.more
             for (let i = 0; i < more.length; i++) {
-              more[i].value = list['nh' + more[i].name]
+              more[i].value = list['mj' + more[i].name]
             }
           }
         })
@@ -77,11 +73,11 @@ export default {
         })
     },
     onSelected(data) {
-      this.FarmerDetailForm.province = data.province.value
-      this.FarmerDetailForm.city = data.city.value
-      this.FarmerDetailForm.area = data.area.value
-      this.FarmerDetailForm.area_code = data.area.code
-      //this.$message(this.FarmerDetailForm.area)
+      this.MjDetailForm.province = data.province.value
+      this.MjDetailForm.city = data.city.value
+      this.MjDetailForm.area = data.area.value
+      this.MjDetailForm.area_code = data.area.code
+      //this.$message(this.MjDetailForm.area)
     },
     submitForm(formName) {
       this.$refs[formName].validate((valid) => {
@@ -106,27 +102,21 @@ export default {
     },
     onSubmit() {
       const data = {
-        nhRealName: this.FarmerDetailForm.name,
-        nhSex: this.FarmerDetailForm.sex,
-        nhGhdwAreaCode: this.FarmerDetailForm.area_code
+        mjRealName: this.MjDetailForm.name,
+        mjSex: this.MjDetailForm.sex,
+        mjACode: this.MjDetailForm.area_code
       }
-      const m = this.FarmerDetailForm.more
+      const m = this.MjDetailForm.more
       for (var i = 0; i < m.length; i++) {
-        data['nh' + m[i].name] = m[i].value
+        data['mj' + m[i].name] = m[i].value
       }
       // console.log(data) //查看更新个人资料后post的数据
-      this.$axios({
-          method: 'post',
-          url: 'http://localhost:8080/nh/add_nh_detail',
-          data: qs.stringify(data)
-        })
+      mjAddDetail(data)
         .then(res => {
           this.$message({ message: '更新买家个人资料成功', type: 'success' })
           this.$router.push({ name: 'Home' })
         })
-        .catch(err => {
-          this.$message(err)
-        })
+        .catch(err => {})
     },
     goBack() {
       this.$router.back()
