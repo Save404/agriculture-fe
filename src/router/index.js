@@ -69,6 +69,21 @@ export const constantRouterMap = [{
   {
     path: '/example',
     component: Layout,
+    redirect: '/example/list',
+    name: 'example',
+    meta: {
+      title: 'example',
+      icon: 'example'
+    },
+    children: [
+      { path: 'create', component: () => import('@/views/example/create'), name: 'createArticle', meta: { title: 'createArticle', icon: 'edit' }},
+      { path: 'edit/:id(\\d+)', component: () => import('@/views/example/edit'), name: 'editArticle', meta: { title: 'editArticle', noCache: true }, hidden: true },
+      { path: 'list', component: () => import('@/views/example/list'), name: 'articleList', meta: { title: 'articleList', icon: 'list' }}
+    ]
+  },/*
+  {
+    path: '/example',
+    component: Layout,
     redirect: '/example/table',
     name: 'Example',
     meta: { title: 'Example', icon: 'example' },
@@ -94,7 +109,7 @@ export const constantRouterMap = [{
         meta: { title: 'Tree', icon: 'tree' }
       }
     ]
-  }
+  }*/
 ]
 
 export default new Router({
@@ -166,6 +181,7 @@ export const asyncRouterMap = [{
   {
     path: '/ncp',
     component: Layout,
+    hidden: true,
     meta: { roles: ['NH'] },
     children: [{
       path: 'ncpsingle',

@@ -10,13 +10,14 @@ const service = axios.create({
 })
 
 service.defaults.withCredentials = true
-service.defaults.headers['conten-type'] = 'application/x-www-form-urlencoded'
+service.defaults.headers['Content-Type'] = 'application/x-www-form-urlencoded'
 
 // request拦截器
 service.interceptors.request.use(config => {
   if (store.getters.token) {
     config.headers['X-Token'] = getToken() // 让每个请求携带自定义token 请根据实际情况自行修改
   }
+  console.log(config)
   return config
 }, error => {
   // Do something with request error
@@ -27,20 +28,31 @@ service.interceptors.request.use(config => {
 // respone拦截器
 service.interceptors.response.use(
   response => {
-  /**
-  * code为非20000是抛错 可结合自己业务进行修改
-  */
+    /**
+     * code为非20000是抛错 可结合自己业务进行修改
+    */
     console.log(response)
     const res = response.data
-    if(res.code === 20000) {
-      console.log(res)
-      return res
-    } else {
-      console.log(res.data)
+    if(res.code === 0) {
       return res.data
+    } else {
+      Message({
+        message: res.msg,
+        type: 'error',
+        duration: 5 * 1000
+      })
+      return Promise.reject('error')
     }
-    
-    
+    /*
+      console.log(response)
+      const res = response.data
+      if(res.code === 20000) {
+        console.log(res)
+        return res
+      } else {
+        console.log(res.data)
+        return res.data
+      }*/
     /*
     if (res.code !== 20000) {
       Message({
@@ -67,7 +79,7 @@ service.interceptors.response.use(
     }*/
   },
   error => {
-    console.log('fuckerr' + error)// for debug
+    console.log(error) // for debug
     Message({
       message: error.message,
       type: 'error',

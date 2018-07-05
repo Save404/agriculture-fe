@@ -56,12 +56,4 @@ export function mjGetInfo(token) {
     params: { token }
   })
 }
-
-
-export function mjGetNcp() {
-  return request({
-    url: '/ncp/get_mj_all_ncp_list',
-    method: 'get'
-  })
-}
 */
