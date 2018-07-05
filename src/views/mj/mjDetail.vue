@@ -1,5 +1,5 @@
 <template>
-  <div id="farmer-detail">
+  <div id="mj-detail">
     <el-form :model="FarmerDetailForm" ref="FarmerDetailForm" label-width="140px">
       <el-form-item class="picker" label="姓名" prop="name" :rules="[{required: true,message:'姓名不能为空',trigger:'blur'}]">
         <el-input v-model="FarmerDetailForm.name" placeholder="真实姓名" style="width:120px;"></el-input>
@@ -136,11 +136,14 @@ export default {
 
 </script>
 <style scoped>
+#mj-detail {
+  padding-top: 5%;
+}
 .el-form {
   position: absolute;
-  width: 500px;
+  width: 700px;
   left: 50%;
-  transform: translateX(-60%);
+  transform: translateX(-50%);
 }
 
 </style>

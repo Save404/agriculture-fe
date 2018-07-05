@@ -70,6 +70,7 @@
 import qs from 'qs'
 import VDistpicker from 'v-distpicker'
 import NcpName from './ncpName'
+import { ncpAdd } from '@/api/ncp'
 export default {
   name: 'NcpRegister',
   components: { VDistpicker, NcpName },
@@ -143,7 +144,6 @@ export default {
     setName(msg) {
       this.NcpRegisterForm.name = msg.name
       this.NcpRegisterForm.name_code = msg.code
-      //console.log('fa got '+ msg)
     },
     onSelected(data) {
       this.NcpRegisterForm.province = data.province.value
@@ -193,14 +193,10 @@ export default {
       }
       let router = this.$router
       let message = this.$message
-      this.$axios({
-          method: 'post',
-          url: 'http://localhost:8080/ncp/add_ncp',
-          data: qs.stringify(data)
-        })
+      ncpAdd(data)
         .then(res => {
           this.$message({ message: '发布成功', type: 'success' })
-          this.$router.push({ name: 'Home' })
+          this.$router.push({ name: 'NcpForNh' })
         })
         .catch(err => {})
     },
@@ -215,6 +211,9 @@ export default {
 
 </script>
 <style scoped>
+#ncp-register {
+  padding-top: 3%;
+}
 .el-form {
   position: absolute;
   left: 50%;

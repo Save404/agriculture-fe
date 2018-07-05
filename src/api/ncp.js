@@ -18,7 +18,7 @@ export function ncpDelete(ncpId) { // 农产品删除
 
 export function ncpModify(ncpObj, ncpId) { // 农产品修改
   return request({
-    url: '/ncp/modify_ncp' + ncpId,
+    url: '/ncp/modify_ncp/' + ncpId,
     method: 'post',
     data: qs.stringify(ncpObj)
   })

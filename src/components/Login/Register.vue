@@ -75,6 +75,23 @@ export default {
       })
     },
     onSubmit() {
+      if (this.url.includes('nh')) {
+        this.loading = true
+        this.$store.dispatch('NhRegister', this.form).then(() => {
+          this.loading = false
+          this.$router.push({ path: '/' })
+        }).catch(() => {
+          this.loading = false
+        })
+      } else if (this.url.includes('mj')) {
+        this.loading = true
+        this.$store.dispatch('MjRegister', this.form).then(() => {
+          this.loading = false
+          this.$router.push({ path: '/' })
+        }).catch(() => {
+          this.loading = false
+        })
+      }/*
       const data = {}
       if (this.url.includes('nh')) {
         data.nhTelephone = this.form.telephone
@@ -95,7 +112,7 @@ export default {
           this.$message({ message: '注册成功', type: 'success' })
           this.goLogin()
         })
-        .catch(err => {})
+        .catch(err => {})*/
     },
     goLogin() {
       if (this.url.includes('nh')) {

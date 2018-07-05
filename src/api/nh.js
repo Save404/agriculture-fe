@@ -23,6 +23,7 @@ export function nhRegister(telephone, password, repassword) {
   data.rePassword = repassword
   return request({
     url: '/nh/nh_register',
+    method: 'post',
     data: qs.stringify(data)
   })
 }

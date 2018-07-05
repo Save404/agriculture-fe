@@ -64,7 +64,7 @@
 import qs from 'qs'
 import VDistpicker from 'v-distpicker'
 import NcpName from './ncpName'
-import { ncpGetSingle } from '@/api/ncp'
+import { ncpGetSingle, ncpModify } from '@/api/ncp'
 export default {
   name: 'NcpSingle',
   data() {
@@ -228,14 +228,15 @@ export default {
       }
       const link = 'http://localhost:8080/ncp/modify_ncp/' + sessionStorage.ncpBasicId
       //console.log(link)
-      this.$axios({
+      /*this.$axios({
           method: 'post',
           url: link,
           data: qs.stringify(data)
-        })
+        })*/
+      ncpModify(data, sessionStorage.ncpBasicId)
         .then(res => {
           this.$message({ message: '更新成功', type: 'success' })
-          this.$router.push({ name: 'Home' })
+          this.$router.push({ name: 'NcpForNh' })
         })
         .catch(err => {})
     },
@@ -251,6 +252,9 @@ export default {
 </script>
 </script>
 <style scoped>
+#ncp-single {
+  padding-top: 3%;
+}
 .el-form {
   position: absolute;
   left: 50%;

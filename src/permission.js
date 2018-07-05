@@ -34,8 +34,10 @@ router.beforeEach((to, from, next) => {
             next({ ...to, replace: true })
           })
         }).catch((err) => {
-          console.log(err)
-          next({ path: '/' })
+          store.dispatch('FedLogOut').then(() => {
+            Message.error(err || '登录失败，请重新登录')
+            next({ path: '/' })
+          })
         })
       } else {
         if (hasPermission(store.getters.roles, to.meta.roles)) {

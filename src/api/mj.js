@@ -23,6 +23,7 @@ export function mjRegister(telephone, password, repassword) {
   data.rePassword = repassword
   return request({
     url: '/mj/mj_register',
+    method: 'post',
     data: qs.stringify(data)
   })
 }

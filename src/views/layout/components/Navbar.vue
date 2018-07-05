@@ -3,19 +3,19 @@
     <hamburger class="hamburger-container" :toggleClick="toggleSideBar" :isActive="sidebar.opened"></hamburger>
     <breadcrumb></breadcrumb>
     <el-dropdown class="avatar-container" trigger="click">
-      <div class="avatar-wrapper">
+      <div>
         <!--<img class="user-avatar" :src="avatar+'?imageView2/1/w/80/h/80'">-->
-        <el-button type="primary" size="medium" @click="">{{name}}</el-button>
+        <el-button type="primary" size="medium" @click="">{{phone}}</el-button>
         <i class="el-icon-caret-bottom"></i>
       </div>
       <el-dropdown-menu class="user-dropdown" slot="dropdown">
         <router-link class="inlineBlock" to="/">
           <el-dropdown-item>
-            Home
+            首页
           </el-dropdown-item>
         </router-link>
         <el-dropdown-item divided>
-          <span @click="logout" style="display:block;">LogOut</span>
+          <span @click="logout" style="display:block;">退出</span>
         </el-dropdown-item>
       </el-dropdown-menu>
     </el-dropdown>
@@ -35,7 +35,7 @@ export default {
   computed: {
     ...mapGetters([
       'sidebar',
-      'name'
+      'phone'
     ])
   },
   methods: {
@@ -72,7 +72,7 @@ export default {
     height: 50px;
     display: inline-block;
     position: absolute;
-    right: 35px;
+    right: 5px;
     .avatar-wrapper {
       cursor: pointer;
       margin-top: 5px;
