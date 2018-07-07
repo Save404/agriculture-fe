@@ -17,7 +17,7 @@ function hasPermission(roles, permissionRoles) {
   return roles.some(role => permissionRoles.indexOf(role) >= 0)
 }
 
-const whiteList = ['/nhlogin', '/nhregister', '/mjlogin', '/mjregister', '/example/create'] // 不重定向白名单
+const whiteList = ['/nhlogin', '/nhregister', '/mjlogin', '/mjregister'] // 不重定向白名单
 
 router.beforeEach((to, from, next) => {
   NProgress.start()

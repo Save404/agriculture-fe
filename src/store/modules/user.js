@@ -32,12 +32,14 @@ const user = {
       return new Promise((resolve, reject) => {
         nhLogin(telephone, userInfo.password).then(response => {
           //const data = response.data
-          setToken(telephone) //(data.token)
+          //setToken(telephone) //(data.token)
           //commit('SET_PHONE', telephone)
           //commit('SET_NAME', telephone)
           //sessionStorage.setItem('username', telephone)
-          sessionStorage.setItem('userphone', telephone)
-          sessionStorage.setItem('userroles', ['NH'])
+          const token = 'NH,' + telephone
+          setToken(token)
+          //sessionStorage.setItem('userphone', telephone)
+          //sessionStorage.setItem('userroles', ['NH'])
           resolve()
         }).catch(error => {
           reject(error)
@@ -50,9 +52,12 @@ const user = {
       const telephone = userInfo.telephone.trim()
       return new Promise((resolve, reject) => {
         nhRegister(telephone, userInfo.password, userInfo.repassword).then(() => {
+          const token = 'NH,' + telephone
+          setToken(token)
+          /*
           setToken(telephone)
           sessionStorage.setItem('userphone', telephone)
-          sessionStorage.setItem('userroles', ['NH'])
+          sessionStorage.setItem('userroles', ['NH'])*/
           resolve()
         }).catch(err => {
           reject(err)
@@ -66,11 +71,13 @@ const user = {
       return new Promise((resolve, reject) => {
         mjLogin(telephone, userInfo.password).then(response => {
           //const data = response.data
-          setToken(telephone) //(data.token)
+          //setToken(telephone) //(data.token)
           //commit('SET_TOKEN', data.token)
           //sessionStorage.setItem('username', telephone)
+          const token = 'MJ,' + telephone
+          setToken(token)/*
           sessionStorage.setItem('userphone', telephone)
-          sessionStorage.setItem('userroles', ['MJ'])
+          sessionStorage.setItem('userroles', ['MJ'])*/
           resolve()
         }).catch(error => {
           reject(error)
@@ -83,9 +90,11 @@ const user = {
       const telephone = userInfo.telephone.trim()
       return new Promise((resolve, reject) => {
         mjRegister(telephone, userInfo.password, userInfo.repassword).then(() => {
-          setToken(telephone)
+          /*setToken(telephone)
           sessionStorage.setItem('userphone', telephone)
-          sessionStorage.setItem('userroles', ['MJ'])
+          sessionStorage.setItem('userroles', ['MJ'])*/
+          const token = 'MJ,' + telephone
+          setToken(token)
           resolve()
         }).catch(err => {
           reject(err)
@@ -94,11 +103,12 @@ const user = {
     },
 
     // 获取用户信息
-    GetUserInfo({ commit }) {
+    GetUserInfo({ commit, state }) {
+      const [roles, phone] = getToken().split(',')
       const tmp = sessionStorage.getItem('userroles')
-      commit('SET_PHONE', sessionStorage.getItem('userphone'))
+      commit('SET_ROLES', [roles])
+      commit('SET_PHONE', phone)
       //commit('SET_NAME', sessionStorage.getItem('username'))
-      commit('SET_ROLES', [tmp])
       return new Promise((resolve, reject) => { resolve() })
     },
     /*
@@ -128,7 +138,7 @@ const user = {
         commit('SET_NAME', '')
         commit('SET_PHONE', '')
         removeToken()
-        sessionStorage.clear()
+        //sessionStorage.clear()
         resolve()
       }).catch(err => {
         reject(err)
@@ -140,7 +150,7 @@ const user = {
       return new Promise(resolve => {
         commit('SET_TOKEN', '')
         removeToken()
-        sessionStorage.clear()
+        //sessionStorage.clear()
         resolve()
       })
     }

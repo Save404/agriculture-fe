@@ -69,30 +69,15 @@ export const constantRouterMap = [{
   {
     path: '/example',
     component: Layout,
-    redirect: '/example/list',
-    name: 'example',
-    meta: {
-      title: 'example',
-      icon: 'example'
-    },
-    children: [
-      { path: 'create', component: () => import('@/views/example/create'), name: 'createArticle', meta: { title: 'createArticle', icon: 'edit' }},
-      { path: 'edit/:id(\\d+)', component: () => import('@/views/example/edit'), name: 'editArticle', meta: { title: 'editArticle', noCache: true }, hidden: true },
-      { path: 'list', component: () => import('@/views/example/list'), name: 'articleList', meta: { title: 'articleList', icon: 'list' }}
-    ]
-  },/*
-  {
-    path: '/example',
-    component: Layout,
     redirect: '/example/table',
     name: 'Example',
     meta: { title: 'Example', icon: 'example' },
-    children: [
-      {
+    children: [{
         path: 'form',
         name: 'Form',
-        component: () => import ('@/views/form/index'),
-        meta: { title: 'Form', icon: 'form'}
+        component: () =>
+          import ('@/views/form/index'),
+        meta: { title: 'Form', icon: 'form' }
       },
       {
         path: 'table',
@@ -107,9 +92,31 @@ export const constantRouterMap = [{
         component: () =>
           import ('@/views/tree/index'),
         meta: { title: 'Tree', icon: 'tree' }
+      },
+      {
+        path: 'create',
+        component: () =>
+          import ('@/views/example/create'),
+        name: 'createArticle',
+        meta: { title: 'createArticle', icon: 'edit' }
+      },
+      {
+        path: 'edit/:id(\\d+)',
+        component: () =>
+          import ('@/views/example/edit'),
+        name: 'editArticle',
+        meta: { title: 'editArticle', noCache: true },
+        hidden: true
+      },
+      {
+        path: 'list',
+        component: () =>
+          import ('@/views/example/list'),
+        name: 'articleList',
+        meta: { title: 'articleList', icon: 'list' }
       }
     ]
-  }*/
+  }
 ]
 
 export default new Router({
@@ -191,5 +198,21 @@ export const asyncRouterMap = [{
       meta: { title: '农产品修改', icon: 'form', roles: ['NH'] }
     }]
   },
+  /*
+    {
+      path: '/example',
+      component: Layout,
+      redirect: '/example/list',
+      name: 'example',
+      meta: {
+        title: 'example',
+        icon: 'example'
+      },
+      children: [
+        { path: 'create', component: () => import('@/views/example/create'), name: 'createArticle', meta: { title: 'createArticle', icon: 'edit' }},
+        { path: 'edit/:id(\\d+)', component: () => import('@/views/example/edit'), name: 'editArticle', meta: { title: 'editArticle', noCache: true }, hidden: true },
+        { path: 'list', component: () => import('@/views/example/list'), name: 'articleList', meta: { title: 'articleList', icon: 'list' }}
+      ]
+    },*/
   { path: '*', redirect: '/404', hidden: true }
 ]
