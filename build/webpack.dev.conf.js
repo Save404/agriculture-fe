@@ -56,7 +56,8 @@ const devWebpackConfig = merge(baseWebpackConfig, {
       template: 'index.html',
       inject: true,
       favicon: resolve('favicon.ico'),
-      title: 'agriculture'
+      title: 'agriculture',
+      path: config.dev.assetsPublicPath + config.dev.assetsSubDirectory
     }),
     new OpenBrowserPlugin({url: 'http://'+config.dev.host+':'+config.dev.port, browser: 'google chrome'})
   ]
