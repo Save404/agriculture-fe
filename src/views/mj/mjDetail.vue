@@ -56,12 +56,13 @@ export default {
         .then(res => {
           if (res !== null) {
             const list = res
+            //console.log(list) //created钩子请求后返回的数据
             form.name = list['mjRealName']
             form.sex = list['mjSex']
             form.province = list['nameP']
             form.city = list['nameC']
             form.area = list['nameA']
-            form.area_code = list['mjGhdwAreaCode']
+            form.area_code = list['mjACode']
             let more = form.more
             for (let i = 0; i < more.length; i++) {
               more[i].value = list['mj' + more[i].name]
@@ -77,7 +78,6 @@ export default {
       this.MjDetailForm.city = data.city.value
       this.MjDetailForm.area = data.area.value
       this.MjDetailForm.area_code = data.area.code
-      //this.$message(this.MjDetailForm.area)
     },
     submitForm(formName) {
       this.$refs[formName].validate((valid) => {
@@ -110,11 +110,11 @@ export default {
       for (var i = 0; i < m.length; i++) {
         data['mj' + m[i].name] = m[i].value
       }
-      // console.log(data) //查看更新个人资料后post的数据
+      //console.log(data) //查看更新个人资料后post的数据
       mjAddDetail(data)
         .then(res => {
           this.$message({ message: '更新买家个人资料成功', type: 'success' })
-          this.$router.push({ name: 'Home' })
+          //this.$router.push({ name: 'Home' })
         })
         .catch(err => {})
     },
