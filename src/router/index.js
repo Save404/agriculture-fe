@@ -24,28 +24,28 @@ export const constantRouterMap = [{
     path: '/nhlogin',
     name: 'nhLogin',
     component: () =>
-      import ('@/views/nh/nhLogin'),
+      import ('@/views/nh/NhLogin'),
     hidden: true
   },
   {
     path: '/mjlogin',
     name: 'mjLogin',
     component: () =>
-      import ('@/views/mj/mjLogin'),
+      import ('@/views/mj/MjLogin'),
     hidden: true
   },
   {
     path: '/nhregister',
     name: 'nhRegister',
     component: () =>
-      import ('@/views/nh/nhRegister'),
+      import ('@/views/nh/NhRegister'),
     hidden: true
   },
   {
     path: '/mjregister',
     name: 'mjRegister',
     component: () =>
-      import ('@/views/mj/mjRegister'),
+      import ('@/views/mj/MjRegister'),
     hidden: true
   },
   {
@@ -93,13 +93,13 @@ export const constantRouterMap = [{
           import ('@/views/tree/index'),
         meta: { title: 'Tree', icon: 'tree' }
       },
-      {
+      /*{
         path: 'create',
         component: () =>
           import ('@/views/example/create'),
         name: 'createArticle',
         meta: { title: 'createArticle', icon: 'edit' }
-      },
+      },*/
       {
         path: 'edit/:id(\\d+)',
         component: () =>
@@ -133,7 +133,7 @@ export const asyncRouterMap = [{
       path: 'detail',
       name: 'nhDetail',
       component: () =>
-        import ('@/views/nh/nhDetail'),
+        import ('@/views/nh/NhDetail'),
       meta: { title: '个人资料', icon: 'user', roles: ['NH'] }
     }]
   },
@@ -145,7 +145,7 @@ export const asyncRouterMap = [{
       path: 'detail',
       name: 'mjDetail',
       component: () =>
-        import ('@/views/mj/mjDetail'),
+        import ('@/views/mj/MjDetail'),
       meta: { title: '个人资料', icon: 'user', roles: ['MJ'] }
     }]
   },
@@ -157,8 +157,8 @@ export const asyncRouterMap = [{
       path: 'ncpformj',
       name: 'NcpForMj',
       component: () =>
-        import ('@/views/ncp/ncpForMj'),
-      meta: { title: '农产品', icon: 'table', roles: ['MJ'] }
+        import ('@/views/ncp/NcpForMj'),
+      meta: { title: '农产品列表', icon: 'table', roles: ['MJ'] }
     }]
   },
   {
@@ -169,7 +169,7 @@ export const asyncRouterMap = [{
       path: 'ncpfornh',
       name: 'NcpForNh',
       component: () =>
-        import ('@/views/ncp/ncpForNh'),
+        import ('@/views/ncp/NcpForNh'),
       meta: { title: '个人农产品', icon: 'table', roles: ['NH'] }
     }]
   },
@@ -181,7 +181,7 @@ export const asyncRouterMap = [{
       path: 'ncpregister',
       name: 'ncpRegister',
       component: () =>
-        import ('@/views/ncp/ncpRegister'),
+        import ('@/views/ncp/NcpRegister'),
       meta: { title: '农产品登记', icon: 'form', roles: ['NH'] }
     }]
   },
@@ -194,8 +194,44 @@ export const asyncRouterMap = [{
       path: 'ncpsingle',
       name: 'ncpSingle',
       component: () =>
-        import ('@/views/ncp/ncpSingle'),
+        import ('@/views/ncp/NcpSingle'),
       meta: { title: '农产品修改', icon: 'form', roles: ['NH'] }
+    }]
+  },
+  {
+    path: '/nh',
+    component: Layout,
+    meta: { roles: ['NH'] },
+    children: [{
+      path: 'purchase',
+      name: 'nhPurchase',
+      component: () =>
+        import ('@/views/nh/NhPurchase'),
+      meta: { title: '原料求购', icon: 'eye', roles: ['NH'] }
+    }]
+  },
+  {
+    path: '/nh',
+    component: Layout,
+    meta: { roles: ['NH'] },
+    children: [{
+      path: 'create',
+      name: 'createArticle',
+      component: () =>
+        import ('@/views/example/create'),
+      meta: { title: '农情上报', icon: 'edit', roles: ['NH'] }
+    }]
+  },
+  {
+    path: '/mj',
+    component: Layout,
+    meta: { roles: ['MJ'] },
+    children: [{
+      path: 'purchase',
+      name: 'mjPurchase',
+      component: () =>
+        import ('@/views/mj/MjPurchase'),
+      meta: { title: '农产品求购', icon: 'eye', roles: ['MJ'] }
     }]
   },
   /*
