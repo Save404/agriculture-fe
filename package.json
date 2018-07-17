@@ -13,11 +13,13 @@
   "dependencies": {
     "axios": "0.17.1",
     "element-ui": "2.3.4",
+    "font-awesome": "4.7.0",
     "js-cookie": "2.2.0",
     "js-md5": "^0.7.3",
     "normalize.css": "7.0.0",
     "nprogress": "0.2.0",
     "qs": "^6.5.2",
+    "simplemde": "1.11.2",
     "v-distpicker": "^1.0.17",
     "vue": "2.5.10",
     "vue-multiselect": "^2.1.0",
