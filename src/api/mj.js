@@ -43,17 +43,3 @@ export function mjAddDetail(detailObj) {
     data: qs.stringify(detailObj)
   })
 }
-
-export function mjLogout() {
-  return new Promise(resolve => {resolve()})
-}
-
-/*
-export function mjGetInfo(token) {
-  return request({
-    url: '/user/info',
-    method: 'get',
-    params: { token }
-  })
-}
-*/
