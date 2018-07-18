@@ -43,16 +43,3 @@ export function nhAddDetail(detailObj) {
     data: qs.stringify(detailObj)
   })
 }
-
-export function nhLogout() {
-  return new Promise(resolve => {resolve()})
-}
-/*
-
-
-export function nhGetNcp() {
-  return request({
-    url: '/ncp/get_mj_all_ncp_list',
-    method: 'get'
-  })
-}*/

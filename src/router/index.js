@@ -55,67 +55,16 @@ export const constantRouterMap = [{
     hidden: true
   },
   {
-    path: '/',
+    path: '',
     component: Layout,
-    redirect: '/dashboard',
-    name: 'Dashboard',
-    hidden: true,
+    redirect: 'dashboard',
     children: [{
       path: 'dashboard',
       component: () =>
-        import ('@/views/dashboard/index')
+        import ('@/views/dashboard/index'),
+      name: 'dashboard',
+      meta: { title: '首页', icon: 'dashboard', noCache: true }
     }]
-  },
-  {
-    path: '/example',
-    component: Layout,
-    redirect: '/example/table',
-    name: 'Example',
-    meta: { title: 'Example', icon: 'example' },
-    children: [{
-        path: 'form',
-        name: 'Form',
-        component: () =>
-          import ('@/views/form/index'),
-        meta: { title: 'Form', icon: 'form' }
-      },
-      {
-        path: 'table',
-        name: 'Table',
-        component: () =>
-          import ('@/views/table/index'),
-        meta: { title: 'Table', icon: 'table' }
-      },
-      {
-        path: 'tree',
-        name: 'Tree',
-        component: () =>
-          import ('@/views/tree/index'),
-        meta: { title: 'Tree', icon: 'tree' }
-      },
-      /*{
-        path: 'create',
-        component: () =>
-          import ('@/views/example/create'),
-        name: 'createArticle',
-        meta: { title: 'createArticle', icon: 'edit' }
-      },*/
-      {
-        path: 'edit/:id(\\d+)',
-        component: () =>
-          import ('@/views/example/edit'),
-        name: 'editArticle',
-        meta: { title: 'editArticle', noCache: true },
-        hidden: true
-      },
-      {
-        path: 'list',
-        component: () =>
-          import ('@/views/example/list'),
-        name: 'articleList',
-        meta: { title: 'articleList', icon: 'list' }
-      }
-    ]
   }
 ]
 
@@ -218,7 +167,7 @@ export const asyncRouterMap = [{
       path: 'create',
       name: 'createArticle',
       component: () =>
-        import ('@/views/example/create'),
+        import ('@/views/agriculturalCondition/create'),
       meta: { title: '农情上报', icon: 'edit', roles: ['NH'] }
     }]
   },
