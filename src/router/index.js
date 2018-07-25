@@ -183,6 +183,18 @@ export const asyncRouterMap = [{
       meta: { title: '农产品求购', icon: 'eye', roles: ['MJ'] }
     }]
   },
+  {
+    path: '/nh',
+    component: Layout,
+    meta: { roles: ['NH'] },
+    children: [{
+      path: 'contract',
+      name: 'PSContract',
+      component: () =>
+        import ('@/views/contract/index'),
+      meta: { title: '合同签订', icon: 'edit', roles: ['NH'] }
+    }]
+  },
   /*
     {
       path: '/example',
