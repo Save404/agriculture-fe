@@ -65,7 +65,19 @@ export const constantRouterMap = [{
       name: 'dashboard',
       meta: { title: '首页', icon: 'dashboard', noCache: true }
     }]
-  }
+  },
+  {
+    path: '/nh',
+    component: Layout,
+    meta: { roles: ['NH'] },
+    children: [{
+      path: 'contract',
+      name: 'PSContract',
+      component: () =>
+        import ('@/views/contract/index'),
+      meta: { title: '合同签订', icon: 'edit', roles: ['NH'] }
+    }]
+  },
 ]
 
 export default new Router({
@@ -183,7 +195,7 @@ export const asyncRouterMap = [{
       meta: { title: '农产品求购', icon: 'eye', roles: ['MJ'] }
     }]
   },
-  {
+  /*{
     path: '/nh',
     component: Layout,
     meta: { roles: ['NH'] },
@@ -194,22 +206,6 @@ export const asyncRouterMap = [{
         import ('@/views/contract/index'),
       meta: { title: '合同签订', icon: 'edit', roles: ['NH'] }
     }]
-  },
-  /*
-    {
-      path: '/example',
-      component: Layout,
-      redirect: '/example/list',
-      name: 'example',
-      meta: {
-        title: 'example',
-        icon: 'example'
-      },
-      children: [
-        { path: 'create', component: () => import('@/views/example/create'), name: 'createArticle', meta: { title: 'createArticle', icon: 'edit' }},
-        { path: 'edit/:id(\\d+)', component: () => import('@/views/example/edit'), name: 'editArticle', meta: { title: 'editArticle', noCache: true }, hidden: true },
-        { path: 'list', component: () => import('@/views/example/list'), name: 'articleList', meta: { title: 'articleList', icon: 'list' }}
-      ]
-    },*/
+  },*/
   { path: '*', redirect: '/404', hidden: true }
 ]
