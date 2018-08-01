@@ -65,19 +65,7 @@ export const constantRouterMap = [{
       name: 'dashboard',
       meta: { title: '首页', icon: 'dashboard', noCache: true }
     }]
-  },
-  {
-    path: '/nh',
-    component: Layout,
-    meta: { roles: ['NH'] },
-    children: [{
-      path: 'contract',
-      name: 'PSContract',
-      component: () =>
-        import ('@/views/contract/index'),
-      meta: { title: '合同签订', icon: 'edit', roles: ['NH'] }
-    }]
-  },
+  }
 ]
 
 export default new Router({
@@ -195,7 +183,7 @@ export const asyncRouterMap = [{
       meta: { title: '农产品求购', icon: 'eye', roles: ['MJ'] }
     }]
   },
-  /*{
+  {
     path: '/nh',
     component: Layout,
     meta: { roles: ['NH'] },
@@ -206,6 +194,6 @@ export const asyncRouterMap = [{
         import ('@/views/contract/index'),
       meta: { title: '合同签订', icon: 'edit', roles: ['NH'] }
     }]
-  },*/
+  },
   { path: '*', redirect: '/404', hidden: true }
 ]

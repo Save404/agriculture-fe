@@ -97,6 +97,11 @@ export default {
         d2: ''
       }
     }
+  },
+  methods: {
+    onSubmit() {
+      console.log('submit!')
+    }
   }
 }
 
