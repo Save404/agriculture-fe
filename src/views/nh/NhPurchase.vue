@@ -53,7 +53,7 @@ export default {
         author: '17367077526',
         telephone: '17367077526',
         content: '',
-        basicId: document.cookie.split(';')[5].split('=')[1],
+        basicId: '',//document.cookie.split(';')[5].split('=')[1],
         title: '',
         display_time: '',
         importance: 0,
