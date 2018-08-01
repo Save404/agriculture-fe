@@ -1,11 +1,16 @@
 <template>
-  <div>
-    <h2>农产品求购</h2>
+  <div class="mj-purchase">
+    <purchase-form :type="type"></purchase-form>
   </div>
 </template>
-
 <script>
+import PurchaseForm from '@/components/PurchaseForm'
 export default {
-
+  components: { PurchaseForm },
+  data() {
+    return {
+      type: 'MJ',
+    }
+  }
 }
 </script>
