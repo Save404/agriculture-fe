@@ -9,7 +9,7 @@ export default {
   components: { PurchaseForm },
   data() {
     return {
-      type: 'NH',
+      type: 'NH'
     }
   }
 }
