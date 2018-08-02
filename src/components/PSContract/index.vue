@@ -71,6 +71,7 @@
 </template>
 <script>
 import MDinput from '@/components/MDinput'
+import { addContract } from '@/api/contract'
 export default {
   components: { MDinput },
   data() {
@@ -100,6 +101,7 @@ export default {
   },
   methods: {
     onSubmit() {
+      // addContract(contractForm)
       console.log('submit!')
     }
   }

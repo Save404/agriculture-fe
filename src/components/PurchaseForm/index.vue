@@ -13,7 +13,7 @@
               <el-row>
                 <el-col :span="11">
                   <el-form-item label-width="80px" label="联系电话:" class="postInfo-container-item">
-                    <el-input v-model="postForm.telephone" placeholder="联系方式"></el-input>
+                    <el-input style="width: 200px;" v-model="postForm.telephone" placeholder="联系方式"></el-input>
                   </el-form-item>
                 </el-col>
                 <el-col :span="11">

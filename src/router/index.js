@@ -186,13 +186,13 @@ export const asyncRouterMap = [{
   {
     path: '/nh',
     component: Layout,
-    meta: { roles: ['NH'] },
+    meta: { roles: ['NH', 'MJ'] },
     children: [{
       path: 'contract',
       name: 'PSContract',
       component: () =>
         import ('@/views/contract/index'),
-      meta: { title: '合同签订', icon: 'edit', roles: ['NH'] }
+      meta: { title: '合同签订', icon: 'edit', roles: ['NH', 'MJ'] }
     }]
   },
   { path: '*', redirect: '/404', hidden: true }
