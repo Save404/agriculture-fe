@@ -70,6 +70,7 @@
   </div>
 </template>
 <script>
+import { mapGetters } from 'vuex'
 import MDinput from '@/components/MDinput'
 import { addContract } from '@/api/contract'
 export default {
@@ -80,35 +81,48 @@ export default {
         alipayAccount: '',
         contractId: '',
         createTime: '',
-        mjBasicId: '',
-        ncpBasicId: '',
-        nhBasicId: '',
+        mjBasicId: 'fc56e754922a494ca14df96b0c3fc3dc',
+        ncpBasicId: sessionStorage.getItem("ncpBasicId"),
+        nhBasicId: sessionStorage.getItem("nhBasicId"),
         prePayment: '',
         purchasePrice: '',
         purchaseQuantity: '',
-        purchaseUnit: '',
+        purchaseUnit: 'kg',
         purchaserName: '',
         purchasesLiquidatedDamages: '',
-        receivingAddress: '',
+        receivingAddress: 'zj',
         salesLiquidatedDamages: '',
         salesName: '',
-        statu: '',
+        statu: 0,
         other: '',
         d1: '',
         d2: ''
       }
     }
   },
+  computed: {
+    ...mapGetters([
+      'basicId'
+    ])
+  },
   methods: {
     onSubmit() {
-      // addContract(contractForm)
+      this.contractForm.nhBasicId = this.basicId
+      console.log(this.contractForm)
+      addContract(this.contractForm)
+        .then(res => {
+          console.log('ok!')
+        })
+        .catch(err => {
+          console.log('err!')
+        })
       console.log('submit!')
     }
   }
 }
 
 </script>
-<style>
+<style scoped>
 .pscontract-form {
   padding: 10px 45px 20px 50px;
 }

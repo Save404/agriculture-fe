@@ -42,7 +42,8 @@
       </el-table-column>
       <el-table-column label="操作" align="center" min-width="100">
         <template slot-scope="scope">
-          <el-button size="mini" type="primary" @click="">联系商家</el-button>
+          <!--<el-button size="mini" @click="getNcpSingle(scope.row.ncpBasicId, scope.row.c1Name, scope.row.c2Name, scope.row.c3Name, scope.row.ncpName, scope.row.nameP, scope.row.nameC, scope.row.nameA)">详情</el-button>-->
+          <el-button size="mini" type="primary" @click="goContract(scope.row.nhBasicId, scope.row.ncpBasicId)">签订合同</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -97,8 +98,13 @@ export default {
       sessionStorage.setItem("p", p)
       sessionStorage.setItem("c", c)
       sessionStorage.setItem("a", a)
-      this.$store.commit('choiceBasicId', choicedItem)
-      this.$router.push({ name: 'NcpSingle' })
+      //this.$store.commit('choiceBasicId', choicedItem)
+      //this.$router.push({ name: 'NcpSingle' })
+    },
+    goContract(nh, ncp) {
+      sessionStorage.setItem("nhBasicId", nh)
+      sessionStorage.setItem("ncpBasicId", ncp)
+      this.$router.push({ name: 'PSContract' })
     }
   }
 }
