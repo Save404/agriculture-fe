@@ -186,13 +186,26 @@ export const asyncRouterMap = [{
   {
     path: '/nh',
     component: Layout,
-    meta: { roles: ['NH'] },
+    hidden: true,
+    meta: { roles: ['NH', 'MJ'] },
     children: [{
       path: 'contract',
       name: 'PSContract',
       component: () =>
-        import ('@/views/contract/index'),
-      meta: { title: '合同签订', icon: 'edit', roles: ['NH'] }
+        import ('@/views/contract/contractMain'),
+      meta: { title: '合同签订', icon: 'edit', roles: ['NH', 'MJ'] }
+    }]
+  },
+  {
+    path: '/nh',
+    component: Layout,
+    meta: { roles: ['NH', 'MJ'] },
+    children: [{
+      path: 'contracts',
+      name: 'contractList',
+      component: () =>
+        import ('@/views/contract/contractList'),
+      meta: { title: '合同列表', icon: 'table', roles: ['NH', 'MJ'] }
     }]
   },
   { path: '*', redirect: '/404', hidden: true }

@@ -13,7 +13,7 @@
               <el-row>
                 <el-col :span="11">
                   <el-form-item label-width="80px" label="联系电话:" class="postInfo-container-item">
-                    <el-input v-model="postForm.telephone" placeholder="联系方式"></el-input>
+                    <el-input style="width: 200px;" v-model="postForm.telephone" placeholder="联系方式"></el-input>
                   </el-form-item>
                 </el-col>
                 <el-col :span="11">
@@ -42,7 +42,7 @@
 import { mapGetters } from 'vuex'
 import MarkdownEditor from '@/components/MarkdownEditor'
 import MDinput from '@/components/MDinput'
-import { addPurchase } from '@/api/purchase'
+import { purchaseAdd } from '@/api/purchase'
 const content = `hello,world`
 export default {
   components: { MarkdownEditor, MDinput },
@@ -74,7 +74,7 @@ export default {
       this.postForm.author = this.phone
       this.postForm.basicId = this.basicId
       const typ = this.type || this.roles[0]
-      addPurchase(typ, this.postForm)
+      purchaseAdd(typ, this.postForm)
         .then((res) => {
           console.log(res)
         })

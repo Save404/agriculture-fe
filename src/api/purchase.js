@@ -1,7 +1,15 @@
 import qs from 'qs'
 import request from '@/utils/request'
 
-export function addPurchase(type, purchases) {
+export function purchaseGet(type) {
+  return request({
+    url: '/purchases',
+    method: 'get',
+    params: type
+  })
+}
+
+export function purchaseAdd(type, purchases) {
   const data = purchases
   data.type = type
   //data.purchases = purchases
@@ -13,6 +21,14 @@ export function addPurchase(type, purchases) {
   })
 }
 
-export function deletePurchase(argument) {
+export function purchaseDelete(argument) {
+
+}
+
+export function purchaseDetail(argument) {
+  // body...
+}
+
+export function purchaseModify() {
 
 }
