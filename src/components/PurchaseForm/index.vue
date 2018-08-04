@@ -42,7 +42,7 @@
 import { mapGetters } from 'vuex'
 import MarkdownEditor from '@/components/MarkdownEditor'
 import MDinput from '@/components/MDinput'
-import { addPurchase } from '@/api/purchase'
+import { purchaseAdd } from '@/api/purchase'
 const content = `hello,world`
 export default {
   components: { MarkdownEditor, MDinput },
@@ -74,7 +74,7 @@ export default {
       this.postForm.author = this.phone
       this.postForm.basicId = this.basicId
       const typ = this.type || this.roles[0]
-      addPurchase(typ, this.postForm)
+      purchaseAdd(typ, this.postForm)
         .then((res) => {
           console.log(res)
         })

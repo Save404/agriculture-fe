@@ -42,8 +42,7 @@
       </el-table-column>
       <el-table-column label="操作" align="center" min-width="100">
         <template slot-scope="scope">
-          <!--<el-button size="mini" @click="getNcpSingle(scope.row.ncpBasicId, scope.row.c1Name, scope.row.c2Name, scope.row.c3Name, scope.row.ncpName, scope.row.nameP, scope.row.nameC, scope.row.nameA)">详情</el-button>-->
-          <el-button size="mini" type="primary" @click="goContract(scope.row.nhBasicId, scope.row.ncpBasicId)">签订合同</el-button>
+          <el-button size="mini" type="primary" @click="goContract(scope.row.nhBasicId, scope.row.ncpBasicId, scope.row.ncpName, scope.row.supplyUnit)">签订合同</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -89,21 +88,11 @@ export default {
         })
         .catch(err => {})
     },
-    getNcpSingle(choicedItem, c1, c2, c3, c4, p, c, a) {
-      //console.log(c1, c2, c3, c4, p, c, a)
-      sessionStorage.setItem("c1", c1)
-      sessionStorage.setItem("c2", c2)
-      sessionStorage.setItem("c3", c3)
-      sessionStorage.setItem("c4", c4)
-      sessionStorage.setItem("p", p)
-      sessionStorage.setItem("c", c)
-      sessionStorage.setItem("a", a)
-      //this.$store.commit('choiceBasicId', choicedItem)
-      //this.$router.push({ name: 'NcpSingle' })
-    },
-    goContract(nh, ncp) {
+    goContract(nh, ncp, name, unit) {
       sessionStorage.setItem("nhBasicId", nh)
       sessionStorage.setItem("ncpBasicId", ncp)
+      sessionStorage.setItem("ncpName", name)
+      sessionStorage.setItem("unit", unit)
       this.$router.push({ name: 'PSContract' })
     }
   }

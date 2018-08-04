@@ -1,12 +1,7 @@
 <template>
   <div class="pscontract-form">
-    <h1 style="text-align: center;">农产品购销合同书</h1>
+    <h1 style="text-align: center;">{{title}}购销合同书</h1>
     <el-form :model="contractForm" ref="contractForm">
-      <el-form-item>
-        <MDinput name="name" v-model="contractForm.contractId" required :maxlength="100">
-          项目全称
-        </MDinput>
-      </el-form-item>
       <el-row :gutter="0">
         <el-col :span="12">
           <el-form-item>
@@ -26,8 +21,7 @@
       <el-form-item>
         <p>
           为了保护甲乙双方合法权益，提高双方的经济效益，明确法律责任，依据《中华人民共和国合同法》、《中华人民农产品质量安全法》和相关法律法规，经甲乙双方在平等自愿、互惠互利、诚实守信的原则上，签订
-          <el-input size="mini" v-model="contractForm.contractId" placeholder=""></el-input>
-          购销合同。其条款如下：
+          <el-input size="mini" v-model="title" placeholder=""></el-input> 购销合同。其条款如下：
         </p>
       </el-form-item>
       <el-form-item label="第一条 甲乙双方的责任">
@@ -35,15 +29,15 @@
         <p>一、乙方所供应的产品，必须达到卫生要求和质量标准，如出现产品质量问题，甲方无条件退货或换货。</p>
         <p>二、乙方按甲方所需产品，提供保质、保量、安全的产品。甲方应该按双方约定的数量全部收购。</p>
         <p>三、产品数量合计
-          <el-input size="mini" v-model="contractForm.purchaseQuantity"></el-input>吨，每吨
-          <el-input size="mini" v-model="contractForm.purchasePrice"></el-input>元，以上金额合计
-          <el-input size="mini" v-model="contractForm.purchasePrice"></el-input>元。</p>
+          <el-input size="mini" v-model="contractForm.purchaseQuantity"></el-input> {{contractForm.purchaseUnit}}，每{{contractForm.purchaseUnit}}
+          <el-input size="mini" v-model="contractForm.perPrice"></el-input> 元，以上金额合计 <span style="font-weight: bold;color: red;">{{calculateTotal}}</span> 元。预付金为
+          <el-input v-model="contractForm.prePayment" size="mini"></el-input> 元。</p>
       </el-form-item>
       <el-form-item label="第二条 违约责任">
         <br>
         <p>乙方违反合同，应向甲方支付违约金
-          <el-input size="mini" v-model="contractForm.salesLiquidatedDamages"></el-input>元；甲方违反合同，应向乙方支付违约金
-          <el-input size="mini" v-model="contractForm.purchasesLiquidatedDamages"></el-input>元。</p>
+          <el-input size="mini" v-model="contractForm.salesLiquidatedDamages"></el-input> 元；甲方违反合同，应向乙方支付违约金
+          <el-input size="mini" v-model="contractForm.purchasesLiquidatedDamages"></el-input> 元。</p>
       </el-form-item>
       <el-form-item label="第三条 协议期限">
         <br>
@@ -56,10 +50,15 @@
       </el-form-item>
       <el-form-item label="第四条 补充内容">
         <br>
+        <div>支付宝账户:
+          <el-input size="mini" v-model="contractForm.alipayAccount" style="width: 200px;"></el-input>
+        </div>
+        收货地址:
+        <el-input size="mini" v-model="contractForm.receivingAddress" style="width: 200px;"></el-input>
         <el-input type="textarea" v-model="contractForm.other" placeholder=""></el-input>
       </el-form-item>
       <el-form-item>
-        <p>一、本合同自甲乙双方签字或盖章后生效</p>
+        <p>一、本合同自甲乙双方签字或盖章后生效。</p>
         <p>二、本合同一式多份，甲乙双方、中介方、市场监管部门各执一份。</p>
       </el-form-item>
       <el-form-item>
@@ -72,46 +71,53 @@
 <script>
 import { mapGetters } from 'vuex'
 import MDinput from '@/components/MDinput'
-import { addContract } from '@/api/contract'
+import { contractAdd } from '@/api/contract'
 export default {
   components: { MDinput },
   data() {
     return {
+      title: sessionStorage.getItem("ncpName"),
       contractForm: {
         alipayAccount: '',
         contractId: '',
         createTime: '',
-        mjBasicId: 'fc56e754922a494ca14df96b0c3fc3dc',
+        mjBasicId: '',
         ncpBasicId: sessionStorage.getItem("ncpBasicId"),
         nhBasicId: sessionStorage.getItem("nhBasicId"),
         prePayment: '',
-        purchasePrice: '',
+        purchasePrice: 0,
         purchaseQuantity: '',
-        purchaseUnit: 'kg',
+        purchaseUnit: sessionStorage.getItem("unit"),
         purchaserName: '',
         purchasesLiquidatedDamages: '',
-        receivingAddress: 'zj',
+        receivingAddress: '',
         salesLiquidatedDamages: '',
         salesName: '',
         statu: 0,
         other: '',
         d1: '',
-        d2: ''
+        d2: '',
+        perPrice: ''
       }
     }
   },
   computed: {
     ...mapGetters([
       'basicId'
-    ])
+    ]),
+    calculateTotal() {
+      return this.contractForm.perPrice * this.contractForm.purchaseQuantity
+    }
   },
   methods: {
     onSubmit() {
-      this.contractForm.nhBasicId = this.basicId
+      this.contractForm.mjBasicId = this.basicId
+      this.contractForm.purchasePrice = this.calculateTotal
       console.log(this.contractForm)
-      addContract(this.contractForm)
+      contractAdd(this.contractForm)
         .then(res => {
-          console.log('ok!')
+          this.$message({ message: '合同创建成功', type: 'success' })
+          this.$router.push({ name: 'contractList' })
         })
         .catch(err => {
           console.log('err!')
