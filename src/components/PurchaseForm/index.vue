@@ -18,7 +18,7 @@
                 </el-col>
                 <el-col :span="11">
                   <el-form-item label-width="60px" label="重要性:" class="postInfo-container-item">
-                    <el-rate style="margin-top:8px;" v-model="postForm.importance" :max='3' :colors="['#99A9BF', '#F7BA2A', '#FF9900']" :low-threshold="1" :high-threshold="3">
+                    <el-rate style="margin-top:8px;" v-model="postForm.level" :max='3' :colors="['#99A9BF', '#F7BA2A', '#FF9900']" :low-threshold="1" :high-threshold="3">
                     </el-rate>
                   </el-form-item>
                 </el-col>
@@ -56,7 +56,7 @@ export default {
         basicId: '',
         title: '',
         telephone: '',
-        importance: 0,
+        level: 0,
         content: ''
       },
       rules: {},
@@ -76,7 +76,8 @@ export default {
       const typ = this.type || this.roles[0]
       purchaseAdd(typ, this.postForm)
         .then((res) => {
-          console.log(res)
+          this.$message({ message: '求购信息发布成功', type: 'success' })
+          this.$router.push({ name: 'dashboard' })
         })
         .catch(() => {})
     }
