@@ -21,12 +21,20 @@ export function contractAdd(contract) {
   })
 }
 
-export function contractFinish() {
-
+export function contractFinish(contract) {
+  return request({
+    method: 'put',
+    url: '/contracts',
+    data: qs.stringify(contract)
+  })
 }
 
-export function contractDetail() {
-
+export function contractDetail(id) {
+  return request({
+    method: 'get',
+    url: '/contracts',
+    params: { id }
+  })
 }
 
 export function contractStatu() {

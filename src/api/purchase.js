@@ -2,10 +2,12 @@ import qs from 'qs'
 import request from '@/utils/request'
 
 export function purchaseGet(type) {
+  const query = {}
+  query.type = type
   return request({
     url: '/purchases',
     method: 'get',
-    params: type
+    params: query
   })
 }
 
@@ -21,14 +23,26 @@ export function purchaseAdd(type, purchases) {
   })
 }
 
-export function purchaseDelete(argument) {
-
+export function purchaseDelete(id, type) {
+  return request({
+    method: 'delete',
+    url: '/purchases',
+    params: {id, type}
+  })
 }
 
-export function purchaseDetail(argument) {
-  // body...
+export function purchaseDetail(id, type) {
+  return request({
+    method: 'get',
+    url: '/purchases',
+    params: {id, type}
+  })
 }
 
-export function purchaseModify() {
-
+export function purchaseModify(id, type, purchase) {
+  return request({
+    method: 'put',
+    url: '/purchases',
+    params: {id, type, purchase}
+  })
 }
