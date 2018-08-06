@@ -152,18 +152,6 @@ export const asyncRouterMap = [{
     component: Layout,
     meta: { roles: ['NH'] },
     children: [{
-      path: 'purchase',
-      name: 'nhPurchase',
-      component: () =>
-        import ('@/views/nh/NhPurchase'),
-      meta: { title: '原料求购', icon: 'eye', roles: ['NH'] }
-    }]
-  },
-  {
-    path: '/nh',
-    component: Layout,
-    meta: { roles: ['NH'] },
-    children: [{
       path: 'create',
       name: 'createArticle',
       component: () =>
@@ -172,39 +160,59 @@ export const asyncRouterMap = [{
     }]
   },
   {
-    path: '/mj',
+    path: '/purchase',
     component: Layout,
-    meta: { roles: ['MJ'] },
+    meta: {
+      title: '产品求购',
+      icon: 'example',
+      roles: ['NH', 'MJ']
+    },
     children: [{
-      path: 'purchase',
-      name: 'mjPurchase',
-      component: () =>
-        import ('@/views/mj/MjPurchase'),
-      meta: { title: '农产品求购', icon: 'eye', roles: ['MJ'] }
-    }]
+        path: 'create',
+        name: 'purchaseCreate',
+        component: () =>
+          import ('@/views/purchase/PurchaseCreate'),
+        meta: { title: '创建求购', icon: 'table', roles: ['NH', 'MJ'] }
+      },
+      {
+        path: 'list',
+        name: 'purchaseList',
+        component: () =>
+          import ('@/views/purchase/PurchaseList'),
+        meta: { title: '求购列表', icon: 'table', roles: ['NH', 'MJ'] }
+      }
+    ]
   },
   {
-    path: '/nh',
+    path: '/contract',
     component: Layout,
     hidden: true,
     meta: { roles: ['NH', 'MJ'] },
     children: [{
-      path: 'contract',
-      name: 'PSContract',
-      component: () =>
-        import ('@/views/contract/contractMain'),
-      meta: { title: '合同签订', icon: 'edit', roles: ['NH', 'MJ'] }
-    }]
+        path: 'create',
+        name: 'contractCreate',
+        component: () =>
+          import ('@/views/contract/ContractCreate'),
+        meta: { title: '合同创建', icon: 'edit', roles: ['NH', 'MJ'] }
+      },
+      {
+        path: 'edit/:id',
+        name: 'contractEdit',
+        component: () =>
+          import ('@/views/contract/ContractEdit'),
+        meta: { title: '合同编辑', icon: 'edit', roles: ['NH', 'MJ'] }
+      }
+    ]
   },
   {
-    path: '/nh',
+    path: '/contract',
     component: Layout,
     meta: { roles: ['NH', 'MJ'] },
     children: [{
-      path: 'contracts',
+      path: 'list',
       name: 'contractList',
       component: () =>
-        import ('@/views/contract/contractList'),
+        import ('@/views/contract/ContractList'),
       meta: { title: '合同列表', icon: 'table', roles: ['NH', 'MJ'] }
     }]
   },

@@ -93,7 +93,7 @@ export default {
       sessionStorage.setItem("ncpBasicId", ncp)
       sessionStorage.setItem("ncpName", name)
       sessionStorage.setItem("unit", unit)
-      this.$router.push({ name: 'PSContract' })
+      this.$router.push({ name: 'contractCreate' })
     }
   }
 }
