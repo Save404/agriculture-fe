@@ -22,6 +22,13 @@
           <el-button type="info" v-else>签订中</el-button>
         </template>
       </el-table-column>
+      <el-table-column align="center" label="操作">
+        <template slot-scope="scope">
+          <router-link :to="'/contract/edit/'+scope.row.contractId">
+            <el-button type="primary">详情</el-button>
+          </router-link>
+        </template>
+      </el-table-column>
     </el-table>
   </div>
 </template>
@@ -54,6 +61,9 @@ export default {
     transDate(date) {
       const d = new Date(date)
       return d.toISOString().substr(0, 10)
+    },
+    goDetail() {
+      this.$router.push({ name: 'contract'})
     }
   }
 }
