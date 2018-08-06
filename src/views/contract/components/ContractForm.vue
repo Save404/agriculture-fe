@@ -50,11 +50,16 @@
       </el-form-item>
       <el-form-item label="第四条 补充内容">
         <br>
-        <div>支付宝账户:
-          <el-input size="mini" v-model="contractForm.alipayAccount" style="width: 200px;"></el-input>
-        </div>
-        收货地址:
-        <el-input size="mini" v-model="contractForm.receivingAddress" style="width: 200px;"></el-input>
+        <el-row :gutter="0">
+          <el-col :span="12">
+            支付宝账户:
+            <el-input size="mini" v-model="contractForm.alipayAccount" style="width: 200px;"></el-input>
+          </el-col>
+          <el-col :span="12">
+            收货地址:
+            <el-input size="mini" v-model="contractForm.receivingAddress" style="width: 200px;"></el-input>
+          </el-col>
+        </el-row>
         <el-input type="textarea" v-model="contractForm.other" placeholder=""></el-input>
       </el-form-item>
       <el-form-item>
@@ -71,9 +76,12 @@
 <script>
 import { mapGetters } from 'vuex'
 import MDinput from '@/components/MDinput'
-import { contractAdd } from '@/api/contract'
+import { contractAdd, contractFinish } from '@/api/contract'
 export default {
   components: { MDinput },
+  props: {
+    type: String
+  },
   data() {
     return {
       title: sessionStorage.getItem("ncpName"),
@@ -111,18 +119,27 @@ export default {
   },
   methods: {
     onSubmit() {
-      this.contractForm.mjBasicId = this.basicId
-      this.contractForm.purchasePrice = this.calculateTotal
-      console.log(this.contractForm)
-      contractAdd(this.contractForm)
-        .then(res => {
-          this.$message({ message: '合同创建成功', type: 'success' })
-          this.$router.push({ name: 'contractList' })
-        })
-        .catch(err => {
-          console.log('err!')
-        })
-      console.log('submit!')
+      if (this.type === 'MJ') {
+        this.contractForm.mjBasicId = this.basicId
+        this.contractForm.purchasePrice = this.calculateTotal
+        console.log(this.contractForm)
+        contractAdd(this.contractForm)
+          .then(res => {
+            this.$message({ message: '合同创建成功', type: 'success' })
+            this.$router.push({ name: 'contractList' })
+          })
+          .catch(err => {
+            console.log('err!')
+          })
+        console.log('submit!')
+      } else {
+        contractFinish(this.contractForm)
+          .then(res => {
+            this.$message({ message: '填写完成', type: 'success' })
+            this.$router.push({ name: 'contractList' })
+          })
+          .catch(err => {})
+      }
     }
   }
 }
