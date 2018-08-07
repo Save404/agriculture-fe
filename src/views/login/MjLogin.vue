@@ -1,12 +1,12 @@
 <template>
   <div id="Mj-login">
-    <trans-header/>
+    <trans-header></trans-header>
     <login-container :form="MjLoginForm" :url="url"></login-container>
   </div>
 </template>
 <script>
-import TransHeader from '@/components/Login/TransHeader'
-import LoginContainer from '@/components/Login/LoginContainer'
+import TransHeader from './components/TransHeader'
+import LoginContainer from './components/LoginContainer'
 export default {
   name: 'MjLogin',
   components: { TransHeader, LoginContainer },

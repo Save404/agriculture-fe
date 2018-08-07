@@ -17,16 +17,11 @@
   </div>
 </template>
 <script>
-import md5 from 'js-md5'
-import qs from 'qs'
-import { nhLogin } from '@/api/nh'
-import { mjLogin } from '@/api/mj'
 export default {
   name: 'LoginContainer',
   props: ['form', 'url'],
   data() {
     return {
-      salt: "z0fdf7f8g9o1",
       rules: {
         telephone: [
           { required: true, message: '请输入手机号码', trigger: 'blur' },
@@ -44,7 +39,7 @@ export default {
     submitForm(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) { // 如果规则校验通过就进行下一步登录
-          //this.$message('Validation passed') 
+          //this.$message('Validation passed')
           this.onSubmit()
         } else {
           this.$message('请检查手机号码或密码格式');
@@ -81,6 +76,14 @@ export default {
       } else if (this.url.includes('mj')) {
         this.loading = true
         this.$store.dispatch('MjLogin', this.form).then(() => {
+          this.loading = false
+          this.$router.push({ path: '/' })
+        }).catch(() => {
+          this.loading = false
+        })
+      } else {
+        this.loading = true
+        this.$store.dispatch('GovLogin', this.form).then(() => {
           this.loading = false
           this.$router.push({ path: '/' })
         }).catch(() => {

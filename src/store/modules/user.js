@@ -1,3 +1,4 @@
+import { govLogin } from '@/api/gov'
 import { nhLogin, nhRegister } from '@/api/nh'
 import { mjLogin, mjRegister } from '@/api/mj'
 import { getToken, setToken, removeToken } from '@/utils/auth'
@@ -30,6 +31,20 @@ const user = {
   },
 
   actions: {
+    // 政府登录
+    GovLogin({ commit }, userInfo) {
+      const telephone = userInfo.telephone.trim()
+      return new Promise((resolve, reject) => {
+        govLogin(telephone, userInfo.password).then(response => {
+          const token = 'GOV,' + telephone + ',' + response
+          setToken(token)
+          resolve()
+        }).catch(error => {
+          reject(error)
+        })
+      })
+    },
+
     // 农户登录
     NhLogin({ commit }, userInfo) {
       const telephone = userInfo.telephone.trim()

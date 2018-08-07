@@ -24,14 +24,21 @@ export const constantRouterMap = [{
     path: '/nhlogin',
     name: 'nhLogin',
     component: () =>
-      import ('@/views/nh/NhLogin'),
+      import ('@/views/login/NhLogin'),
     hidden: true
   },
   {
     path: '/mjlogin',
     name: 'mjLogin',
     component: () =>
-      import ('@/views/mj/MjLogin'),
+      import ('@/views/login/MjLogin'),
+    hidden: true
+  },
+  {
+    path: '/govlogin',
+    name: 'govLogin',
+    component: () =>
+      import ('@/views/login/GovLogin'),
     hidden: true
   },
   {

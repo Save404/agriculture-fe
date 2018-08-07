@@ -1,19 +1,17 @@
 <template>
-  <div id="farmer-login">
-    <trans-header></trans-header>
-    <login-container :form="FarmerLoginForm" :url="url"></login-container>
+  <div id="gov-login">
+    <login-container :form="GovLoginForm" :url="url"></login-container>
   </div>
 </template>
 <script>
-import TransHeader from '@/components/Login/TransHeader'
-import LoginContainer from '@/components/Login/LoginContainer'
+import LoginContainer from './components/LoginContainer'
 export default {
-  name: 'FarmerLogin',
-  components: { TransHeader, LoginContainer },
+  name: 'GovLogin',
+  components: { LoginContainer },
   data() {
     return {
-      url: '/nh/nh_login',
-      FarmerLoginForm: {
+      url: '/gov/login',
+      GovLoginForm: {
         telephone: '',
         password: ''
       }
@@ -26,10 +24,12 @@ export default {
 * {
   text-align: center;
 }
+
 .login-form {
   height: 100%;
   width: 100%;
 }
+
 .login {
   width: 40%;
   margin-top: 70px;
