@@ -16,12 +16,20 @@
           <span>{{scope.row.telephone}}</span>
         </template>
       </el-table-column>
+      <el-table-column label="操作" align="center" min-width="150">
+        <template slot-scope="scope">
+          <el-button size="mini" @click="goDetail(scope.row.purchasesId)">详情</el-button>
+          <el-button size="mini" type="warning" @click="goModify(scope.row.purchasesId)">修改</el-button>
+          <el-button size="mini" type="danger" @click="goDelete(scope.row.purchasesId)">删除</el-button>
+
+        </template>
+      </el-table-column>
     </el-table>
   </div>
 </template>
 <script>
 import { mapGetters } from 'vuex'
-import { purchaseGet } from '@/api/purchase'
+import { purchaseGet, purchaseModify, purchaseDelete } from '@/api/purchase'
 export default {
   data() {
     return {
@@ -42,6 +50,24 @@ export default {
       'phone',
       'roles'
     ])
+  },
+  methods: {
+    goDetail(id) {
+
+    },
+    goModify(id) {
+
+    },
+    goDelete(id) {
+      console.log(id, this.roles[0])
+      purchaseDelete(id, 'MJ')
+        .then(res => {
+          this.$message({type: 'success', message: '删除成功'})
+        })
+        .catch(err => {
+          alert(err)
+        })
+    }
   }
 }
 

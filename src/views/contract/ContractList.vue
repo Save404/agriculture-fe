@@ -24,9 +24,11 @@
       </el-table-column>
       <el-table-column align="center" label="操作">
         <template slot-scope="scope">
-          <router-link :to="'/contract/edit/'+scope.row.contractId">
-            <el-button type="primary">详情</el-button>
+          <router-link :to="'/contract/edit/'+scope.row.contractId" v-if="scope.row.salesName === null">
+            <el-button type="primary" @click="setInfo(scope.row)">详情</el-button>
           </router-link>
+          <el-button v-if="scope.row.salesName !== null && btnmsg !== '完成'" type="primary" @click="goPay">{{btnmsg}}</el-button>
+          <el-button v-if="scope.row.salesName !== null && btnmsg === '完成'" type="success">{{btnmsg}}</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -38,7 +40,8 @@ import { contractGet } from '@/api/contract'
 export default {
   data() {
     return {
-      lists: []
+      lists: [],
+      btnmsg: '待支付'
     }
   },
   computed: {
@@ -63,7 +66,17 @@ export default {
       return d.toISOString().substr(0, 10)
     },
     goDetail() {
-      this.$router.push({ name: 'contract'})
+      this.$router.push({ name: 'contract' })
+    },
+    setInfo(obj) {
+      for (let item in obj) {
+        sessionStorage.setItem(item, obj[item])
+        //console.log(item, obj[item])
+      }
+    },
+    goPay() {
+      this.$message({type: 'success', message: '支付成功'})
+      this.btnmsg = '完成'
     }
   }
 }
@@ -73,4 +86,5 @@ export default {
 .contract-list {
   padding: 20px;
 }
+
 </style>

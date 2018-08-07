@@ -1,6 +1,6 @@
 <template>
   <div>
-    <contract-form :type="roles[0]"></contract-form>
+    <contract-form :type="roles[0]" :isEdit=true></contract-form>
   </div>
 </template>
 

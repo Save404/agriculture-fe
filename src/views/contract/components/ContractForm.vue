@@ -67,7 +67,7 @@
         <p>二、本合同一式多份，甲乙双方、中介方、市场监管部门各执一份。</p>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" @click="onSubmit">立即创建</el-button>
+        <el-button type="primary" @click="onSubmit">{{btnmsg}}</el-button>
         <el-button>取消</el-button>
       </el-form-item>
     </el-form>
@@ -80,11 +80,16 @@ import { contractAdd, contractFinish } from '@/api/contract'
 export default {
   components: { MDinput },
   props: {
-    type: String
+    type: String,
+    isEdit: {
+      type: Boolean,
+      default: false
+    }
   },
   data() {
     return {
       title: sessionStorage.getItem("ncpName"),
+      btnmsg: '立即创建',
       contractForm: {
         alipayAccount: '',
         contractId: '',
@@ -107,6 +112,17 @@ export default {
         d2: '',
         perPrice: ''
       }
+    }
+  },
+  created() {
+    if(this.isEdit) {
+      for(const item in this.contractForm) {
+        const val = sessionStorage.getItem(item)
+        if(val && val !== 'null') {
+          this.contractForm[item] = val
+        }
+      }
+      this.btnmsg = '保存'
     }
   },
   computed: {
