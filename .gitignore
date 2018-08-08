@@ -17,5 +17,3 @@ selenium-debug.log
 *.sln
 *.sql
 *.rdb
-
-zys_configenv.js
