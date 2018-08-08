@@ -4,7 +4,7 @@
   </div>
 </template>
 <script>
-import Register from '@/components/Login/Register'
+import Register from './components/Register'
 export default {
   name: 'MjRegister',
   components: { Register },
@@ -16,7 +16,7 @@ export default {
         repassword: '',
         protocol: false
       },
-      url: 'http://localhost:8080/mj/mj_register'
+      url: '/mj/mj_register'
     }
   }
 }

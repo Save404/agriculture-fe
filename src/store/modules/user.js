@@ -63,9 +63,9 @@ const user = {
     NhRegister({ commit }, userInfo) {
       const telephone = userInfo.telephone.trim()
       return new Promise((resolve, reject) => {
-        nhRegister(telephone, userInfo.password, userInfo.repassword).then(() => {
-          const token = 'NH,' + telephone + ',' + response
-          setToken(token)
+        nhRegister(telephone, userInfo.password, userInfo.repassword).then(response => {
+          //const token = 'NH,' + telephone + ',' + response
+          //setToken(token)
           resolve()
         }).catch(err => {
           reject(err)
@@ -91,9 +91,9 @@ const user = {
     MjRegister({ commit }, userInfo) {
       const telephone = userInfo.telephone.trim()
       return new Promise((resolve, reject) => {
-        mjRegister(telephone, userInfo.password, userInfo.repassword).then(() => {
-          const token = 'MJ,' + telephone + ',' + response
-          setToken(token)
+        mjRegister(telephone, userInfo.password, userInfo.repassword).then(response => {
+          //const token = 'MJ,' + telephone + ',' + response
+          //setToken(token)
           resolve()
         }).catch(err => {
           reject(err)

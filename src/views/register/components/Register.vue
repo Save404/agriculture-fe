@@ -59,7 +59,6 @@ export default {
   },
   methods: {
     submitForm(formName) {
-      console.log(formName)
       this.$refs[formName].validate((valid) => {
         if (valid) {
           if (this.form.protocol === true) {
@@ -79,7 +78,8 @@ export default {
         this.loading = true
         this.$store.dispatch('NhRegister', this.form).then(() => {
           this.loading = false
-          this.$router.push({ path: '/' })
+          this.$message({type: 'success', message: '注册成功，请前往登录'})
+          this.$router.push({ path: '/nhlogin' })
         }).catch(() => {
           this.loading = false
         })
@@ -87,7 +87,8 @@ export default {
         this.loading = true
         this.$store.dispatch('MjRegister', this.form).then(() => {
           this.loading = false
-          this.$router.push({ path: '/' })
+          this.$message({type: 'success', message: '注册成功，请前往登录'})
+          this.$router.push({ path: '/mjlogin' })
         }).catch(() => {
           this.loading = false
         })

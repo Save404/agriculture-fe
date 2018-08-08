@@ -45,14 +45,14 @@ export const constantRouterMap = [{
     path: '/nhregister',
     name: 'nhRegister',
     component: () =>
-      import ('@/views/nh/NhRegister'),
+      import ('@/views/register/NhRegister'),
     hidden: true
   },
   {
     path: '/mjregister',
     name: 'mjRegister',
     component: () =>
-      import ('@/views/mj/MjRegister'),
+      import ('@/views/register/MjRegister'),
     hidden: true
   },
   {
@@ -89,7 +89,7 @@ export const asyncRouterMap = [{
       path: 'detail',
       name: 'nhDetail',
       component: () =>
-        import ('@/views/nh/NhDetail'),
+        import ('@/views/detail/NhDetail'),
       meta: { title: '个人资料', icon: 'user', roles: ['NH'] }
     }]
   },
@@ -101,7 +101,7 @@ export const asyncRouterMap = [{
       path: 'detail',
       name: 'mjDetail',
       component: () =>
-        import ('@/views/mj/MjDetail'),
+        import ('@/views/detail/MjDetail'),
       meta: { title: '个人资料', icon: 'user', roles: ['MJ'] }
     }]
   },

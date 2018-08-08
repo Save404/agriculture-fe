@@ -63,7 +63,7 @@
 <script>
 import qs from 'qs'
 import VDistpicker from 'v-distpicker'
-import NcpName from './NcpName'
+import NcpName from './components/NcpName'
 import { ncpGetSingle, ncpModify } from '@/api/ncp'
 export default {
   name: 'NcpSingle',

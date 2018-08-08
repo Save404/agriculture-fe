@@ -70,7 +70,7 @@
 import qs from 'qs'
 import VDistpicker from 'v-distpicker'
 
-import NcpName from './NcpName'
+import NcpName from './components/NcpName'
 import { ncpAdd } from '@/api/ncp'
 export default {
   name: 'NcpRegister',
