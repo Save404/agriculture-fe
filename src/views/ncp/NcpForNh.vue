@@ -23,7 +23,6 @@
 <script>
 import { ncpNhGet, ncpDelete, ncpOnOff } from '@/api/ncp'
 export default {
-  inject: ['reload'],
   name: 'HomeNhTable',
   data() {
     return {
@@ -96,25 +95,8 @@ export default {
             msg = '下架农产品成功'
           }
           this.$message({ message: msg, type: 'success' })
-          this.reload()
+          this.getInfo()
         })
-        .catch(err => {})
-      /*
-      this.$axios({
-          method: 'post',
-          url: 'http://localhost:8080/ncp/on_sell/' + id,
-        })
-        .then(res => {
-          let msg = '上下架农产品成功'
-          if (status == 0) {
-            msg = '上架农产品成功'
-          } else {
-            msg = '下架农产品成功'
-          }
-          this.$message({ message: msg, type: 'success' })
-          this.reload()
-        })
-        .catch(err => {})*/
     }
   }
 }
