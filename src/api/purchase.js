@@ -1,8 +1,9 @@
 import qs from 'qs'
 import request from '@/utils/request'
 
-export function purchaseGet(type) {
+export function purchaseGet(id, type) {
   const query = {}
+  query.id = id
   query.type = type
   return request({
     url: '/purchases',
@@ -26,23 +27,23 @@ export function purchaseAdd(type, purchases) {
 export function purchaseDelete(id, type) {
   return request({
     method: 'delete',
-    url: '/purchases',
-    params: {id, type}
+    url: '/purchases/' + id,
+    params: { id, type }
   })
 }
 
 export function purchaseDetail(id, type) {
   return request({
     method: 'get',
-    url: '/purchases',
-    params: {id, type}
+    url: '/purchases/' + id,
+    params: { id, type }
   })
 }
 
-export function purchaseModify(id, type, purchase) {
+export function purchaseModify(id, type, purchases) {
   return request({
     method: 'put',
-    url: '/purchases',
-    params: {id, type, purchase}
+    url: '/purchases/' + id,
+    params: { id, type, purchases }
   })
 }

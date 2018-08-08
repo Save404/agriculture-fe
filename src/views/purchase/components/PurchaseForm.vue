@@ -23,7 +23,7 @@
                   </el-form-item>
                 </el-col>
                 <el-col :span="2">
-                  <el-button type="primary" @click="releasePurchase" size="large">发布</el-button>
+                  <el-button type="primary" @click="releasePurchase" size="large">{{msg}}</el-button>
                 </el-col>
               </el-row>
             </div>
@@ -42,15 +42,20 @@
 import { mapGetters } from 'vuex'
 import MarkdownEditor from '@/components/MarkdownEditor'
 import MDinput from '@/components/MDinput'
-import { purchaseAdd } from '@/api/purchase'
+import { purchaseAdd, purchaseDetail, purchaseModify } from '@/api/purchase'
 const content = `hello,world`
 export default {
   components: { MarkdownEditor, MDinput },
   props: {
     type: String,
+    isEdit: {
+      type: Boolean,
+      default: false
+    }
   },
   data() {
     return {
+      msg: '发布',
       postForm: {
         author: '',
         basicId: '',
@@ -62,6 +67,20 @@ export default {
       rules: {},
     }
   },
+  created() {
+    if (this.isEdit) {
+      this.msg = '保存'
+      const id = this.$route.params.id
+      console.log(id)
+      purchaseDetail(id, this.roles[0])
+        .then(res => {
+          for (const item in this.postForm) {
+            this.postForm[item] = res[item]
+          }
+        })
+        .catch(err => {})
+    }
+  },
   computed: {
     ...mapGetters([
       'basicId',
@@ -71,15 +90,24 @@ export default {
   },
   methods: {
     releasePurchase() {
-      this.postForm.author = this.phone
-      this.postForm.basicId = this.basicId
       const typ = this.type || this.roles[0]
-      purchaseAdd(typ, this.postForm)
-        .then((res) => {
-          this.$message({ message: '求购信息发布成功', type: 'success' })
-          this.$router.push({ name: 'dashboard' })
-        })
-        .catch(() => {})
+      this.postForm.author = this.postForm.author || this.phone
+      this.postForm.basicId = this.postForm.basicId || this.basicId
+      if (!this.isEdit) {
+        purchaseAdd(typ, this.postForm)
+          .then((res) => {
+            this.$message({ message: '求购信息发布成功', type: 'success' })
+            this.$router.push({ name: 'dashboard' })
+          })
+          .catch(() => {})
+      } else {
+        console.log(this.postForm)
+        purchaseModify(this.$route.params.id, typ, this.postForm)
+          .then(res => {
+            this.$message({ message: '求购信息更新成功', type: 'success' })
+            this.$router.push({ name: 'purchaseList' })
+          })
+      }
     }
   }
 }

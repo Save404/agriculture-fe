@@ -19,10 +19,6 @@
       <el-table-column label="操作" align="center" min-width="150">
         <template slot-scope="scope">
           <el-button size="mini" @click="goDetail(scope.row.purchasesId)">详情</el-button>
-          <router-link :to="'/purchase/edit/'+scope.row.purchasesId">
-            <el-button size="mini" type="warning">修改</el-button>
-          </router-link>
-          <el-button size="mini" type="danger" @click="goDelete(scope.row.purchasesId)">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -30,7 +26,7 @@
 </template>
 <script>
 import { mapGetters } from 'vuex'
-import { purchaseGet, purchaseModify, purchaseDelete } from '@/api/purchase'
+import { purchaseGet } from '@/api/purchase'
 export default {
   data() {
     return {
@@ -57,17 +53,6 @@ export default {
     },
     goDetail(id) {
 
-    },
-    goDelete(id) {
-      console.log(id, this.roles[0])
-      purchaseDelete(id, this.roles[0])
-        .then(res => {
-          this.$message({ type: 'success', message: '删除成功' })
-          this.getList()
-        })
-        .catch(err => {
-          alert(err)
-        })
     }
   }
 }

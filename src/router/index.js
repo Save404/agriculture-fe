@@ -179,14 +179,29 @@ export const asyncRouterMap = [{
         name: 'purchaseCreate',
         component: () =>
           import ('@/views/purchase/PurchaseCreate'),
-        meta: { title: '创建求购', icon: 'table', roles: ['NH', 'MJ'] }
+        meta: { title: '创建求购', icon: 'edit', roles: ['NH', 'MJ'] }
       },
       {
         path: 'list',
         name: 'purchaseList',
         component: () =>
           import ('@/views/purchase/PurchaseList'),
-        meta: { title: '求购列表', icon: 'table', roles: ['NH', 'MJ'] }
+        meta: { title: '个人列表', icon: 'list', roles: ['NH', 'MJ'] }
+      },
+      {
+        path: 'all',
+        name: 'purchaseAllList',
+        component: () =>
+          import ('@/views/purchase/PurchaseAllList'),
+        meta: { title: '所有列表', icon: 'list', roles: ['NH'] }
+      },
+      {
+        path: 'edit/:id',
+        name: 'purchaseEdit',
+        hidden: true,
+        component: () =>
+          import ('@/views/purchase/PurchaseEdit'),
+        meta: { title: '编辑求购信息', icon: 'edit', roles: ['NH', 'MJ'] }
       }
     ]
   },

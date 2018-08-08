@@ -1,6 +1,6 @@
 <template>
-  <div class="purchase-create">
-    <purchase-form :type="roles[0]"></purchase-form>
+  <div class="purchase-edit">
+    <purchase-form :type="roles[0]" :isEdit=true></purchase-form>
   </div>
 </template>
 <script>
