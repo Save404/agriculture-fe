@@ -41,9 +41,11 @@ export function purchaseDetail(id, type) {
 }
 
 export function purchaseModify(id, type, purchases) {
+  const data = purchases
+  data.type = type
   return request({
     method: 'put',
     url: '/purchases/' + id,
-    params: { type, purchases }
+    data: qs.stringify(data)
   })
 }
