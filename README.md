@@ -13,8 +13,6 @@
 ``` bash
 # install dependencies
 npm install
-# or
-yarn
 
 # serve with hot reload at localhost:8081
 npm run dev
