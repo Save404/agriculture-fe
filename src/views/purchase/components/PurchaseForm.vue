@@ -70,7 +70,6 @@ export default {
     if (this.isEdit) {
       this.msg = '保存'
       const id = this.$route.params.id
-      console.log(id)
       purchaseDetail(id, this.roles[0])
         .then(res => {
           for (const item in this.postForm) {
@@ -100,6 +99,7 @@ export default {
           .catch(() => {})
       } else {
         console.log(this.postForm)
+        console.log(this.$route.params.id)
         purchaseModify(this.$route.params.id, typ, this.postForm)
           .then(res => {
             this.$message({ message: '求购信息更新成功', type: 'success' })

@@ -28,7 +28,7 @@ export function purchaseDelete(id, type) {
   return request({
     method: 'delete',
     url: '/purchases/' + id,
-    params: { id, type }
+    params: { type }
   })
 }
 
@@ -36,7 +36,7 @@ export function purchaseDetail(id, type) {
   return request({
     method: 'get',
     url: '/purchases/' + id,
-    params: { id, type }
+    params: { type }
   })
 }
 
@@ -44,6 +44,6 @@ export function purchaseModify(id, type, purchases) {
   return request({
     method: 'put',
     url: '/purchases/' + id,
-    params: { id, type, purchases }
+    params: { type, purchases }
   })
 }

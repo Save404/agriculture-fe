@@ -32,8 +32,7 @@ export function contractFinish(contract) {
 export function contractDetail(id) {
   return request({
     method: 'get',
-    url: '/contracts',
-    params: { id }
+    url: '/contracts/' + id
   })
 }
 
