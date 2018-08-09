@@ -57,7 +57,6 @@ export default {
     return {
       msg: '发布',
       postForm: {
-        author: '',
         basicId: '',
         title: '',
         telephone: '',
@@ -91,7 +90,6 @@ export default {
   methods: {
     releasePurchase() {
       const typ = this.type || this.roles[0]
-      this.postForm.author = this.postForm.author || this.phone
       this.postForm.basicId = this.postForm.basicId || this.basicId
       if (!this.isEdit) {
         purchaseAdd(typ, this.postForm)
