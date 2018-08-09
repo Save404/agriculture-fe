@@ -1,5 +1,19 @@
 {
   "extends": [
     "config:base"
-  ]
+  ],
+  "semanticCommits": true,
+  "semanticCommitType": "chore",
+  "major": {
+    "semanticCommitType": "feat",
+    "labels": ["dep:major"]
+  },
+  "minor": {
+    "semanticCommitType": "fix",
+    "labels": ["dep:minor" ]
+  },
+  "patch": {
+    "semanticCommitType": "chore",
+    "labels": ["dep:patch"]
+  }
 }
