@@ -1,5 +1,6 @@
 <template>
   <el-container class="trans-header">
+    <router-link :to="'/govlogin'" style="position: fixed;top: 2%;right: 2%;font-size: 1.2em;">政府人员登录</router-link>
     <el-header height="">
       <el-button class="useful" type="text" @click="transFarmer">我是农户  </el-button>
       <el-button type="text" >|</el-button>
@@ -24,7 +25,7 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-.el-button 
+.el-button
   font-family sans-serif
   font-size 50px
   &.useful:hover
