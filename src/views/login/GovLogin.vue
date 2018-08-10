@@ -1,18 +1,18 @@
 <template>
   <div id="gov-login">
-    <login-container :form="GovLoginForm" :url="url"></login-container>
+    <login-for-gov :form="govLoginForm" :url="url"></login-for-gov>
   </div>
 </template>
 <script>
-import LoginContainer from './components/LoginContainer'
+import LoginForGov from './components/LoginForGov'
 export default {
   name: 'GovLogin',
-  components: { LoginContainer },
+  components: { LoginForGov },
   data() {
     return {
       url: '/gov/login',
-      GovLoginForm: {
-        telephone: '',
+      govLoginForm: {
+        account: '',
         password: ''
       }
     }

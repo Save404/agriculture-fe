@@ -81,14 +81,6 @@ export default {
         }).catch(() => {
           this.loading = false
         })
-      } else {
-        this.loading = true
-        this.$store.dispatch('GovLogin', this.form).then(() => {
-          this.loading = false
-          this.$router.push({ path: '/' })
-        }).catch(() => {
-          this.loading = false
-        })
       }
     },
     resetPassword() {

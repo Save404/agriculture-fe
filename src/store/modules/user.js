@@ -33,10 +33,10 @@ const user = {
   actions: {
     // 政府登录
     GovLogin({ commit }, userInfo) {
-      const telephone = userInfo.telephone.trim()
+      const account = userInfo.account.trim()
       return new Promise((resolve, reject) => {
-        govLogin(telephone, userInfo.password).then(response => {
-          const token = 'GOV,' + telephone + ',' + response
+        govLogin(account, userInfo.password).then(response => {
+          const token = 'GOV,' + account + ',' + response
           setToken(token)
           resolve()
         }).catch(error => {
