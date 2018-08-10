@@ -1,6 +1,6 @@
 <template>
   <div class="pscontract-form">
-    <h1 style="text-align: center;">{{title}}购销合同书</h1>
+    <h1 style="text-align: center;">{{contractForm.title}}</h1>
     <el-form :model="contractForm" ref="contractForm">
       <el-row :gutter="0">
         <el-col :span="12">
@@ -21,7 +21,7 @@
       <el-form-item>
         <p>
           为了保护甲乙双方合法权益，提高双方的经济效益，明确法律责任，依据《中华人民共和国合同法》、《中华人民农产品质量安全法》和相关法律法规，经甲乙双方在平等自愿、互惠互利、诚实守信的原则上，签订
-          <el-input size="mini" v-model="title" placeholder=""></el-input> 购销合同。其条款如下：
+          <el-input size="mini" v-model="contractForm.title" placeholder=""></el-input> 购销合同。其条款如下：
         </p>
       </el-form-item>
       <el-form-item label="第一条 甲乙双方的责任">
@@ -67,7 +67,7 @@
         <p>二、本合同一式多份，甲乙双方、中介方、市场监管部门各执一份。</p>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" @click="onSubmit">{{btnmsg}}</el-button>
+        <el-button type="primary" @click="onSubmit">{{msg}}</el-button>
         <el-button>取消</el-button>
       </el-form-item>
     </el-form>
@@ -76,7 +76,7 @@
 <script>
 import { mapGetters } from 'vuex'
 import MDinput from '@/components/MDinput'
-import { contractAdd, contractFinish } from '@/api/contract'
+import { contractAdd, contractFinish, contractDetail } from '@/api/contract'
 export default {
   components: { MDinput },
   props: {
@@ -88,9 +88,9 @@ export default {
   },
   data() {
     return {
-      title: sessionStorage.getItem("ncpName"),
-      btnmsg: '立即创建',
+      msg: '立即创建',
       contractForm: {
+        title: sessionStorage.getItem("ncpName") + '购销合同书',
         alipayAccount: '',
         contractId: '',
         createTime: '',
@@ -115,14 +115,17 @@ export default {
     }
   },
   created() {
-    if(this.isEdit) {
-      for(const item in this.contractForm) {
-        const val = sessionStorage.getItem(item)
-        if(val && val !== 'null') {
-          this.contractForm[item] = val
-        }
-      }
-      this.btnmsg = '保存'
+    if (this.isEdit) {
+      this.msg = '保存'
+      const id = this.$route.params.id
+      contractDetail(id)
+        .then(res => {
+          for (const item in this.contractForm) {
+            if (res[item]) {
+              this.contractForm[item] = res[item]
+            }
+          }
+        })
     }
   },
   computed: {
