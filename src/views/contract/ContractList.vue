@@ -1,9 +1,9 @@
 <template>
   <div class="contract-list">
     <el-table :data="lists" border fit highlight-current-row style="width: 100%">
-      <el-table-column align="center" label="ID" width="250">
+      <el-table-column align="center" label="标题" width="250">
         <template slot-scope="scope">
-          <span>{{scope.row.contractId}}</span>
+          <span>{{scope.row.title}}</span>
         </template>
       </el-table-column>
       <el-table-column align="center" label="日期">
@@ -18,17 +18,17 @@
       </el-table-column>
       <el-table-column align="center" label="状态">
         <template slot-scope="scope">
-          <el-button type="success" v-if="scope.row.statu">签订成功</el-button>
-          <el-button type="info" v-else>签订中</el-button>
+          <el-button size="small" type="success" v-if="scope.row.statu">签订成功</el-button>
+          <el-button size="small" type="info" v-else-if="scope.row.salesName === null">签订中</el-button>
+          <el-button size="small" type="primary" v-else>待支付</el-button>
         </template>
       </el-table-column>
       <el-table-column align="center" label="操作">
         <template slot-scope="scope">
-          <router-link :to="'/contract/edit/'+scope.row.contractId" v-if="scope.row.salesName === null">
-            <el-button type="primary" @click="setInfo(scope.row)">详情</el-button>
+          <router-link :to="'/contract/edit/'+scope.row.contractId">
+            <el-button size="small" type="primary">详情</el-button>
           </router-link>
-          <el-button v-if="scope.row.salesName !== null && btnmsg !== '完成'" type="primary" @click="goPay">{{btnmsg}}</el-button>
-          <el-button v-if="scope.row.salesName !== null && btnmsg === '完成'" type="success">{{btnmsg}}</el-button>
+          <el-button size="small" v-if="roles[0] === 'MJ'" type="warning" plain @click="goPay(scope.row.contractId)" :disabled="!!scope.row.statu">支付</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -36,12 +36,11 @@
 </template>
 <script>
 import { mapGetters } from 'vuex'
-import { contractGet } from '@/api/contract'
+import { contractGet, contractPayStatu, contractStatu } from '@/api/contract'
 export default {
   data() {
     return {
-      lists: [],
-      btnmsg: '待支付'
+      lists: []
     }
   },
   computed: {
@@ -51,32 +50,33 @@ export default {
     ])
   },
   created() {
-    contractGet(this.roles[0].toLowerCase(), this.basicId)
+    this.getList()
+  },
+  methods: {
+    getList() {
+      contractGet(this.roles[0].toLowerCase(), this.basicId)
       .then(res => {
         this.lists = res.list
       })
-      .catch(err => {
-
-      })
-    console.log(this.roles[0].toLowerCase(), this.basicId)
-  },
-  methods: {
+    },
     transDate(date) {
       const d = new Date(date)
       return d.toISOString().substr(0, 10)
     },
-    goDetail() {
-      this.$router.push({ name: 'contract' })
-    },
-    setInfo(obj) {
-      for (let item in obj) {
-        sessionStorage.setItem(item, obj[item])
-        //console.log(item, obj[item])
-      }
-    },
-    goPay() {
-      this.$message({type: 'success', message: '支付成功'})
-      this.btnmsg = '完成'
+    goPay(id) {
+      contractPayStatu(id, 'finish')
+        .then(() => {
+          this.$message({ type: 'success', message: '支付成功' })
+          contractStatu(id, 'finish')
+            .then(() => {
+              this.$notify({
+                title: '成功',
+                message: '合同完成',
+                type: 'success'
+              });
+              this.getList()
+            })
+        })
     }
   }
 }

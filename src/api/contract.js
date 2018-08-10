@@ -36,6 +36,18 @@ export function contractDetail(id) {
   })
 }
 
-export function contractStatu() {
+export function contractPayStatu(id, status) {
+  return request({
+    method: 'put',
+    url: '/contracts/' + id + '/payStatu',
+    data: qs.stringify({status})
+  })
+}
 
+export function contractStatu(id, status) {
+  return request({
+    method: 'put',
+    url: '/contracts/' + id + '/statu',
+    data: qs.stringify({status})
+  })
 }
