@@ -1,6 +1,9 @@
 {
   "extends": [
-    "config:base"
+    "config:base",
+    ":rebaseStalePrs",
+    ":automergeMinor",
+    ":assignee(ZYSzys)"
   ],
   "semanticCommits": true,
   "semanticCommitType": "chore",
