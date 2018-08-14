@@ -1,5 +1,5 @@
 # agriculture-fe
-[![Travis CI](https://travis-ci.org/Save404/agriculture-fe.svg?branch=master)](https://travis-ci.org/Save404/agriculture-fe) [![deps](https://img.shields.io/hackage-deps/v/lens.svg)](https://github.com/Save404/agriculture-fe/network/dependencies)
+[![Travis CI](https://travis-ci.org/Save404/agriculture-fe.svg?branch=master)](https://travis-ci.org/Save404/agriculture-fe) [![deps](https://img.shields.io/hackage-deps/v/lens.svg)](https://github.com/Save404/agriculture-fe/network/dependencies)[![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 
 [![vue](https://img.shields.io/badge/vue-2.5.17-brightgreen.svg)](https://github.com/vuejs/vue)
 [![vuex](https://img.shields.io/badge/vuex-3.0.1-brightgreen.svg)](https://github.com/vuejs/vuex)
