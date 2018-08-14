@@ -6,7 +6,7 @@ import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 
 import '@/styles/index.scss' // global css
-//import '@/styles/global.css'
+// import '@/styles/global.css'
 
 import App from './App'
 import router from './router'
@@ -19,6 +19,7 @@ Vue.use(ElementUI)
 
 Vue.config.productionTip = false
 
+// eslint-disable-next-line
 new Vue({
   el: '#app',
   router,

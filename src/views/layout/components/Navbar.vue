@@ -5,7 +5,7 @@
     <el-dropdown class="avatar-container" trigger="click">
       <div>
         <!--<img class="user-avatar" :src="avatar+'?imageView2/1/w/80/h/80'">-->
-        <el-button type="primary" size="medium" @click="">{{phone}}</el-button>
+        <el-button type="primary" size="medium">{{phone}}</el-button>
         <i class="el-icon-caret-bottom"></i>
       </div>
       <el-dropdown-menu class="user-dropdown" slot="dropdown">
@@ -21,7 +21,6 @@
     </el-dropdown>
   </el-menu>
 </template>
-
 <script>
 import { mapGetters } from 'vuex'
 import Breadcrumb from '@/components/Breadcrumb'
@@ -49,8 +48,8 @@ export default {
     }
   }
 }
-</script>
 
+</script>
 <style rel="stylesheet/scss" lang="scss" scoped>
 .navbar {
   height: 50px;
@@ -91,5 +90,5 @@ export default {
     }
   }
 }
-</style>
 
+</style>

@@ -7,7 +7,7 @@ import { getToken } from '@/utils/auth' // 验权
 
 NProgress.configure({ showSpinner: false })
 
-function hasPermission(roles, permissionRoles) {
+function hasPermission (roles, permissionRoles) {
   if (roles.indexOf('NH') >= 0) {
     return true
   }

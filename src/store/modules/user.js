@@ -32,7 +32,7 @@ const user = {
 
   actions: {
     // 政府登录
-    GovLogin({ commit }, userInfo) {
+    GovLogin ({ commit }, userInfo) {
       const account = userInfo.account.trim()
       return new Promise((resolve, reject) => {
         govLogin(account, userInfo.password).then(response => {
@@ -46,7 +46,7 @@ const user = {
     },
 
     // 农户登录
-    NhLogin({ commit }, userInfo) {
+    NhLogin ({ commit }, userInfo) {
       const telephone = userInfo.telephone.trim()
       return new Promise((resolve, reject) => {
         nhLogin(telephone, userInfo.password).then(response => {
@@ -60,12 +60,12 @@ const user = {
     },
 
     // 农户注册
-    NhRegister({ commit }, userInfo) {
+    NhRegister ({ commit }, userInfo) {
       const telephone = userInfo.telephone.trim()
       return new Promise((resolve, reject) => {
         nhRegister(telephone, userInfo.password, userInfo.repassword).then(response => {
-          //const token = 'NH,' + telephone + ',' + response
-          //setToken(token)
+          // const token = 'NH,' + telephone + ',' + response
+          // setToken(token)
           resolve()
         }).catch(err => {
           reject(err)
@@ -74,7 +74,7 @@ const user = {
     },
 
     // 买家登录
-    MjLogin({ commit }, userInfo) {
+    MjLogin ({ commit }, userInfo) {
       const telephone = userInfo.telephone.trim()
       return new Promise((resolve, reject) => {
         mjLogin(telephone, userInfo.password).then(response => {
@@ -88,12 +88,12 @@ const user = {
     },
 
     // 买家注册
-    MjRegister({ commit }, userInfo) {
+    MjRegister ({ commit }, userInfo) {
       const telephone = userInfo.telephone.trim()
       return new Promise((resolve, reject) => {
         mjRegister(telephone, userInfo.password, userInfo.repassword).then(response => {
-          //const token = 'MJ,' + telephone + ',' + response
-          //setToken(token)
+          // const token = 'MJ,' + telephone + ',' + response
+          // setToken(token)
           resolve()
         }).catch(err => {
           reject(err)
@@ -102,9 +102,8 @@ const user = {
     },
 
     // 获取用户信息
-    GetUserInfo({ commit, state }) {
+    GetUserInfo ({ commit, state }) {
       const [roles, phone, basicId] = getToken().split(',')
-      const tmp = sessionStorage.getItem('userroles')
       commit('SET_ROLES', [roles])
       commit('SET_PHONE', phone)
       commit('SET_BASICID', basicId)
@@ -127,10 +126,10 @@ const user = {
           reject(error)
         })
       })
-    },*/
+    }, */
 
     // 登出
-    LogOut({ commit, state }) {
+    LogOut ({ commit, state }) {
       return new Promise(resolve => {
         commit('SET_BASICID', '')
         commit('SET_TOKEN', '')
@@ -138,19 +137,19 @@ const user = {
         commit('SET_NAME', '')
         commit('SET_PHONE', '')
         removeToken()
-        //sessionStorage.clear()
+        // sessionStorage.clear()
         resolve()
       }).catch(err => {
-        reject(err)
+        console.log(err)
       })
     },
 
     // 前端 登出
-    FedLogOut({ commit }) {
+    FedLogOut ({ commit }) {
       return new Promise(resolve => {
         commit('SET_TOKEN', '')
         removeToken()
-        //sessionStorage.clear()
+        // sessionStorage.clear()
         resolve()
       })
     }

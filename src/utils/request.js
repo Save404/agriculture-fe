@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { Message, MessageBox } from 'element-ui'
+import { Message } from 'element-ui'
 import store from '../store'
 import { getToken } from '@/utils/auth'
 
@@ -33,7 +33,7 @@ service.interceptors.response.use(
     */
     console.log(response)
     const res = response.data
-    if(res.code === 0) {
+    if (res.code === 0) {
       return res.data
     } else {
       Message({
@@ -41,7 +41,7 @@ service.interceptors.response.use(
         type: 'error',
         duration: 5 * 1000
       })
-      return Promise.reject('error')
+      throw new Error('error')
     }
     /*
       console.log(response)
@@ -52,7 +52,7 @@ service.interceptors.response.use(
       } else {
         console.log(res.data)
         return res.data
-      }*/
+      } */
     /*
     if (res.code !== 20000) {
       Message({
@@ -76,7 +76,7 @@ service.interceptors.response.use(
       return Promise.reject('error')
     } else {
       return response.data
-    }*/
+    } */
   },
   error => {
     console.log(error) // for debug

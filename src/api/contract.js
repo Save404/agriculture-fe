@@ -1,7 +1,7 @@
 import qs from 'qs'
 import request from '@/utils/request'
 
-export function contractGet(type, id) {
+export function contractGet (type, id) {
   const query = {}
   query.type = type
   query.id = id
@@ -12,7 +12,7 @@ export function contractGet(type, id) {
   })
 }
 
-export function contractAdd(contract) {
+export function contractAdd (contract) {
   const data = contract
   return request({
     method: 'post',
@@ -21,7 +21,7 @@ export function contractAdd(contract) {
   })
 }
 
-export function contractFinish(contract) {
+export function contractFinish (contract) {
   return request({
     method: 'put',
     url: '/contracts',
@@ -29,14 +29,14 @@ export function contractFinish(contract) {
   })
 }
 
-export function contractDetail(id) {
+export function contractDetail (id) {
   return request({
     method: 'get',
     url: '/contracts/' + id
   })
 }
 
-export function contractPayStatu(id, status) {
+export function contractPayStatu (id, status) {
   return request({
     method: 'put',
     url: '/contracts/' + id + '/payStatu',
@@ -44,7 +44,7 @@ export function contractPayStatu(id, status) {
   })
 }
 
-export function contractStatu(id, status) {
+export function contractStatu (id, status) {
   return request({
     method: 'put',
     url: '/contracts/' + id + '/statu',

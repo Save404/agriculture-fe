@@ -1,7 +1,7 @@
 import qs from 'qs'
 import request from '@/utils/request'
 
-export function purchaseGet(id, type) {
+export function purchaseGet (id, type) {
   const query = {}
   query.id = id
   query.type = type
@@ -12,10 +12,10 @@ export function purchaseGet(id, type) {
   })
 }
 
-export function purchaseAdd(type, purchases) {
+export function purchaseAdd (type, purchases) {
   const data = purchases
   data.type = type
-  //data.purchases = purchases
+  // data.purchases = purchases
   console.log(data)
   return request({
     url: '/purchases',
@@ -24,7 +24,7 @@ export function purchaseAdd(type, purchases) {
   })
 }
 
-export function purchaseDelete(id, type) {
+export function purchaseDelete (id, type) {
   return request({
     method: 'delete',
     url: '/purchases/' + id,
@@ -32,7 +32,7 @@ export function purchaseDelete(id, type) {
   })
 }
 
-export function purchaseDetail(id, type) {
+export function purchaseDetail (id, type) {
   return request({
     method: 'get',
     url: '/purchases/' + id,
@@ -40,7 +40,7 @@ export function purchaseDetail(id, type) {
   })
 }
 
-export function purchaseModify(id, type, purchases) {
+export function purchaseModify (id, type, purchases) {
   const data = purchases
   data.type = type
   return request({
