@@ -1,7 +1,6 @@
 <template>
   <div class="upload-container">
-    <el-upload class="image-uploader" :data="dataObj" drag :multiple="false" :show-file-list="false" action="https://httpbin.org/post"
-      :on-success="handleImageScucess">
+    <el-upload class="image-uploader" name="images" :data="dataObj" drag :multiple="false" :show-file-list="false" action="http://localhost:8080/upload/images" :on-success="handleImageScucess">
       <i class="el-icon-upload"></i>
       <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
     </el-upload>
@@ -23,7 +22,6 @@
     </div>
   </div>
 </template>
-
 <script>
 import { getToken } from '@/api/qiniu'
 
@@ -50,8 +48,9 @@ export default {
     emitInput(val) {
       this.$emit('input', val)
     },
-    handleImageScucess(file) {
-      this.emitInput(file.files.file)
+    handleImageScucess(res, file, fs) {
+      console.log(res, file, fs)
+      this.emitInput(file.url)
     },
     beforeUpload() {
       const _self = this
@@ -71,8 +70,8 @@ export default {
     }
   }
 }
-</script>
 
+</script>
 <style rel="stylesheet/scss" lang="scss" scoped>
 @import "src/styles/mixin.scss";
 .upload-container {
@@ -142,4 +141,5 @@ export default {
     }
   }
 }
+
 </style>
