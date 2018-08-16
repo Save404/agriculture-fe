@@ -3,23 +3,23 @@
 const { spawn } = require('child_process')
 const chalk = require('chalk')
 
-function startMysql() {
+function startMysql () {
   const sql = spawn('mysql.server', ['start'])
-  sql.stdout.on('data', function(data) {
+  sql.stdout.on('data', function (data) {
     console.log(chalk.blue(data.toString()))
   })
-  sql.on('exit', function(code) {
+  sql.on('exit', function (code) {
     if (code === 0) {
-      setTimeout(function() {
+      setTimeout(function () {
         console.log(chalk.green('...MySQL And Redis configuration SUCCESS!'))
       }, 1000)
     }
   })
 }
 
-function startRedis() {
+function startRedis () {
   const redis = spawn('redis-server', ['/usr/local/etc/redis.conf'])
-  redis.stdout.on('data', function(data) {
+  redis.stdout.on('data', function (data) {
     console.log(chalk.cyan(data.toString()))
   })
 }
@@ -34,4 +34,3 @@ pm.then((res) => {
 }).then((res) => {
   startRedis()
 })
-

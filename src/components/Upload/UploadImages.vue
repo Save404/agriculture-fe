@@ -1,12 +1,9 @@
 <template>
   <div>
-    <el-upload class="upload-demo" action="http://localhost:8080/upload/images" :on-preview="handlePreview" :on-remove="handleRemove" :before-remove="beforeRemove" :on-success="uploadSuccess" multiple :limit="3" :on-exceed="handleExceed" :file-list="fileList" enctype="multipart/form-data">
-      <el-button size="small" type="primary">点击上传</el-button>
-      <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
+    <el-upload :action="importFileUrl" :data="upLoadData" name="importfile" :onError="uploadError" :onSuccess="uploadSuccess" :beforeUpload="before" enctype="multipart/form-data">
+      <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
     </el-upload>
-    <div>
-      <el-button type="text" @click="up">Load</el-button>
-    </div>
+    <el-button type="text" @click="up">upppp</el-button>
   </div>
 </template>
 <script>
@@ -14,31 +11,31 @@ import { uploadImage } from '@/api/upload'
 export default {
   data() {
     return {
-      fileList: []
-    };
+      importFileUrl: 'http://localhost:8080/upload/images/',
+      upLoadData: {
+        images: []
+      }
+    }
   },
   methods: {
-    handleRemove(file, fileList) {
-      console.log(file, fileList);
+    uploadSuccess(response, file, fileList) {
+      console.log('上传文件', response, file, fileList)
     },
-    handlePreview(file) {
-      console.log(file);
-      this.fileList.push(file)
+    // 上传错误
+    uploadError(response, file, fileList) {
+      console.log('上传失败，请重试！')
     },
-    handleExceed(files, fileList) {
-      this.$message.warning(`当前限制选择 3 个文件，本次选择了 ${files.length} 个文件，共选择了 ${files.length + fileList.length} 个文件`);
+    before(file) {
+      this.upLoadData.images.push(file)
+      console.log(this.upLoadData.images)
     },
-    beforeRemove(file, fileList) {
-      return this.$confirm(`确定移除 ${ file.name }？`);
-    },
-    uploadSuccess(res, file, fs) {
+    done(res, file, fs) {
       console.log(this.fileList)
       console.log(res, file, fs)
-      this.$message({ message: 'ok' })
+      this.$message({ message: 'OK' })
     },
     up() {
-      console.log(this.fileList)
-      uploadImage(this.fileList)
+      uploadImage(this.upLoadData.images)
         .then(res => {
           console.log(res)
         })
