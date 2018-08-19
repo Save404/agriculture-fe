@@ -32,6 +32,9 @@
         </template>
       </el-table-column>
     </el-table>
+    <div class="pagination-container">
+      <el-pagination :current-page="listQuery.pageNum" :page-sizes="[10,20,30,40,50]" :page-size="listQuery.pageSize" :total="total" background layout="total, sizes, prev, pager, next, jumper" @size-change="handleSizeChange" @current-change="handleCurrentChange" />
+    </div>
   </div>
 </template>
 <script>
@@ -40,7 +43,12 @@ import { contractGet, contractPayStatu, contractStatu } from '@/api/contract'
 export default {
   data() {
     return {
-      lists: []
+      lists: [],
+      listQuery: {
+        pageNum: 1,
+        pageSize: 10
+      },
+      total: 0
     }
   },
   computed: {
@@ -55,9 +63,12 @@ export default {
   methods: {
     getList() {
       contractGet(this.roles[0].toLowerCase(), this.basicId)
-      .then(res => {
-        this.lists = res.list
-      })
+        .then(res => {
+          this.lists = res.list
+          this.listQuery.pageNum = res.pageNum
+          this.listQuery.pageSize = res.pageSize
+          this.total = res.total
+        })
     },
     transDate(date) {
       const d = new Date(date)
@@ -77,6 +88,14 @@ export default {
               this.getList()
             })
         })
+    },
+    handleSizeChange(val) {
+      this.listQuery.pageSize = val
+      this.getList()
+    },
+    handleCurrentChange(val) {
+      this.listQuery.pageNum = val
+      this.getList()
     }
   }
 }
@@ -87,4 +106,7 @@ export default {
   padding: 20px;
 }
 
+.pagination-container {
+  text-align: center;
+}
 </style>

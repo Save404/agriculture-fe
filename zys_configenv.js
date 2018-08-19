@@ -23,7 +23,7 @@ function startRedis () {
     console.log(chalk.cyan(data.toString()))
   })
 }
-
+/*
 const pm = new Promise((resolve, reject) => {
   console.log(chalk.green('...ZYSzys env configuration START!'))
   resolve()
@@ -34,3 +34,8 @@ pm.then((res) => {
 }).then((res) => {
   startRedis()
 })
+*/
+(async () => {
+  await startMysql()
+  setTimeout(startRedis, 2000)//await startRedis()
+})()

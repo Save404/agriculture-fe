@@ -26,6 +26,9 @@
         </template>
       </el-table-column>
     </el-table>
+    <div class="pagination-container">
+      <el-pagination :current-page="listQuery.pageNum" :page-sizes="[10,20,30,40,50]" :page-size="listQuery.pageSize" :total="total" background layout="total, sizes, prev, pager, next, jumper" @size-change="handleSizeChange" @current-change="handleCurrentChange" />
+    </div>
   </div>
 </template>
 <script>
@@ -34,7 +37,12 @@ import { purchaseGet, purchaseModify, purchaseDelete } from '@/api/purchase'
 export default {
   data() {
     return {
-      list: []
+      list: [],
+      listQuery: {
+        pageNum: 1,
+        pageSize: 10
+      },
+      total: 0
     }
   },
   created() {
@@ -50,10 +58,13 @@ export default {
   methods: {
     getList() {
       purchaseGet(this.basicId, this.roles[0])
-      .then(res => {
-        this.list = res.list
-      })
-      .catch(err => {})
+        .then(res => {
+          this.list = res.list
+          this.listQuery.pageNum = res.pageNum
+          this.listQuery.pageSize = res.pageSize
+          this.total = res.total
+        })
+        .catch(err => {})
     },
     goDetail(id) {
 
@@ -68,6 +79,14 @@ export default {
         .catch(err => {
           alert(err)
         })
+    },
+    handleSizeChange(val) {
+      this.listQuery.pageSize = val
+      this.getList()
+    },
+    handleCurrentChange(val) {
+      this.listQuery.pageNum = val
+      this.getList()
     }
   }
 }
@@ -84,4 +103,7 @@ export default {
   }
 }
 
+.pagination-container {
+  text-align: center;
+}
 </style>
