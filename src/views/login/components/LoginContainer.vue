@@ -20,7 +20,7 @@
 export default {
   name: 'LoginContainer',
   props: ['form', 'url'],
-  data() {
+  data () {
     return {
       rules: {
         telephone: [
@@ -36,18 +36,18 @@ export default {
     }
   },
   methods: {
-    submitForm(formName) {
+    submitForm (formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) { // 如果规则校验通过就进行下一步登录
-          //this.$message('Validation passed')
+          // this.$message('Validation passed')
           this.onSubmit()
         } else {
-          this.$message('请检查手机号码或密码格式');
+          this.$message('请检查手机号码或密码格式')
           return false
         }
       })
     },
-    handleLogin() {
+    handleLogin () {
       this.$refs.form.validate(valid => {
         if (!valid) {
           this.loading = true
@@ -63,8 +63,8 @@ export default {
         }
       })
     },
-    onSubmit() {
-      //const password = md5(("" + this.salt.charAt(0) + this.salt.charAt(2) + this.form.password + this.salt.charAt(5) + this.salt))
+    onSubmit () {
+      // const password = md5(("" + this.salt.charAt(0) + this.salt.charAt(2) + this.form.password + this.salt.charAt(5) + this.salt))
       if (this.url.includes('nh')) {
         this.loading = true
         this.$store.dispatch('NhLogin', this.form).then(() => {
@@ -83,18 +83,18 @@ export default {
         })
       }
     },
-    resetPassword() {
+    resetPassword () {
       this.$message('重置密码！！')
     },
-    goRegister() {
+    goRegister () {
       if (this.url.includes('nh')) {
         this.$router.push({ name: 'nhRegister' })
       } else {
         this.$router.push({ name: 'mjRegister' })
       }
     },
-    resetForm(formName) {
-      this.$refs[formName].resetFields();
+    resetForm (formName) {
+      this.$refs[formName].resetFields()
     }
   }
 }

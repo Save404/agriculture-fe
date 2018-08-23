@@ -8,7 +8,7 @@ import Register from './components/Register'
 export default {
   name: 'FarmerRegister',
   components: { Register },
-  data() {
+  data () {
     return {
       FarmerRegisterForm: {
         telephone: '',

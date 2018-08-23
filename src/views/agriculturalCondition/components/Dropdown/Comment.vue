@@ -19,10 +19,10 @@ export default {
   props: ['value'],
   computed: {
     comment_disabled: {
-      get() {
+      get () {
         return this.value
       },
-      set(val) {
+      set (val) {
         this.$emit('input', val)
       }
     }

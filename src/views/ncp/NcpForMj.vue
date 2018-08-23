@@ -4,10 +4,6 @@
       <el-table-column type="expand">
         <template slot-scope="props">
           <el-form label-position="left" inline class="mjtable-expand">
-            <!--
-            <el-form-item v-for="(item, index) in lists[0]" v-if="props.row[index] !== ''" :key="index" :label="index">
-              <span>{{props.row[index]}}</span>
-            </el-form-item>-->
             <el-form-item label="名称">
               <span>{{props.row.ncpName}}</span>
             </el-form-item>
@@ -52,16 +48,16 @@
 import { ncpMjGet } from '@/api/ncp'
 export default {
   name: 'HomeMjTable',
-  data() {
+  data () {
     return {
       lists: []
     }
   },
-  created() {
+  created () {
     this.getInfo()
   },
   methods: {
-    dealLists(data) {
+    dealLists (data) {
       this.lists.length = 0
       for (let i in data) {
         let item = data[i]
@@ -69,7 +65,7 @@ export default {
           if (item[j] === null) {
             item[j] = ''
           }
-          //console.log(item[j])
+          // console.log(item[j])
         }
         item['ncpPublishDate'] = new Date(parseInt(item['ncpPublishDate']))
         item['ncpPublishDate'] = item['ncpPublishDate'].toISOString().substr(0, 10)
@@ -80,19 +76,17 @@ export default {
         this.lists.push(item)
       }
     },
-    getInfo() {
+    getInfo () {
       ncpMjGet()
         .then(res => {
-          //console.log(res)
           this.dealLists(res)
         })
-        .catch(err => {})
     },
-    goContract(nh, ncp, name, unit) {
-      sessionStorage.setItem("nhBasicId", nh)
-      sessionStorage.setItem("ncpBasicId", ncp)
-      sessionStorage.setItem("ncpName", name)
-      sessionStorage.setItem("unit", unit)
+    goContract (nh, ncp, name, unit) {
+      sessionStorage.setItem('nhBasicId', nh)
+      sessionStorage.setItem('ncpBasicId', ncp)
+      sessionStorage.setItem('ncpName', name)
+      sessionStorage.setItem('unit', unit)
       this.$router.push({ name: 'contractCreate' })
     }
   }

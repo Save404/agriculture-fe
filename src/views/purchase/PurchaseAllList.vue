@@ -28,12 +28,12 @@
 import { mapGetters } from 'vuex'
 import { purchaseGet } from '@/api/purchase'
 export default {
-  data() {
+  data () {
     return {
       list: []
     }
   },
-  created() {
+  created () {
     this.getList()
   },
   computed: {
@@ -44,14 +44,13 @@ export default {
     ])
   },
   methods: {
-    getList() {
+    getList () {
       purchaseGet(this.basicId, this.roles[0])
-      .then(res => {
-        this.list = res.list
-      })
-      .catch(err => {})
+        .then(res => {
+          this.list = res.list
+        })
     },
-    goDetail(id) {
+    goDetail (id) {
 
     }
   }

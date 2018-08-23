@@ -5,7 +5,7 @@
 </template>
 <script>
 export default {
-  name: 'BottomFooter',
+  name: 'BottomFooter'
 }
 
 </script>

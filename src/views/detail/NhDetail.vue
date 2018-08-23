@@ -23,12 +23,11 @@
   </div>
 </template>
 <script>
-import qs from 'qs'
 import VDistpicker from 'v-distpicker'
 import { nhGetDetail, nhAddDetail } from '@/api/nh'
 export default {
   name: 'FarmerDetail',
-  data() {
+  data () {
     return {
       FarmerDetailForm: {
         province: '浙江省',
@@ -43,18 +42,18 @@ export default {
           { comment: '身份证', name: 'IdCard', value: '' },
           { comment: '政治面貌', name: 'Politics', value: '' },
           { comment: '供货单位地址', name: 'GhdwAddress', value: '' },
-          //{ comment: '供货地区编码', name: 'GhdwAreaCode', value: '' },
+          // { comment: '供货地区编码', name: 'GhdwAreaCode', value: '' },
           { comment: '供货单位联系方式', name: 'GhdwPhone', value: '', sample: '座机或手机' }
         ]
       }
     }
   },
   components: { VDistpicker },
-  created() {
+  created () {
     this.init()
   },
   methods: {
-    init() {
+    init () {
       let form = this.FarmerDetailForm
       nhGetDetail()
         .then(res => {
@@ -76,35 +75,35 @@ export default {
           alert(err)
         })
     },
-    onSelected(data) {
+    onSelected (data) {
       this.FarmerDetailForm.province = data.province.value
       this.FarmerDetailForm.city = data.city.value
       this.FarmerDetailForm.area = data.area.value
       this.FarmerDetailForm.area_code = data.area.code
-      //this.$message(this.FarmerDetailForm.area)
+      // this.$message(this.FarmerDetailForm.area)
     },
-    submitForm(formName) {
+    submitForm (formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
           // 是否确认更新资料的消息弹框
           this.$confirm('确认更新个人资料?', '提示', {
             confirmButtonText: '确定',
-            cancelButtonText: '取消',
+            cancelButtonText: '取消'
           }).then(() => {
             this.onSubmit()
           }).catch(() => {
             this.$message({
               type: 'info',
               message: '已取消更新'
-            });
-          });
+            })
+          })
         } else {
           this.$message('请务必完整填写带*号的必填项')
           return false
         }
       })
     },
-    onSubmit() {
+    onSubmit () {
       const data = {
         nhRealName: this.FarmerDetailForm.name,
         nhSex: this.FarmerDetailForm.sex,
@@ -118,13 +117,13 @@ export default {
       nhAddDetail(data)
         .then(res => {
           this.$message({ message: '更新农户个人资料成功', type: 'success' })
-          //this.$router.push({ name: 'Home' })
+          // this.$router.push({ name: 'Home' })
         })
         .catch(err => {
           this.$message(err)
         })
     },
-    goBack() {
+    goBack () {
       this.$router.back()
     }
   }

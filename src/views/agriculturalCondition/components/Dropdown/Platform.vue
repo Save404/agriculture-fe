@@ -17,7 +17,7 @@
 <script>
 export default {
   props: ['value'],
-  data() {
+  data () {
     return {
       platformsOptions: [
         { key: 'a-platform', name: 'a-platform' },
@@ -28,10 +28,10 @@ export default {
   },
   computed: {
     platforms: {
-      get() {
+      get () {
         return this.value
       },
-      set(val) {
+      set (val) {
         this.$emit('input', val)
       }
     }

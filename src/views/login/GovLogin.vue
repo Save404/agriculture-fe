@@ -8,7 +8,7 @@ import LoginForGov from './components/LoginForGov'
 export default {
   name: 'GovLogin',
   components: { LoginForGov },
-  data() {
+  data () {
     return {
       url: '/gov/login',
       govLoginForm: {

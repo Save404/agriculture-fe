@@ -93,7 +93,7 @@ export default {
       default: false
     }
   },
-  data() {
+  data () {
     const validateRequire = (rule, value, callback) => {
       if (value === '') {
         this.$message({
@@ -133,11 +133,11 @@ export default {
     }
   },
   computed: {
-    contentShortLength() {
+    contentShortLength () {
       return this.postForm.content_short.length
     }
   },
-  created() {
+  created () {
     if (this.isEdit) {
       const id = this.$route.params && this.$route.params.id
       this.fetchData(id)
@@ -146,7 +146,7 @@ export default {
     }
   },
   methods: {
-    fetchData(id) {
+    fetchData (id) {
       fetchArticle(id).then(response => {
         this.postForm = response.data
         // Just for test
@@ -156,7 +156,7 @@ export default {
         console.log(err)
       })
     },
-    submitForm() {
+    submitForm () {
       this.postForm.display_time = parseInt(this.display_time / 1000)
       console.log(this.postForm)
       this.$refs.postForm.validate(valid => {
@@ -176,7 +176,7 @@ export default {
         }
       })
     },
-    draftForm() {
+    draftForm () {
       if (this.postForm.content.length === 0 || this.postForm.title.length === 0) {
         this.$message({
           message: '请填写必要的标题和内容',
@@ -192,7 +192,7 @@ export default {
       })
       this.postForm.status = 'draft'
     },
-    getRemoteUserList(query) {
+    getRemoteUserList (query) {
       userSearch(query).then(response => {
         if (!response.data.items) return
         this.userListOptions = response.data.items.map(v => v.name)

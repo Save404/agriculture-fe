@@ -24,16 +24,16 @@
 import { ncpNhGet, ncpDelete, ncpOnOff } from '@/api/ncp'
 export default {
   name: 'HomeNhTable',
-  data() {
+  data () {
     return {
       lists: []
     }
   },
-  created() {
+  created () {
     this.getInfo()
   },
   methods: {
-    dealLists(data) {
+    dealLists (data) {
       this.lists.length = 0
       for (let i in data) {
         let item = data[i]
@@ -44,27 +44,26 @@ export default {
         this.lists.push(item)
       }
     },
-    getInfo() {
+    getInfo () {
       ncpNhGet()
         .then(res => {
           this.dealLists(res)
         })
-        .catch(err => {})
     },
-    getNcpSingle(choicedItem, c1, c2, c3, c4, p, c, a) {
-      //console.log(c1, c2, c3, c4, p, c, a)
-      sessionStorage.setItem("c1", c1)
-      sessionStorage.setItem("c2", c2)
-      sessionStorage.setItem("c3", c3)
-      sessionStorage.setItem("c4", c4)
-      sessionStorage.setItem("p", p)
-      sessionStorage.setItem("c", c)
-      sessionStorage.setItem("a", a)
+    getNcpSingle (choicedItem, c1, c2, c3, c4, p, c, a) {
+      // console.log(c1, c2, c3, c4, p, c, a)
+      sessionStorage.setItem('c1', c1)
+      sessionStorage.setItem('c2', c2)
+      sessionStorage.setItem('c3', c3)
+      sessionStorage.setItem('c4', c4)
+      sessionStorage.setItem('p', p)
+      sessionStorage.setItem('c', c)
+      sessionStorage.setItem('a', a)
       sessionStorage.setItem('ncpBasicId', choicedItem)
-      //this.$store.commit('choiceBasicId', choicedItem)
+      // this.$store.commit('choiceBasicId', choicedItem)
       this.$router.push({ name: 'ncpSingle' })
     },
-    deleteNcp(id) {
+    deleteNcp (id) {
       this.$confirm('确认删除此农产品吗?', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
@@ -82,14 +81,14 @@ export default {
         this.$message({
           type: 'info',
           message: '已取消删除'
-        });
-      });
+        })
+      })
     },
-    onOffNcp(id, status) {
+    onOffNcp (id, status) {
       ncpOnOff(id)
         .then(res => {
           let msg = '上下架农产品成功'
-          if (status == 0) {
+          if (status === 0) {
             msg = '上架农产品成功'
           } else {
             msg = '下架农产品成功'
@@ -103,6 +102,5 @@ export default {
 
 </script>
 <style scoped>
-
 
 </style>

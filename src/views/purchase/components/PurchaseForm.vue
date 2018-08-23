@@ -43,7 +43,6 @@ import { mapGetters } from 'vuex'
 import MarkdownEditor from '@/components/MarkdownEditor'
 import MDinput from '@/components/MDinput'
 import { purchaseAdd, purchaseDetail, purchaseModify } from '@/api/purchase'
-const content = `hello,world`
 export default {
   components: { MarkdownEditor, MDinput },
   props: {
@@ -53,7 +52,7 @@ export default {
       default: false
     }
   },
-  data() {
+  data () {
     return {
       msg: '发布',
       postForm: {
@@ -63,10 +62,10 @@ export default {
         level: 0,
         content: ''
       },
-      rules: {},
+      rules: {}
     }
   },
-  created() {
+  created () {
     if (this.isEdit) {
       this.msg = '保存'
       const id = this.$route.params.id
@@ -76,7 +75,6 @@ export default {
             this.postForm[item] = res[item]
           }
         })
-        .catch(err => {})
     }
   },
   computed: {
@@ -87,7 +85,7 @@ export default {
     ])
   },
   methods: {
-    releasePurchase() {
+    releasePurchase () {
       const typ = this.type || this.roles[0]
       this.postForm.basicId = this.postForm.basicId || this.basicId
       if (!this.isEdit) {

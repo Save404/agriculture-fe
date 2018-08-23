@@ -61,13 +61,12 @@
   </div>
 </template>
 <script>
-import qs from 'qs'
 import VDistpicker from 'v-distpicker'
 import NcpName from './components/NcpName'
 import { ncpGetSingle, ncpModify } from '@/api/ncp'
 export default {
   name: 'NcpSingle',
-  data() {
+  data () {
     return {
       id: '',
       msg: '',
@@ -76,14 +75,14 @@ export default {
         { value: '斤', label: '斤' },
         { value: '公斤', label: '公斤' },
         { value: '千克', label: '千克' },
-        { value: '吨', label: '吨' },
+        { value: '吨', label: '吨' }
       ],
       unitpOptions: [
         { value: '元/克', label: '元/克' },
         { value: '元/斤', label: '元/斤' },
         { value: '元/公斤', label: '元/公斤' },
         { value: '元/千克', label: '元/千克' },
-        { value: '元/吨', label: '元/吨' },
+        { value: '元/吨', label: '元/吨' }
       ],
       NcpSingleForm: {
         initName: {},
@@ -103,14 +102,14 @@ export default {
         placeholders: {
           province: '----------- 省 ------------',
           city: '------- 市 -------',
-          area: '------- 区 -------',
+          area: '------- 区 -------'
         },
         fields: [
           { comment: '产品特质', name: 'Feature', value: '', rule: [{ required: true, message: '产品特质不能为空', trigger: 'blur' }] },
-          { comment: '产品品牌', name: 'Brand', value: '' },
-          //{ comment: '年产量', name: 'AnnualOutput', value: '', sample: '如:苹果300吨' },
-          //{ comment: '可供应量', name: 'SupplyAmount', value: '', sample: '如：苹果300吨' },
-          //{ comment: '参考价格', name: 'ReferencePrice', value: '', sample: '如：几元/几千克' },
+          { comment: '产品品牌', name: 'Brand', value: '' }
+          // { comment: '年产量', name: 'AnnualOutput', value: '', sample: '如:苹果300吨' },
+          // { comment: '可供应量', name: 'SupplyAmount', value: '', sample: '如：苹果300吨' },
+          // { comment: '参考价格', name: 'ReferencePrice', value: '', sample: '如：几元/几千克' },
         ],
         more: [
           { comment: '详情介绍', name: 'Detail', value: '' },
@@ -119,10 +118,10 @@ export default {
           { comment: '生产过程', name: 'GrowthInfo', value: '', sample: '如：种子、机械、化肥、农药、如何控制农药残留等，请尽量详细填写' },
           { comment: '产品生长环境', name: 'GrowthSurrounding', value: '' },
           { comment: '产品种植面积', name: 'PlantArea', value: '', sample: '如:苹果300亩' },
-          //{ comment: '批量出仓价格', name: 'BatchPrice', value: '', sample: '如：出仓100斤，xx元' },
-          { comment: '仓储物流能力', name: 'DeliveryAbility', value: '' },
-          //{ comment: '起送量', name: 'MinCount', value: '' },
-          //{ comment: '批量物流成本', name: 'DeliveryCost', value: '' },
+          // { comment: '批量出仓价格', name: 'BatchPrice', value: '', sample: '如：出仓100斤，xx元' },
+          { comment: '仓储物流能力', name: 'DeliveryAbility', value: '' }
+          // { comment: '起送量', name: 'MinCount', value: '' },
+          // { comment: '批量物流成本', name: 'DeliveryCost', value: '' },
         ],
         qualities: [
           { label: '绿色食品认证', value: '绿色食品认证' },
@@ -136,9 +135,9 @@ export default {
     }
   },
   components: { VDistpicker, NcpName },
-  created() {
+  created () {
     let form = this.NcpSingleForm
-    //let link = 'http://localhost:8080/ncp/get_ncp/' + sessionStorage.ncpBasicId
+    // let link = 'http://localhost:8080/ncp/get_ncp/' + sessionStorage.ncpBasicId
     form.province = sessionStorage.p
     form.city = sessionStorage.c
     form.area = sessionStorage.a
@@ -175,21 +174,21 @@ export default {
       .catch(err => {
         alert(err)
       })
-    //console.log(form)
+    // console.log(form)
   },
   methods: {
-    setName(msg) {
+    setName (msg) {
       this.NcpSingleForm.name = msg.name
       this.NcpSingleForm.name_code = msg.code
     },
-    onSelected(data) {
+    onSelected (data) {
       this.NcpSingleForm.province = data.province.value
       this.NcpSingleForm.city = data.city.value
       this.NcpSingleForm.area = data.area.value
       this.NcpSingleForm.area_code = data.area.code
       this.$message(this.NcpSingleForm.area)
     },
-    submitForm(formName) {
+    submitForm (formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
           if (this.NcpSingleForm.area === this.NcpSingleForm.placeholders.area) {
@@ -203,7 +202,7 @@ export default {
         }
       })
     },
-    onSubmit() {
+    onSubmit () {
       console.log(this.id)
       const data = {
         ncpName: this.NcpSingleForm.name,
@@ -223,34 +222,26 @@ export default {
         data['ncp' + f[i].name] = f[i].value
       }
       const m = this.NcpSingleForm.more
-      for (var i = 0; i < m.length; i++) {
+      for (i = 0; i < m.length; i++) {
         data['ncp' + m[i].name] = m[i].value
       }
-      const link = 'http://localhost:8080/ncp/modify_ncp/' + sessionStorage.ncpBasicId
-      //console.log(link)
-      /*this.$axios({
-          method: 'post',
-          url: link,
-          data: qs.stringify(data)
-        })*/
       ncpModify(data, sessionStorage.ncpBasicId)
         .then(res => {
           this.$message({ message: '更新成功', type: 'success' })
           this.$router.push({ name: 'NcpForNh' })
         })
-        .catch(err => {})
     },
-    resetForm(formName) {
-      this.$refs[formName].resetFields();
+    resetForm (formName) {
+      this.$refs[formName].resetFields()
     },
-    goBack() {
+    goBack () {
       this.$router.back()
     }
   }
 }
 
 </script>
-</script>
+
 <style scoped>
 #ncp-single {
   padding-top: 3%;

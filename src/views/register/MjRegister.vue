@@ -8,7 +8,7 @@ import Register from './components/Register'
 export default {
   name: 'MjRegister',
   components: { Register },
-  data() {
+  data () {
     return {
       MjRegisterForm: {
         telephone: '',

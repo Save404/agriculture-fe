@@ -41,7 +41,7 @@
 import { mapGetters } from 'vuex'
 import { contractGet, contractPayStatu, contractStatu } from '@/api/contract'
 export default {
-  data() {
+  data () {
     return {
       lists: [],
       listQuery: {
@@ -57,11 +57,11 @@ export default {
       'roles'
     ])
   },
-  created() {
+  created () {
     this.getList()
   },
   methods: {
-    getList() {
+    getList () {
       contractGet(this.roles[0].toLowerCase(), this.basicId)
         .then(res => {
           this.lists = res.list
@@ -70,11 +70,11 @@ export default {
           this.total = res.total
         })
     },
-    transDate(date) {
+    transDate (date) {
       const d = new Date(date)
       return d.toISOString().substr(0, 10)
     },
-    goPay(id) {
+    goPay (id) {
       contractPayStatu(id, 'finish')
         .then(() => {
           this.$message({ type: 'success', message: '支付成功' })
@@ -84,16 +84,16 @@ export default {
                 title: '成功',
                 message: '合同完成',
                 type: 'success'
-              });
+              })
               this.getList()
             })
         })
     },
-    handleSizeChange(val) {
+    handleSizeChange (val) {
       this.listQuery.pageSize = val
       this.getList()
     },
-    handleCurrentChange(val) {
+    handleCurrentChange (val) {
       this.listQuery.pageNum = val
       this.getList()
     }
