@@ -13,7 +13,7 @@ export default {
       'roles'
     ])
   },
-  data() {
+  data () {
     return {
 
     }

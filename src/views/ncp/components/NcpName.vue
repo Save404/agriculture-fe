@@ -19,7 +19,6 @@
   </div>
 </template>
 <script>
-import qs from 'qs'
 import data from '@/assets/data.json'
 export default {
   name: 'NcpName',
@@ -36,7 +35,7 @@ export default {
       }
     }
   },
-  data() {
+  data () {
     return {
       total: data,
       value1: '',
@@ -62,7 +61,7 @@ export default {
     }
   },
   methods: {
-    getSecond() {
+    getSecond () {
       this.second.length = 0
       this.value2 = this.value3 = this.value4 = ''
       let id = this.value1
@@ -71,9 +70,9 @@ export default {
           this.second.push({ value: i, label: this.total[i] })
         }
       }
-      //this.$message('Got second')
+      // this.$message('Got second')
     },
-    getThird() {
+    getThird () {
       this.third.length = 0
       this.value3 = this.value4 = ''
       let id = this.value2
@@ -82,9 +81,9 @@ export default {
           this.third.push({ value: i, label: this.total[i] })
         }
       }
-      //this.$message('Got third')
+      // this.$message('Got third')
     },
-    getLast() {
+    getLast () {
       this.last.length = 0
       this.value4 = ''
       let id = this.value3
@@ -93,12 +92,12 @@ export default {
           this.last.push({ value: i, label: this.total[i] })
         }
       }
-      //this.$message('Got last')
+      // this.$message('Got last')
     },
-    getAll() {
+    getAll () {
       if (this.value4 !== '产品名称' && this.value4 !== '') {
         this.$emit('got', {code: this.value4, name: this.total[this.value4]})
-        //this.$message('Got all')
+        // this.$message('Got all')
       } else {
         this.$message('产品名称不能为空')
       }

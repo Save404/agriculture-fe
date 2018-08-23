@@ -10,7 +10,7 @@ import LoginContainer from './components/LoginContainer'
 export default {
   name: 'MjLogin',
   components: { TransHeader, LoginContainer },
-  data() {
+  data () {
     return {
       url: 'http://localhost:8080/mj/mj_login',
       MjLoginForm: {

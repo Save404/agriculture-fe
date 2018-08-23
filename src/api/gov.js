@@ -12,7 +12,7 @@ export function govLogin (govId, govPassword) {
   })
 }
 
-export function govPost(noticeTitle, noticeContent, noticeLevel) {
+export function govPost (noticeTitle, noticeContent, noticeLevel) {
   return request({
     url: '/gov/post/add',
     method: 'post',

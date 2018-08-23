@@ -64,7 +64,7 @@ import { fetchList } from '@/api/article'
 
 export default {
   name: 'articleList',
-  data() {
+  data () {
     return {
       list: null,
       total: 0,
@@ -76,7 +76,7 @@ export default {
     }
   },
   filters: {
-    statusFilter(status) {
+    statusFilter (status) {
       const statusMap = {
         published: 'success',
         draft: 'info',
@@ -85,11 +85,11 @@ export default {
       return statusMap[status]
     }
   },
-  created() {
+  created () {
     this.getList()
   },
   methods: {
-    getList() {
+    getList () {
       this.listLoading = true
       fetchList(this.listQuery).then(response => {
         this.list = response.data.items
@@ -97,11 +97,11 @@ export default {
         this.listLoading = false
       })
     },
-    handleSizeChange(val) {
+    handleSizeChange (val) {
       this.listQuery.limit = val
       this.getList()
     },
-    handleCurrentChange(val) {
+    handleCurrentChange (val) {
       this.listQuery.page = val
       this.getList()
     }

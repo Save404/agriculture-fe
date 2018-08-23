@@ -26,27 +26,27 @@ export default {
     value: String
   },
   computed: {
-    imageUrl() {
+    imageUrl () {
       return this.value
     }
   },
-  data() {
+  data () {
     return {
       tempUrl: '',
       dataObj: { token: '', key: '' }
     }
   },
   methods: {
-    rmImage() {
+    rmImage () {
       this.emitInput('')
     },
-    emitInput(val) {
+    emitInput (val) {
       this.$emit('input', val)
     },
-    handleImageScucess() {
+    handleImageScucess () {
       this.emitInput(this.tempUrl)
     },
-    beforeUpload() {
+    beforeUpload () {
       const _self = this
       return new Promise((resolve, reject) => {
         getToken().then(response => {
@@ -57,8 +57,7 @@ export default {
           this.tempUrl = response.data.qiniu_url
           resolve(true)
         }).catch(err => {
-          console.log(err)
-          reject(false)
+          reject(err)
         })
       })
     }

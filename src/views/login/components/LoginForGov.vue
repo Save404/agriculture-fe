@@ -20,13 +20,13 @@ export default {
     form: Object,
     url: String
   },
-  data() {
+  data () {
     return {
 
     }
   },
   methods: {
-    onSubmit() {
+    onSubmit () {
       this.$store.dispatch('GovLogin', this.form)
         .then(() => {
           this.$router.push({ path: '/' })

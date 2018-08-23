@@ -25,11 +25,10 @@
   </div>
 </template>
 <script>
-import qs from 'qs'
 export default {
   name: 'Register',
   props: ['form', 'url'],
-  data() {
+  data () {
     var repass = (rule, value, callback) => {
       if (value === '') {
         callback(new Error('请再次输入密码'))
@@ -58,22 +57,22 @@ export default {
     }
   },
   methods: {
-    submitForm(formName) {
+    submitForm (formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
           if (this.form.protocol === true) {
-            //alert('Validation passed')
+            // alert('Validation passed')
             this.onSubmit()
           } else {
-            this.$message('请阅读协议并同意');
+            this.$message('请阅读协议并同意')
           }
         } else {
-          this.$message('密码错误');
+          this.$message('密码错误')
           return false
         }
       })
     },
-    onSubmit() {
+    onSubmit () {
       if (this.url.includes('nh')) {
         this.loading = true
         this.$store.dispatch('NhRegister', this.form).then(() => {
@@ -92,38 +91,17 @@ export default {
         }).catch(() => {
           this.loading = false
         })
-      }/*
-      const data = {}
-      if (this.url.includes('nh')) {
-        data.nhTelephone = this.form.telephone
-        data.nhPassword = this.form.password
-        data.rePassword = this.form.repassword
-      } else if (this.url.includes('mj')) {
-        data.mjTelephone = this.form.telephone
-        data.mjPassword = this.form.password
-        data.rePassword = this.form.repassword
       }
-      this.$axios({
-          method: 'post',
-          url: this.url,
-          data: qs.stringify(data)
-        })
-        .then(res => {
-          //this.$store.commit('login', data.nhTelephone)
-          this.$message({ message: '注册成功', type: 'success' })
-          this.goLogin()
-        })
-        .catch(err => {})*/
     },
-    goLogin() {
+    goLogin () {
       if (this.url.includes('nh')) {
         this.$router.push({ name: 'FarmerLogin' })
       } else if (this.url.includes('mj')) {
         this.$router.push({ name: 'MjLogin' })
       }
     },
-    resetForm(formName) {
-      this.$refs[formName].resetFields();
+    resetForm (formName) {
+      this.$refs[formName].resetFields()
     }
   }
 }

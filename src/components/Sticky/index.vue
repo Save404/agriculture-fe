@@ -24,7 +24,7 @@ export default {
       type: String
     }
   },
-  data() {
+  data () {
     return {
       active: false,
       position: '',
@@ -33,20 +33,20 @@ export default {
       isSticky: false
     }
   },
-  mounted() {
+  mounted () {
     this.height = this.$el.getBoundingClientRect().height
     window.addEventListener('scroll', this.handleScroll)
     window.addEventListener('resize', this.handleReize)
   },
-  activated() {
+  activated () {
     this.handleScroll()
   },
-  destroyed() {
+  destroyed () {
     window.removeEventListener('scroll', this.handleScroll)
     window.removeEventListener('resize', this.handleReize)
   },
   methods: {
-    sticky() {
+    sticky () {
       if (this.active) {
         return
       }
@@ -55,7 +55,7 @@ export default {
       this.width = this.width + 'px'
       this.isSticky = true
     },
-    reset() {
+    reset () {
       if (!this.active) {
         return
       }
@@ -64,7 +64,7 @@ export default {
       this.active = false
       this.isSticky = false
     },
-    handleScroll() {
+    handleScroll () {
       this.width = this.$el.getBoundingClientRect().width
       const offsetTop = this.$el.getBoundingClientRect().top
       if (offsetTop < this.stickyTop) {
@@ -73,7 +73,7 @@ export default {
       }
       this.reset()
     },
-    handleReize() {
+    handleReize () {
       if (this.isSticky) {
         this.width = this.$el.getBoundingClientRect().width + 'px'
       }

@@ -86,21 +86,21 @@ export default {
       default: false
     }
   },
-  data() {
+  data () {
     return {
       msg: '立即创建',
       contractForm: {
-        title: sessionStorage.getItem("ncpName") + '购销合同书',
+        title: sessionStorage.getItem('ncpName') + '购销合同书',
         alipayAccount: '',
         contractId: '',
         createTime: '',
         mjBasicId: '',
-        ncpBasicId: sessionStorage.getItem("ncpBasicId"),
-        nhBasicId: sessionStorage.getItem("nhBasicId"),
+        ncpBasicId: sessionStorage.getItem('ncpBasicId'),
+        nhBasicId: sessionStorage.getItem('nhBasicId'),
         prePayment: '',
         purchasePrice: 0,
         purchaseQuantity: '',
-        purchaseUnit: sessionStorage.getItem("unit"),
+        purchaseUnit: sessionStorage.getItem('unit'),
         purchaserName: '',
         purchasesLiquidatedDamages: '',
         receivingAddress: '',
@@ -114,7 +114,7 @@ export default {
       }
     }
   },
-  created() {
+  created () {
     if (this.isEdit) {
       this.msg = '保存'
       const id = this.$route.params.id
@@ -132,12 +132,12 @@ export default {
     ...mapGetters([
       'basicId'
     ]),
-    calculateTotal() {
+    calculateTotal () {
       return this.contractForm.perPrice * this.contractForm.purchaseQuantity
     }
   },
   methods: {
-    onSubmit() {
+    onSubmit () {
       if (this.type === 'MJ') {
         this.contractForm.mjBasicId = this.basicId
         this.contractForm.purchasePrice = this.calculateTotal
@@ -147,9 +147,6 @@ export default {
             this.$message({ message: '合同创建成功', type: 'success' })
             this.$router.push({ name: 'contractList' })
           })
-          .catch(err => {
-            console.log('err!')
-          })
         console.log('submit!')
       } else {
         contractFinish(this.contractForm)
@@ -157,7 +154,6 @@ export default {
             this.$message({ message: '填写完成', type: 'success' })
             this.$router.push({ name: 'contractList' })
           })
-          .catch(err => {})
       }
     }
   }

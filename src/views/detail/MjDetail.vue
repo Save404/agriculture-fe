@@ -27,7 +27,7 @@ import VDistpicker from 'v-distpicker'
 import { mjGetDetail, mjAddDetail } from '@/api/mj'
 export default {
   name: 'MjDetail',
-  data() {
+  data () {
     return {
       MjDetailForm: {
         province: '浙江省',
@@ -40,23 +40,23 @@ export default {
           { comment: '籍贯', name: 'Origin', value: '' },
           { comment: '民族', name: 'Nation', value: '' },
           { comment: '身份证', name: 'IdCard', value: '' },
-          { comment: '政治面貌', name: 'Politics', value: '' },
+          { comment: '政治面貌', name: 'Politics', value: '' }
         ]
       }
     }
   },
   components: { VDistpicker },
-  created() {
+  created () {
     this.init()
   },
   methods: {
-    init() {
+    init () {
       let form = this.MjDetailForm
       mjGetDetail()
         .then(res => {
           if (res !== null) {
             const list = res
-            //console.log(list) //created钩子请求后返回的数据
+            // console.log(list) //created钩子请求后返回的数据
             form.name = list['mjRealName']
             form.sex = list['mjSex']
             form.province = list['nameP']
@@ -73,34 +73,34 @@ export default {
           alert(err)
         })
     },
-    onSelected(data) {
+    onSelected (data) {
       this.MjDetailForm.province = data.province.value
       this.MjDetailForm.city = data.city.value
       this.MjDetailForm.area = data.area.value
       this.MjDetailForm.area_code = data.area.code
     },
-    submitForm(formName) {
+    submitForm (formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
           // 是否确认更新资料的消息弹框
           this.$confirm('确认更新个人资料?', '提示', {
             confirmButtonText: '确定',
-            cancelButtonText: '取消',
+            cancelButtonText: '取消'
           }).then(() => {
             this.onSubmit()
           }).catch(() => {
             this.$message({
               type: 'info',
               message: '已取消更新'
-            });
-          });
+            })
+          })
         } else {
           this.$message('请务必完整填写带*号的必填项')
           return false
         }
       })
     },
-    onSubmit() {
+    onSubmit () {
       const data = {
         mjRealName: this.MjDetailForm.name,
         mjSex: this.MjDetailForm.sex,
@@ -110,15 +110,14 @@ export default {
       for (var i = 0; i < m.length; i++) {
         data['mj' + m[i].name] = m[i].value
       }
-      //console.log(data) //查看更新个人资料后post的数据
+      // console.log(data) //查看更新个人资料后post的数据
       mjAddDetail(data)
         .then(res => {
           this.$message({ message: '更新买家个人资料成功', type: 'success' })
-          //this.$router.push({ name: 'Home' })
+          // this.$router.push({ name: 'Home' })
         })
-        .catch(err => {})
     },
-    goBack() {
+    goBack () {
       this.$router.back()
     }
   }

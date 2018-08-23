@@ -23,12 +23,12 @@ export default {
   computed: {
     ...mapGetters([
       'permission_routers',
-      'sidebar',
+      'sidebar'
     ]),
-    routes() {
+    routes () {
       return this.$router.options.routes
     },
-    isCollapse() {
+    isCollapse () {
       return !this.sidebar.opened
     }
   }

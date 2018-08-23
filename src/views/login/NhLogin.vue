@@ -10,7 +10,7 @@ import LoginContainer from './components/LoginContainer'
 export default {
   name: 'FarmerLogin',
   components: { TransHeader, LoginContainer },
-  data() {
+  data () {
     return {
       url: '/nh/nh_login',
       FarmerLoginForm: {

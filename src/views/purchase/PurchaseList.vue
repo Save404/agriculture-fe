@@ -33,9 +33,9 @@
 </template>
 <script>
 import { mapGetters } from 'vuex'
-import { purchaseGet, purchaseModify, purchaseDelete } from '@/api/purchase'
+import { purchaseGet, purchaseDelete } from '@/api/purchase'
 export default {
-  data() {
+  data () {
     return {
       list: [],
       listQuery: {
@@ -45,7 +45,7 @@ export default {
       total: 0
     }
   },
-  created() {
+  created () {
     this.getList()
   },
   computed: {
@@ -56,7 +56,7 @@ export default {
     ])
   },
   methods: {
-    getList() {
+    getList () {
       purchaseGet(this.basicId, this.roles[0])
         .then(res => {
           this.list = res.list
@@ -64,12 +64,11 @@ export default {
           this.listQuery.pageSize = res.pageSize
           this.total = res.total
         })
-        .catch(err => {})
     },
-    goDetail(id) {
+    goDetail (id) {
 
     },
-    goDelete(id) {
+    goDelete (id) {
       console.log(id, this.roles[0])
       purchaseDelete(id, this.roles[0])
         .then(res => {
@@ -80,11 +79,11 @@ export default {
           alert(err)
         })
     },
-    handleSizeChange(val) {
+    handleSizeChange (val) {
       this.listQuery.pageSize = val
       this.getList()
     },
-    handleCurrentChange(val) {
+    handleCurrentChange (val) {
       this.listQuery.pageNum = val
       this.getList()
     }
