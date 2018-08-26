@@ -18,7 +18,9 @@
       </el-table-column>
       <el-table-column label="操作" align="center" min-width="150">
         <template slot-scope="scope">
-          <el-button size="mini" @click="goDetail(scope.row.purchasesId)">详情</el-button>
+          <router-link :to="'/purchase/edit/'+scope.row.purchasesId">
+            <el-button size="mini">详情</el-button>
+          </router-link>
           <router-link :to="'/purchase/edit/'+scope.row.purchasesId">
             <el-button size="mini" type="warning">修改</el-button>
           </router-link>
@@ -64,9 +66,6 @@ export default {
           this.listQuery.pageSize = res.pageSize
           this.total = res.total
         })
-    },
-    goDetail (id) {
-
     },
     goDelete (id) {
       console.log(id, this.roles[0])

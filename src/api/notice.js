@@ -3,7 +3,7 @@ import request from '@/utils/request'
 
 export function noticeAdd (noticeTitle, noticeContent, noticeLevel) {
   return request({
-    url: '/gov/post/add',
+    url: '/gov/notice/add',
     method: 'post',
     data: qs.stringify({ noticeTitle, noticeContent, noticeLevel })
   })
