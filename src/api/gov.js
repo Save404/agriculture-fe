@@ -11,11 +11,3 @@ export function govLogin (govId, govPassword) {
     data: qs.stringify({ govId, govPassword })
   })
 }
-
-export function govPost (noticeTitle, noticeContent, noticeLevel) {
-  return request({
-    url: '/gov/post/add',
-    method: 'post',
-    data: qs.stringify({ noticeTitle, noticeContent, noticeLevel })
-  })
-}

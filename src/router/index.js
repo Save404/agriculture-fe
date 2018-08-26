@@ -237,5 +237,22 @@ export const asyncRouterMap = [{
     meta: { title: '合同列表', icon: 'table', roles: ['NH', 'MJ'] }
   }]
 },
+{
+  path: '/notice',
+  component: Layout,
+  meta: { title: '公告', icon: 'example', roles: ['GOV'] },
+  children: [{
+    path: 'create',
+    component: () =>
+        import('@/views/notice/NoticeCreate'),
+    meta: { title: '发布公告', icon: 'edit', roles: ['GOV'] }
+  },
+  {
+    path: 'list',
+    component: () =>
+        import('@/views/notice/NoticeList'),
+    meta: { title: '公告列表', icon: 'list', roles: ['GOV'] }
+  }]
+},
 { path: '*', redirect: '/404', hidden: true }
 ]
