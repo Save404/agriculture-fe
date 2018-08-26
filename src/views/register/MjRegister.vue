@@ -1,13 +1,15 @@
 <template>
   <div id="Mj-register">
+    <register-header :role="'买家'"/>
     <register :form="MjRegisterForm" :url="url"></register>
   </div>
 </template>
 <script>
 import Register from './components/Register'
+import RegisterHeader from './components/RegisterHeader'
 export default {
   name: 'MjRegister',
-  components: { Register },
+  components: { Register, RegisterHeader },
   data () {
     return {
       MjRegisterForm: {

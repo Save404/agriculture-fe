@@ -1,13 +1,15 @@
 <template>
   <div id="farmer-register">
+    <register-header :role="'农户'"/>
     <register :form="FarmerRegisterForm" :url="url"></register>
   </div>
 </template>
 <script>
 import Register from './components/Register'
+import RegisterHeader from './components/RegisterHeader'
 export default {
   name: 'FarmerRegister',
-  components: { Register },
+  components: { Register, RegisterHeader },
   data () {
     return {
       FarmerRegisterForm: {
