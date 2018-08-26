@@ -1,0 +1,1 @@
+webpackJsonp([23],{gVpZ:function(e,n,t){"use strict";Object.defineProperty(n,"__esModule",{value:!0});var l={render:function(){var e=this.$createElement;return(this._self._c||e)("div",[this._v("\n  announcement list\n")])},staticRenderFns:[]},r=t("VU/8")({},l,!1,null,null,null);n.default=r.exports}});
