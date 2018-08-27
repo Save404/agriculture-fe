@@ -13,6 +13,7 @@
     "start": "npm run dev",
     "build": "node build/build.js",
     "build:report": "npm_config_report=true node build/build.js",
+    "precommit": "npm run lint",
     "lint": "eslint --ext .js,.vue src"
   },
   "dependencies": {
