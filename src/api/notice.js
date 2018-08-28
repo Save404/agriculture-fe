@@ -3,7 +3,7 @@ import request from '@/utils/request'
 
 export function noticeGet (id, type) {
   return request({
-    url: '/notice',
+    url: '/notice/list',
     method: 'get',
     params: { id, type }
   })
@@ -11,7 +11,7 @@ export function noticeGet (id, type) {
 
 export function noticeAdd (noticeTitle, noticeContent, noticeLevel) {
   return request({
-    url: '/gov/notice/add',
+    url: '/notice/add',
     method: 'post',
     data: qs.stringify({ noticeTitle, noticeContent, noticeLevel })
   })
@@ -19,14 +19,14 @@ export function noticeAdd (noticeTitle, noticeContent, noticeLevel) {
 
 export function noticeDelete (id) {
   return request({
-    url: '/notice/delete' + id,
+    url: '/notice/delete/' + id,
     method: 'delete'
   })
 }
 
 export function noticeDetail (id) {
   return request({
-    url: '/notice/content' + id,
+    url: '/notice/content/' + id,
     method: 'get'
   })
 }

@@ -240,18 +240,36 @@ export const asyncRouterMap = [{
 {
   path: '/notice',
   component: Layout,
-  meta: { title: '公告', icon: 'example', roles: ['GOV'] },
+  meta: { title: '公告', icon: 'example', roles: ['GOV', 'NH', 'MJ'] },
   children: [{
     path: 'create',
+    name: 'noticeCreate',
     component: () =>
         import('@/views/notice/NoticeCreate'),
     meta: { title: '发布公告', icon: 'edit', roles: ['GOV'] }
   },
   {
     path: 'list',
+    name: 'noticeList',
     component: () =>
         import('@/views/notice/NoticeList'),
-    meta: { title: '公告列表', icon: 'list', roles: ['GOV'] }
+    meta: { title: '公告列表', icon: 'list', roles: ['GOV', 'NH', 'MJ'] }
+  },
+  {
+    path: 'detail/:id',
+    name: 'noticeDetail',
+    hidden: true,
+    component: () =>
+        import('@/views/notice/NoticeDetail'),
+    meta: { title: '公告详情', icon: 'eye', roles: ['GOV', 'NH', 'MJ'] }
+  },
+  {
+    path: 'edit/:id',
+    name: 'noticeEdit',
+    hidden: true,
+    component: () =>
+        import('@/views/notice/NoticeEdit'),
+    meta: { title: '公告编辑', icon: 'edit', roles: ['GOV', 'NH', 'MJ'] }
   }]
 },
 { path: '*', redirect: '/404', hidden: true }

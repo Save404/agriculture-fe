@@ -1,6 +1,6 @@
 <template>
-  <div class="notice-create">
-    <notice-form></notice-form>
+  <div class="notice-edit">
+    <notice-form :fromEditButton=true></notice-form>
   </div>
 </template>
 <script>
