@@ -4,26 +4,23 @@
       <div class="createPost-main-container">
         <el-row>
           <el-col :span="24">
-            <el-form-item style="margin-bottom: 40px;" prop="title">
-              <MDinput name="name" v-model="postForm.title" required :maxlength="100">
-                标题
-              </MDinput>
-            </el-form-item>
             <div class="postInfo-container">
               <el-row>
-                <el-col :span="11">
-                  <el-form-item label-width="80px" label="联系电话:" class="postInfo-container-item">
-                    <el-input style="width: 200px;" v-model="postForm.telephone" placeholder="联系方式"></el-input>
+                <el-col :span="12">
+                  <el-form-item style="margin-bottom: 40px;" prop="title">
+                    <MDinput name="name" v-model="postForm.noticeTitle" required :maxlength="100">
+                      标题
+                    </MDinput>
                   </el-form-item>
                 </el-col>
-                <el-col :span="11">
+                <el-col :span="10">
                   <el-form-item label-width="60px" label="重要性:" class="postInfo-container-item">
-                    <el-rate style="margin-top:8px;" v-model="postForm.level" :max='3' :colors="['#99A9BF', '#F7BA2A', '#FF9900']" :low-threshold="1" :high-threshold="3">
+                    <el-rate style="margin-top:8px;" v-model="postForm.noticeLevel" :max='3' :colors="['#99A9BF', '#F7BA2A', '#FF9900']" :low-threshold="1" :high-threshold="3">
                     </el-rate>
                   </el-form-item>
                 </el-col>
-                <el-col :span="2">
-                  <el-button type="primary" @click="releasePurchase" size="large">{{msg}}</el-button>
+                <el-col :span="2" v-if="fromEditButton||!fromDetailButton">
+                  <el-button style="transform: translateY(2.4em);" type="primary" @click="releaseNotice" size="large">{{msg}}</el-button>
                 </el-col>
               </el-row>
             </div>
@@ -31,7 +28,7 @@
         </el-row>
         <el-form-item style="margin-bottom: 40px;">
           <div class="editor-container">
-            <tinymce :height="300" v-model="postForm.content" />
+            <tinymce :height="300" v-model="postForm.noticeContent" />
           </div>
         </el-form-item>
       </div>
@@ -42,12 +39,15 @@
 import { mapGetters } from 'vuex'
 import MDinput from '@/components/MDinput'
 import Tinymce from '@/components/Tinymce'
-import { noticeAdd } from '@/api/notice'
+import { noticeAdd, noticeDetail, noticeModify } from '@/api/notice'
 export default {
   components: { MDinput, Tinymce },
   props: {
-    type: String,
-    isEdit: {
+    fromEditButton: {
+      type: Boolean,
+      default: false
+    },
+    fromDetailButton: {
       type: Boolean,
       default: false
     }
@@ -56,27 +56,26 @@ export default {
     return {
       msg: '发布',
       postForm: {
-        basicId: '',
-        title: '',
-        telephone: '',
-        level: 0,
-        content: ''
+        createTime: '',
+        noticeId: '',
+        noticeTitle: '',
+        departmentName: '',
+        noticeLevel: 0,
+        noticeContent: ''
       },
       rules: {}
     }
   },
   created () {
-    if (this.isEdit) {
+    if (this.fromEditButton) {
       this.msg = '保存'
-      /*
       const id = this.$route.params.id
-      noticeDetail(id, this.roles[0])
+      noticeDetail(id)
         .then(res => {
           for (const item in this.postForm) {
             this.postForm[item] = res[item]
           }
         })
-      */
     }
   },
   computed: {
@@ -87,10 +86,8 @@ export default {
     ])
   },
   methods: {
-    releasePurchase () {
-      // const typ = this.type || this.roles[0]
-      this.postForm.basicId = this.postForm.basicId || this.basicId
-      if (!this.isEdit) {
+    releaseNotice () {
+      if (!this.fromEditButton) {
         noticeAdd(this.postForm.title, this.postForm.content, this.postForm.level)
           .then((res) => {
             this.$message({ message: '公告发布成功', type: 'success' })
@@ -98,15 +95,13 @@ export default {
           })
           .catch(() => {})
       } else {
-        /*
         console.log(this.postForm)
         console.log(this.$route.params.id)
-        noticeModify(this.$route.params.id, typ, this.postForm)
+        noticeModify(this.$route.params.id, this.postForm.noticeTitle, this.postForm.noticeContent, this.postForm.noticeLevel)
           .then(res => {
             this.$message({ message: '公告更新成功', type: 'success' })
-            this.$router.push({ name: 'purchaseList' })
+            this.$router.push({ name: 'noticeList' })
           })
-        */
       }
     }
   }
@@ -125,6 +120,7 @@ export default {
       margin-bottom: 10px;
       .postInfo-container-item {
         float: left;
+        transform: translateY(2.4em);
       }
     }
     .editor-container {

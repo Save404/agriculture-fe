@@ -26,16 +26,16 @@ export function purchaseAdd (type, purchases) {
 
 export function purchaseDelete (id, type) {
   return request({
-    method: 'delete',
     url: '/purchases/' + id,
+    method: 'delete',
     params: { type }
   })
 }
 
 export function purchaseDetail (id, type) {
   return request({
-    method: 'get',
     url: '/purchases/' + id,
+    method: 'get',
     params: { type }
   })
 }
@@ -44,8 +44,8 @@ export function purchaseModify (id, type, purchases) {
   const data = purchases
   data.type = type
   return request({
-    method: 'put',
     url: '/purchases/' + id,
+    method: 'put',
     data: qs.stringify(data)
   })
 }

@@ -6,8 +6,8 @@ export function contractGet (type, id) {
   query.type = type
   query.id = id
   return request({
-    method: 'get',
     url: '/contracts',
+    method: 'get',
     params: query
   })
 }
@@ -15,39 +15,39 @@ export function contractGet (type, id) {
 export function contractAdd (contract) {
   const data = contract
   return request({
-    method: 'post',
     url: '/contracts',
+    method: 'post',
     data: qs.stringify(data)
   })
 }
 
 export function contractFinish (contract) {
   return request({
-    method: 'put',
     url: '/contracts',
+    method: 'put',
     data: qs.stringify(contract)
   })
 }
 
 export function contractDetail (id) {
   return request({
-    method: 'get',
-    url: '/contracts/' + id
+    url: '/contracts/' + id,
+    method: 'get'
   })
 }
 
 export function contractPayStatu (id, status) {
   return request({
-    method: 'put',
     url: '/contracts/' + id + '/payStatu',
+    method: 'put',
     data: qs.stringify({status})
   })
 }
 
 export function contractStatu (id, status) {
   return request({
-    method: 'put',
     url: '/contracts/' + id + '/statu',
+    method: 'put',
     data: qs.stringify({status})
   })
 }
