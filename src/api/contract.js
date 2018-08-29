@@ -40,7 +40,7 @@ export function contractPayStatu (id, status) {
   return request({
     url: '/contracts/' + id + '/payStatu',
     method: 'put',
-    data: qs.stringify({status})
+    data: qs.stringify({ status })
   })
 }
 
@@ -48,6 +48,6 @@ export function contractStatu (id, status) {
   return request({
     url: '/contracts/' + id + '/statu',
     method: 'put',
-    data: qs.stringify({status})
+    data: qs.stringify({ status })
   })
 }

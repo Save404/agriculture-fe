@@ -35,6 +35,6 @@ export function noticeModify (id, noticeTitle, noticeContent, noticeLevel) {
   return request({
     url: '/notice/update/' + id,
     method: 'put',
-    data: qs.stringify({noticeTitle, noticeContent, noticeLevel})
+    data: qs.stringify({ noticeTitle, noticeContent, noticeLevel })
   })
 }
