@@ -78,18 +78,18 @@ export default {
     return {
       msg: '',
       unitsOptions: [
-        {value: '克', label: '克'},
-        {value: '斤', label: '斤'},
-        {value: '公斤', label: '公斤'},
-        {value: '千克', label: '千克'},
-        {value: '吨', label: '吨'}
+        { value: '克', label: '克' },
+        { value: '斤', label: '斤' },
+        { value: '公斤', label: '公斤' },
+        { value: '千克', label: '千克' },
+        { value: '吨', label: '吨' }
       ],
       unitpOptions: [
-        {value: '元/克', label: '元/克'},
-        {value: '元/斤', label: '元/斤'},
-        {value: '元/公斤', label: '元/公斤'},
-        {value: '元/千克', label: '元/千克'},
-        {value: '元/吨', label: '元/吨'}
+        { value: '元/克', label: '元/克' },
+        { value: '元/斤', label: '元/斤' },
+        { value: '元/公斤', label: '元/公斤' },
+        { value: '元/千克', label: '元/千克' },
+        { value: '元/吨', label: '元/吨' }
       ],
       NcpRegisterForm: {
         name: '',

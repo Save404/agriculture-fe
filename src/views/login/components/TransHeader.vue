@@ -13,12 +13,12 @@ export default {
   name: 'TransHeader',
   methods: {
     transMj () {
-      this.$router.push({name: 'mjLogin'})
-      this.$message({message: '已切换至买家登录模式', type: 'success'})
+      this.$router.push({ name: 'mjLogin' })
+      this.$message({ message: '已切换至买家登录模式', type: 'success' })
     },
     transFarmer () {
-      this.$router.push({name: 'nhLogin'})
-      this.$message({message: '已切换至农户登录模式', type: 'success'})
+      this.$router.push({ name: 'nhLogin' })
+      this.$message({ message: '已切换至农户登录模式', type: 'success' })
     }
   }
 }

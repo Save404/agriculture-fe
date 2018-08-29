@@ -96,7 +96,7 @@ export default {
     },
     getAll () {
       if (this.value4 !== '产品名称' && this.value4 !== '') {
-        this.$emit('got', {code: this.value4, name: this.total[this.value4]})
+        this.$emit('got', { code: this.value4, name: this.total[this.value4] })
         // this.$message('Got all')
       } else {
         this.$message('产品名称不能为空')
