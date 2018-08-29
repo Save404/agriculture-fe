@@ -67,7 +67,7 @@ export default {
     }
   },
   created () {
-    if (this.fromEditButton) {
+    if (this.fromEditButton || this.fromDetailButton) {
       this.msg = '保存'
       const id = this.$route.params.id
       noticeDetail(id)
@@ -88,7 +88,7 @@ export default {
   methods: {
     releaseNotice () {
       if (!this.fromEditButton) {
-        noticeAdd(this.postForm.title, this.postForm.content, this.postForm.level)
+        noticeAdd(this.postForm.noticeTitle, this.postForm.noticeContent, this.postForm.noticeLevel)
           .then((res) => {
             this.$message({ message: '公告发布成功', type: 'success' })
             this.$router.push({ name: 'dashboard' })
