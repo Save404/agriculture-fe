@@ -8,7 +8,7 @@
       </el-table-column>
       <el-table-column align="center" label="摘要">
         <template slot-scope="scope">
-          <span>{{scope.row.noticeContent.substr(0, 11)}}</span>
+          <span>{{listContent(scope.row.noticeContent)}}</span>
         </template>
       </el-table-column>
       <el-table-column align="center" label="重要程度">
@@ -95,6 +95,9 @@ export default {
     handleCurrentChange (val) {
       this.listQuery.pageNum = val
       this.getList()
+    },
+    listContent (cnt) {
+      return cnt.replace('<p>', '').replace('</p>', '')
     }
   }
 }
