@@ -8,7 +8,6 @@ const baseWebpackConfig = require('./webpack.base.conf')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin')
 const portfinder = require('portfinder')
-const OpenBrowserPlugin = require('open-browser-webpack-plugin')
 
 function resolve (dir) {
   return path.join(__dirname, '..', dir)
@@ -58,8 +57,7 @@ const devWebpackConfig = merge(baseWebpackConfig, {
       favicon: resolve('favicon.ico'),
       title: 'agriculture',
       path: config.dev.assetsPublicPath + config.dev.assetsSubDirectory
-    }),
-    new OpenBrowserPlugin({url: 'http://'+config.dev.host+':'+config.dev.port, browser: 'google chrome'})
+    })
   ]
 })
 

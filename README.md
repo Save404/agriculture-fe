@@ -9,6 +9,14 @@
 
 > Front-end of Digital-Agriculture using vue+vuex+vue-router+axios+element
 
+## Install
+
+- [nodejs](https://nodejs.org/)
+
+```sh
+npm config set sass_binary_site https://npm.taobao.org/mirrors/node-sass/
+```
+
 ## Build Setup
 
 ``` bash
@@ -39,9 +47,14 @@ For a detailed explanation on how things work, check out the [guide](http://vuej
     - [x] 编辑个人资料
     - [x] 发布农产品
     - [x] 查看个人发布农产品
+    - [x] 发布求购信息
 
 - 买家
     - [x] 登录与注册
+    - [x] 编辑个人资料
+    - [x] 查看农产品
+    - [x] 签订农产品购销合同
+    - [x] 发布求购信息
 
 - 政府人员
 
