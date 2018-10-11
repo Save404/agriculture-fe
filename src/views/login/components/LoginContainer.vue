@@ -7,6 +7,9 @@
       <el-form-item label="登录密码" prop="password">
         <el-input type="password" v-model="form.password" placeholder="请输入登录密码"></el-input>
       </el-form-item>
+      <el-form-item label="验证码">
+        <captcha @got="setCaptcha"></captcha>
+      </el-form-item>
       <el-button type="primary" @click="submitForm('form')">立即登录</el-button>
       <el-button @click="resetForm('form')">取消</el-button>
       <br>
@@ -17,11 +20,14 @@
   </div>
 </template>
 <script>
+import Captcha from '@/components/Captcha'
 export default {
   name: 'LoginContainer',
   props: ['form', 'url'],
+  components: { Captcha },
   data () {
     return {
+      captcha: false,
       rules: {
         telephone: [
           { required: true, message: '请输入手机号码', trigger: 'blur' },
@@ -36,11 +42,19 @@ export default {
     }
   },
   methods: {
+    setCaptcha (msg) {
+      this.captcha = msg
+    },
     submitForm (formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) { // 如果规则校验通过就进行下一步登录
           // this.$message('Validation passed')
-          this.onSubmit()
+          if (this.captcha) {
+            this.onSubmit()
+          } else {
+            this.$message('请拖动滑块以完成验证')
+            return false
+          }
         } else {
           this.$message('请检查手机号码或密码格式')
           return false
