@@ -1,0 +1,1 @@
+webpackJsonp([25],{g89u:function(e,t,n){"use strict";Object.defineProperty(t,"__esModule",{value:!0});var r={components:{NoticeForm:n("e7lN").a}},c={render:function(){var e=this.$createElement,t=this._self._c||e;return t("div",{staticClass:"notice-create"},[t("notice-form")],1)},staticRenderFns:[]},s=n("VU/8")(r,c,!1,null,null,null);t.default=s.exports}});
